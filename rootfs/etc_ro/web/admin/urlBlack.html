@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie6" lang="zh-cn"><![endif]-->
+<!--[if IE 7 ]>
+<html class="ie7" lang="zh-cn"><![endif]-->
+<!--[if IE 8 ]>
+<html class="ie8" lang="zh-cn"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="zh-cn"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="w3c"><!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="css/default.css" rel="stylesheet" />
+    <link type="text/css" href="css/new_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/router.css" />
+    <link href="css/form.css" rel="stylesheet" />
+    <style>
+        .tab_item_container{background-color: #fff;border-radius: 6px;margin-top: 30px;font-size: 14px;color: #666;}
+        .menu .i-5{background:url("images/term.png") no-repeat 0 3px;}
+        .menu .i-6{background:url("images/health.png") no-repeat 0 3px;}
+        .black_title{padding: 0px 15px;color: #000;background-color: #e4e5e6;font-size: 17px;line-height: 35px;overflow:hidden;}
+        .url_tab{text-align: center;line-height: 65px;font-size: 16px}
+        .url_tab span{cursor:pointer;display: inline-block;}
+        #edit_blacklist{margin-right: 100px;}
+        .textarea{height:140px;margin: 0 25px 8px;resize: none;border: 1px solid #ccc;background-color: #fff;border-radius: 5px;padding: 0 5px;}
+        .text_tips{width: 360px;float: left;height: 160px;overflow-y: auto;overflow-x: hidden;}
+        .text_tips p{margin-bottom: 3px;}
+        .tab_on{color:#0bb7f5;}
+        .term_con{overflow: hidden;margin-top: 9px}
+        .term_con span{display:block;float: left;height: 40px;line-height: 40px;margin-left:14px;}
+        .term_img{width: 32px;height:32px;overflow: hidden;position: relative;}
+        .term_img img{width: 195px;height:34px;position: absolute;top:4px;}
+        .term_con .term_macN{line-height: 15px;width: 210px;padding-top: 7px;overflow: hidden;}
+        .term_macN p{margin:0;}
+        .term_text{width:320px;overflow: hidden;}
+        .term_text p,.term_macN p{float: left;}
+        .listform li .sp-l{width: 32%;}
+        .listform #termName{float: left}
+        #text_term{margin-top: 13px;border-radius: 5px;border: 1px solid #ccc;width: 210px;height: 100px;line-height: 20px;resize: none;padding: 0px 4px;}
+        .edit_term,.one_delurl{background: #0bb7f5;cursor:pointer;color: #fff;height: 25px;line-height: 25px;margin-top: 8px;padding: 0 8px;border-radius: 5px;}
+        .edit_term:hover,.one_delurl:hover{background: #a5ddf2;}
+        .website_p{width: 250px;height:46px;overflow-x: auto;overflow-y: hidden}
+        .more_return{display:inline-block;background: #0bb7f5;cursor:pointer;color: #fff;float:right;height: 30px;line-height: 30px;margin: 5px 25px 0 0;padding: 0 11px;border-radius: 5px;}
+    </style>
+    <!--[if IE 7]>
+    <script src="js/Respond.min.js"></script>
+    <![endif]-->
+    <!--[if IE 8]>
+    <script src="js/Respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="background: #3d8af5 url('images/bd_bg.png') repeat scroll 0% 0%;">
+<div class="top">
+    <a class="logo-box"><img id='hostLogo' src="images/redline.png" width="166"/></a>
+</div>
+<div class="menu">
+    <a href="main.html"><span id="hostPage"></span><i class="png_ie i-1"></i></a>
+    <a href="more.html" class="selected"><span id="MoreFunction"></span><i class="png_ie i-3"></i></a>
+    <a href="setup.html"><span id="ChangeMode"></span><i class="png_ie i-2"></i></a>
+    <a href="terminal.html"><span id="term"></span><i class="png_ie i-5"></i></a>
+    <a href="upload_firmware.html" id="getNew"><span></span><i class="png_ie i-4"></i></a>
+    <a href="health.html" id="healthCheck"><span></span><i class="png_ie i-6"></i></a>
+</div>
+<div class="section_show" id="app_section">
+    <div id="detail_area">
+        <div id="app_list">
+            <div class="addon_container tab_container">
+                <div class="tab_item_container">
+                    <div class="terminal_list">
+                        <div class="url_black">
+                            <p class="black_title" style="border-radius: 6px 6px 0 0;line-height: 40px;"><span id="hostBlacklist"></span><span class="more_return"></span></p>
+                            <div class="url_tab"><span id="edit_blacklist" class="tab_on"></span><span id="url_blacklist"></span></div>
+                            <p class="black_title" id="url_t" style="margin-bottom: 20px"></p>
+                            <div id="set_urlBlack">
+                                <div style="overflow: hidden;">
+                                    <textarea class="textarea text_tips" id="s_urllist"></textarea>
+                                    <div class="text_tips">
+                                        <p id="url_tip"></p>
+                                        <div style="padding-left: 15px;">
+                                            <p id="url_tip1"></p>
+                                            <p id="url_tip2"></p>
+                                            <p id="url_tip3"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                               <div class="buttonbox">
+                                    <a id="url_set" class="btn list-btn"></a>
+                                </div>
+                            </div>
+                            <div id="get_urlBlack" style="text-align: center;display: none;">
+                                <textarea class="textarea" id="g_urllist" disabled="disabled" style="width: 80%;border:none;"></textarea>
+                                <div class="buttonbox">
+                                    <a id="edit_urllist" class="btn list-btn"></a>
+                                    <a id="set_urllist" class="btn list-btn" style="display:none;"></a>
+                                    <a id="del_urllist" class="btn list-btn"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="term_black">
+                            <p class="black_title" id="term_t"></p>
+                            <div class="term_mode">
+                                <div id="term_online"></div>
+                                <div id="term_offline"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="term_layer" style="display:none;">
+    <div class="modal-content" style="font-size: 15px">
+        <input type="hidden" id="mac_term">
+        <ul class="listform" style="width:80%;padding-top: 15px">
+            <li>
+                <span class="sp-l" id="t_name"></span>
+                <span class="sp-r" id="termName"></span>
+            </li>
+            <li>
+                <span class="sp-l" id="term_website"></span>
+                <span><textarea id="text_term"></textarea></span>
+            </li>
+        </ul>
+        <div class="buttonbox">
+            <a id="term_cancel" class="cannel btn list-btn"></a>
+            <a id="term_set" class="btn list-btn"></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/lang_more.js"></script>
+<script type="text/javascript" src="js/getinfo.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+    var textarea=false,urlTime=true;
+    setTimeout(function(){
+        urlBlacklist();
+    },100);
+    
+	mode_terminal();
+    $(".cannel").click(function(){
+        layer.closeAll();
+    })
+    $(".more_return").click(function(){
+        window.location="more.html";
+    })
+    $("#edit_blacklist").click(function(){
+		urlTime=true;
+        $("#url_blacklist").removeClass("tab_on");
+        $("#edit_blacklist").addClass("tab_on");
+        $("#set_urlBlack").show();
+        $("#get_urlBlack").hide();
+        $("#term_offline").hide();
+        $(".term_con").show();
+        $("#url_t").html(curlang.host_blacklist);
+        $("#term_t").html(curlang.termBlacklist);
+        $(".edit_term").html(curlang.host_setup);
+    })
+    $("#url_blacklist").click(function(){
+        urlTime=false;
+        $("#edit_blacklist").removeClass("tab_on");
+        $("#url_blacklist").addClass("tab_on");
+        $("#get_urlBlack").show();
+        $("#set_urlBlack").hide();
+        $("#set_urllist").hide();
+        $("#edit_urllist").show();
+        $("#term_offline").show();
+        $("#url_t").html(curlang.host_blacklist1);
+        $("#term_t").html(curlang.termBlacklist4);
+        $(".edit_term").html(curlang.edit);
+        $("#g_urllist").attr("disabled",true);
+        $("#g_urllist").css("border","0");
+        urlVal();
+    })
+    $("#url_set").click(function(){
+        onform_urlBlack($("#s_urllist").val(),0);
+    });
+    $("#set_urllist").click(function(){
+        onform_urlBlack($("#g_urllist").val(),0);
+    });
+    $("#edit_urllist").click(function(){
+        $("#edit_urllist").hide();
+        $("#set_urllist").show();
+        $("#g_urllist").attr("disabled",false);
+        $("#g_urllist").css("border","1px solid #ccc");
+    });
+    $("#del_urllist").click(function(){
+        var mac="*";
+        onform_delBlack(mac,0);
+    });
+    $("#term_set").click(function(){
+        onform_termBlack(0);
+    });
+    $(".textarea").focus(function(){textarea=true;}).blur(function(){textarea=false;});
+    function EditTerm() {
+        $(".edit_term").click(function () {
+            layer.open({
+                type: 1,
+                title: false,
+                shade: [0.7, '#000'],
+                closeBtn: false,
+                area: '500px',
+                offset: '150px',
+                content: $("#term_layer"),
+                skin: 'cy-class'
+            });
+            var mac = $(this).parent().siblings(".term_macN").find("p").eq(2).html().substr(5, 17);
+            var name = $(this).parent().siblings(".term_macN").find("p").eq(1).html();
+            var term_url = $(this).parent().siblings(".term_text").find("p").eq(1).html();
+            $("#mac_term").val(mac);
+            $("#termName").html(name);
+            $("#text_term").val(term_url);
+        });
+        $(".one_delurl").click(function(){
+            var mac=$(this).parent().siblings(".term_macN").find("p").eq(2).html().substr(5, 17);
+            onform_delBlack(mac,0);
+        });
+    }
+    function urlVal(){
+        for(var i=0;i<$(".term_text").length;i++){
+            if($(".term_text").eq(i).find("p").eq(1).html()==""){
+                $(".term_text").eq(i).parent().hide();
+            }
+        }
+        $("#term_offline").show();
+    }
+	//根据模式显示终端
+function mode_terminal(){
+	$.ajax({
+		type: 'get',
+		url: '/goform/get_easy_cfg',
+		dataType:"json",
+		success: function(msg){
+            if(msg=="" || msg=="undefine"){
+                return;
+            }
+            if((typeof msg)=="object"){var data=msg;}
+            else{
+                var data=eval('('+msg+')');
+            }
+            if(data.operationmode.toString()=="repeater"){
+                $(".menu a").eq(3).css("display","none");
+            }
+            if(data.operationmode.toString()=="client"){
+                $(".menu a").eq(3).css("display","none");
+            }
+            if(data.operationmode.toString()=="bridge"){
+                $(".menu a").eq(3).css("display","none");
+            }
+		},
+		error:function(msg){
+
+		}
+	})
+}
+    setInterval(function () {
+        if(urlTime){
+            urlBlacklist();
+        }else{}
+    },5000);
+    setInterval(getLoginStatus,8000);
+</script>
+</body>
+</html>

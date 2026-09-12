@@ -1,0 +1,22 @@
+{
+  "name": "bl-wr2000-ota-updater",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker HTTP OTA proxy and updater for BL-WR2000 router",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy"
+  },
+  "keywords": [
+    "bl-wr2000",
+    "router",
+    "firmware",
+    "ota",
+    "cloudflare-worker"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.100.0"
+  }
+}

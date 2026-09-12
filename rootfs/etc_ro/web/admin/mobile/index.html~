@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no,email=no" >
+    <title>L-BLINK</title>
+    <link type="text/css" href="css/default.css" rel="stylesheet"/>
+    <link type="text/css" href="css/form.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./css/MCommon.css">
+    <link rel="stylesheet" href="./css/mobile.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../fonts/iconfont.css" />
+    <style>
+        .section_show{margin-top: 40px;}
+        .tab_item_container{background-color:#fff;font-size: 13px;color:#777;border-radius:5px;}
+        .terminal-item{overflow:hidden;height:50px;border-bottom:1px solid #ccc;}
+        .terminal-item div{float:left;}
+        .p-margin{margin:0;}
+        .manage{margin:16px 0 0;}
+        .device-img{width: 32px;height:32px;margin:8px 3% 0;background:url("../images/devtype.png") no-repeat;background-size: 195px 34px;-ms-behavior: url(backgroundsize.min.htc);behavior: url(backgroundsize.min.htc);}
+        .device-name{width: 48%;overflow: hidden;padding-top: 3px;padding-left: 1%}
+        .device-name p{line-height: 20px;}
+        .dev-speed{width: 25%;padding-top: 3px;}
+        .dev-speed p{background: url("../images/up.png") no-repeat 10% -12px;padding-left: 20%;line-height: 20px;text-align:right;}
+        .dev-speed .p-margin{background-position:10% 7px;}
+        .dev-content{height: 40px;font-size: 14px;padding: 0 3%;overflow: hidden;}
+        .dev-left{width: 38%;display: inline-block;}
+        .dev-right{background-color: #0bb6f4;display:inline-block;float:right;width: 80px;line-height: 24px;margin-top:3px;text-align: center;color:#fff;border-radius:5px;}
+        .span-r{float:right;}
+        #upLimit,#downLimit{width:60%;text-align: right;height: 23px;}
+        .time-limit{text-align: center;font-size: 14px;}
+        .add1,.add2{line-height: 34px;}
+        .time-limit .hour2,.time-limit .hour1{width: 40px;}
+        .flow-total{display: inline-block;width: 25%;text-align: center;background: url("../images/up.png") no-repeat 0px -11px;float: right;}
+        #dev_down{background-position:0px 7px;}
+        .down-show,.up-show{background: url("../images/up.png") no-repeat 0px -11px;display: inline-block;width: 35%;padding-left: 10px;text-align: right;}
+        span.down-show{background-position:3px 7px;}
+        #set_device{display:none;padding-top: 10px;}
+        #time_apply{padding: 3px 5px;background-color: #0bb6f4;border-radius:3px;width: 60px;color: #fff;height: 30px;margin-top: 10px;display: inline-block;}
+        .man-img{background:url("images/arrow.png") no-repeat;background-size:cover;margin:16px 10px 0 0;width: 9px;height:15px;display:inline-block;float:right;}
+        #uplimit_span,#lostblack,#lostarp{width: 33%;text-align:center;display:inline-block;}
+        #device_pc,#device_2g,#device_5g{padding: 5px 15px;color: #000;background-color: #f4f4f4;font-size:15px;}
+        #setwan span.sp-l{width: 47%;}
+        #setwan span.sp-r{width: 56%;display: inline-block;padding-left: 20px;}
+        #setwan span.sp-r input.inpt{width: 100%}
+        .swtichOFF img{width: 40px;height: 40px;}
+        #dialog5gwifiSet span.sp-l,#dialogwifiSet span.sp-l{width:30%;}
+        #dialog5gwifiSet li,#dialogwifiSet li{margin-top: 10px;}
+        #curver,#newver,#DoubleChannelList span.sp-r, #FloatChannelList span.sp-r{width:50%;display: inline-block;}
+        #DoubleChannelList .selection, #FloatChannelList .selection{width:100%;margin-left: 15px}
+        #form12 li span.sp-r,#dialog5gwifiSet span.sp-r,#dialogwifiSet span.sp-r{width:50%;display: inline-block;}
+        #form12 span.sp-r input.inpt,#dialog5gwifiSet span.sp-r input.inpt,#dialogwifiSet span.sp-r input.inpt{width:100%;margin-left: 15px}
+        #pptp_setvpn span.sp-r,#L2TP_setvpn span.sp-r{width:50%;display: inline-block;}
+        #pptp_setvpn span.sp-r .inpt,#L2TP_setvpn span.sp-r .inpt{width:100%;margin-left: 15px}
+        #dialogWifi,#dialogPass{margin-left: -14px;}
+        #dialogWifi span.sp-r,#dialogPass span.sp-r{margin-left: 10px;}
+        #pagination li{display: inline-block;margin: 10px 0 5px 5px;background-color: #9E9E9E;}
+        #pagination li a{color: #fff;width: 30px;line-height: 30px;height: 30px;display: inline-block;}
+        #pagination li.active{background-color: #306cbe}
+        #wlanInfo li{margin-top: 20px;}
+        #dialogwifiSet .sp-l{margin-left: -41px;}
+        #dialog5gwifiSet .sp-l{margin-left: -41px;}
+        .speed_content,.lostMode,.Dname_btn{height: 60px;line-height: 60px;border-bottom: 1px solid #ccc;background-color: #f6f6f6;text-align: center;}
+        input.inpt-disabled {background: #ead7d7;}
+        .inpt-disabled {background: #ead7d7;border: 1px solid #999;overflow: hidden;}
+        .status-bottom{position: absolute;bottom: 0;left: 0;width: 100%;height: 40px;line-height: 40px;}
+        .status-bottom p{float: left;color: #f5fbff;width: 50%;text-align: center;}
+        .status-bottom p .span_mr{margin-right: 10px}
+        .footer_link{height: 40px;line-height:40px;margin-top:1%;padding: 0 5%;overflow: hidden;color: rgba(73, 73, 73, 0.6);text-align: right;}
+        .server_name{text-align: right;}
+		.message_layer_h>.layui-layer-content{height:107px;}
+		.message_layer_mh>.layui-layer-content{height:107px;}
+        input.hour{width: 50px;height:40px;line-height: 40px;text-align: center;border: 0;}
+        .Timing_content{height: 45px;line-height: 45px;overflow: hidden;border-bottom: 1px solid #ccc;}
+        .upnphead span,.upnpdata span{display: inline-block;width: 25%;overflow: auto; text-align: center;margin: 0 auto;border: 1px solid #877878;border-right: 0 none;}
+        #UPNPset >.listform >li #upnpList span{font-size:12px;height: 36px;color: #333;line-height: 34px;}
+        .upnphead span.bor,.upnpdata span.bor{border-right:1px solid #877878}
+        .upnpdata span{border-top:0 none;margin-top: -1px}
+        .upnphead,.upnpdata{height: 36px;}
+        #upnpList{height:210px;overflow:auto;display:none;padding:0 5px;}
+        .weui_mask{display: none;}
+        .text_tip{color: rgb(206, 68, 58);padding:0 10px;margin-top:15px;text-align:left;}
+        .term_span{line-height: 30px;border-bottom: 1px solid #ccc;font-size:14px;text-align:center;color:#777;display: inline-block;float: left;border-right:1px solid #ccc;}
+        #termT_list .term_span{height: 40px;line-height: 40px;overflow: hidden;}
+        .edit_div input{width: 35px;margin:0 5px;}
+        .edit_div{margin-top: 20px;line-height: 40px;font-size: 15px;text-align: center;}
+        .term_del{transform: rotate(45deg);display: inline-block;font-size: 20px;border-radius: 30px;background: #eb3941;height: 18px;width: 18px;color: #fff;line-height: 16px;margin-left: 20%;}
+        .C_channel,.M_channel{display: inline-block;width: 53%;text-align: right;}
+        .host_tab{padding:15px 25px;border-bottom:1px solid #ccc;position: relative}
+        .host_tab img{width: 12px;position: absolute;right: 5%;top: 17px;}
+        .host_title{padding: 10px 15px;background: #f4f4f4;margin-bottom: 10px;}
+        .setup{float: right;background: #0bb7f5;padding: 0 5px;color: #fff;border-radius: 5px;height:24px;line-height: 24px;}
+        .textarea-style{width: 100%;height: 150px;background: #fff;resize: none;border: 1px solid #ccc;border-radius: 5px;padding:0 4px;}
+        .term_con{overflow: hidden;margin:9px 3% 0;}
+        .term_con span{display:block;float: left;height: 40px;line-height: 40px;}
+        .term_img{width: 32px;height:32px;background:url("../images/devtype.png") no-repeat;background-size: 195px 32px;}
+        .term_con .term_macN{line-height: 15px;width: 57%;padding-top: 7px;overflow: hidden;margin-left: 3%}
+        .term_macN p{margin:0;width: 130%;}
+        .term_macN i{font-style: normal;}
+        .Tblack{display: inline-block;width: 25%;text-align: right;padding-right: 10px;}
+        #term_website,#termlist{float: left;}
+        .worldTiming_p{line-height: 45px;border-bottom:1px solid #ccc;padding: 0 3%;}
+		.edit_divW input{width: 40px;margin: 0 8px;text-align: center;}
+
+        input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px white inset;-webkit-text-fill-color:#838383;}
+        .appMenu_list a i{background: url(../codeBlue/result1.png) no-repeat;position: absolute;left: 5px;top: 16px;display: inline-block;width: 30px;height: 31px;}
+        .appMenu_list a em{background: url(../codeBlue/result.png) no-repeat;position: absolute;left: 5px;top: 16px;display: inline-block;width: 30px;height: 31px;}
+        .appMenu_list a#setup_terminallist i{background-size: 34px 455px;background-position: -2px -352px;}
+        .appMenu_list a.wifi_2G i{background-size: 34px 455px;background-position: -2px -422px;}
+        .appMenu_list a.wifi_5G i{background-size: 34px 455px;background-position: -2px -422px;}
+        .appMenu_list a#wan_speed_manage i{background-size: 34px 455px; background-position: -2px -387px;}
+        .appMenu_list a#timingReBoot i{background-size: 34px 455px;background-position: -2px -317px;}
+        .appMenu_list a#misc_reboot i{background-size: 34px 455px;background-position: -2px -317px;}
+        .appMenu_list a#rally_restore i{background-size: 34px 455px;background-position: -2px -282px;}
+        .appMenu_list a#pro_term i{background-size: 34px 455px;background-position: -2px -142px;}
+        .appMenu_list a#StaticList_time em{background-size: 30px;background-position: 0px -624px;}
+        .appMenu_list a#baby_BlackList em{background-size: 30px;background-position: 0px -485px;}
+        .appMenu_list a#lan_set em{background-size: 30px;background-position: 0px -381px;}
+        .appMenu_list a.Visitor_2G em{background-size: 30px;background-position: 0px -450px;}
+        .appMenu_list a.channelSet_2G em{background-size: 30px;background-position: 0px -659px;}
+        .appMenu_list a.signal_2G em{background-size: 30px;background-position: 0px -554px;}
+        .appMenu_list a#led_Wlanspeed em{background-size: 30px;background-position: 0px 1px;}
+        .appMenu_list a#VPN_pptp_set em{background-size: 30px;background-position: 0px -69px;}
+        .appMenu_list a#VPN_l2tp_set em{background-size: 30px;background-position: 0px -69px;}
+        .appMenu_list a#password em{background-size: 30px;background-position: 0px -416px;}
+        .appMenu_list a#upnp_set em{background-size: 30px;background-position: 0px -173px;}
+        .appMenu_list a#dmz_set em{background-size: 30px;background-position: 0px -208px;}
+        .appMenu_list a#LED_set em{background: url(../codeBlue/LED.png) no-repeat;position: absolute;left: 5px;top: 16px;display: inline-block;width: 30px;height: 31px;background-size: 30px;}
+        .appMenu_list a#URL_blacklist em{background: url("../codeBlue/url.png") no-repeat;background-size: 30px;}
+        .appMenu_list a#wifiTiming em{background: url("../codeBlue/wftime.png") no-repeat;background-size: 30px;}
+   		.appMenu_list a#worldTime em{background: url("../codeBlue/clock.png") no-repeat;background-size: 30px;}
+		 .appMenu_list a#webadmin em{background: url("../codeBlue/webadmin.png") no-repeat;background-size: 30px;}
+    </style>
+   </head>
+<body>
+
+<div class="weui_mask"><img src="/admin/images/122.gif"/><img src="/admin/images/msg-success.png"/><img src="/admin/js/layer/skin/default/loading-2.gif"></div>
+<!--无线中继（wisp）对话框-->
+<div id="wlanInfo" style="display:none;margin-top: 20px;">
+    <div class="modal-content">
+        <div class="modal-body">
+            <input type="hidden" value="" id="wifiFlag"/>
+            <ul class="listform">
+                <li>
+                    <span class="sp-l" id="dialogWifi"></span>
+					<span class="sp-r">
+						<label></label>
+						<input class="inpt inpt-disabled inpt-mini" id="wlanSSID" disabled="disabled"/>
+					</span>
+                </li>
+                <li id="wlanPassRow">
+                    <span class="sp-l" id="dialogPass"></span>
+					<span class="sp-r">
+						<label></label>
+						<input class="inpt inpt-mini" id="wlanPass"/>
+					</span>
+                </li>
+            </ul>
+            <div class="buttonbox">
+                <a id="wlan_cancel" class="btn list-btn"></a>
+                <a id="wlan_link" class="btn list-btn"></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--提醒用户切换到其他模式提醒-->
+<div id="ChangeInfo" style="display:none;">
+    <div class="modal-content">
+        <!--<div class="modal-body" id="ChangeInfoBody" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;"></div>-->
+        <div class="modal-body" id="ChangeBox" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;padding: 35px 5px 0"></div>
+        <div class="buttonbox" style="width: 100%;min-width:0;">
+            <a id="changeTrue" class="btn list-btn" style="width: 100px"></a>
+            <a id="changeFalse" class="btn list-btn" style="width: 100px"></a>
+        </div>
+    </div>
+</div>
+<header class="hostHeader">
+    <!-- <img id="hostLogo" class="logo-img" src="../images/redline.png"/> -->
+	<img id="hostLogo" class="logo-img" src="../images/logo.png"/>
+    <nav class="hostMenu">
+        <a href="javascript:void(0);" id="routerStatus" class="l-borderRadius active" name="menu-0" style="width:50%;"></a>
+        <a href="javascript:void(0);" id="routerSet"  name="menu-1" class="r-borderRadius" style="width:50%;"></a>
+    </nav>
+    <nav class="appMenu">
+        <a href="javascript:void(0);"  class="appCallback"><img src="./images/appCallback.png"/></a>
+        <a href="javascript:void(0);"  class="contentCallback"><img src="./images/appCallback.png"/></a>
+        <a href="javascript:void(0);"  class="blacklistCallback"><img src="./images/appCallback.png"/></a>
+        <span class="appTitle"></span>
+    </nav>
+</header>
+
+<div  class="content_section swiper-container" id="hostPageSwiperContainer">
+    <div class="swiper-wrapper" id="hostPageSwiperWrapper">
+        <section data-hash="host" class="swiper-slide routerStatus-sec host">
+            <div class="status">
+                <ul>
+                    <li><img src="images/router.png" id="routerInfoImg" /><span id="routerTxt" class="img-info-txt"></span></li>
+                    <li><span><img id="linkStatusInfo" style="width: 20px;height: 20px;"></span><img src="images/status.png" /><span id="Mode_show"></span></li>
+                    <li><img src="images/internet.png" /><span id="internetTxt" class="img-info-txt"></span></li>
+                </ul>
+                <div class="status-bottom">
+                    <p><span class="span_mr" id="upside"></span><span id="upside_rate"></span></p>
+                    <p><span class="span_mr" id="downside"></span><span id="downside_rate"></span></p>
+                </div>
+            </div>
+            <footer class="link-info">
+                <ul>
+                    <li>
+                        <div>
+                            <span class="onlineInfo" id="CPU">CPU</span>
+                            <span class="onlineInfo-data speedData" id="speed_value"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="onlineInfo" id="surf_nternet"></span>
+                            <span class="onlineInfo-data mobileCountData" id="mobileCountData"></span>
+
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="onlineInfo" id="stable_operation"></span>
+                            <span class="onlineInfo-data fnData" id="fnData"></span>
+                        </div>
+                    </li>
+                </ul>
+            </footer>
+            <div class="footer_link" style="border-top:1px solid rgba(205, 205, 205, 0.4);"><span style="margin-right: 20px" id="version"></span><span id="versionNumber"></span></div>
+        </section>
+        <section data-hash="app" class="swiper-slide routerSet-sec host app">
+            <nav class="appMenu_list">
+                <a href="javascript:void(0);"  id="setup_terminallist" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="StaticList_time" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="baby_BlackList" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="pro_term" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="wan_speed_manage" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="lan_set" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="2_4G_wifi_set" class="wifi_2G" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="2_4G_Visitor_time_set" class="Visitor_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+  				<a href="javascript:void(0);"  id="2_4G_channelSet" class="channelSet_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="2_4G_signal_set" class="signal_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+
+              <!--  <a href="javascript:void(0);"  id="5G_wifi_set"  class="wifi_5G" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="5G_Visitor_time_set" class="Visitor_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="5G_channelSet" class="channelSet_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="5G_signal_set" class="signal_2G" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a> -->
+		
+                <a href="javascript:void(0);"  id="wifiTiming" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a target="_blank" href="http://speedtest.cn/"  id="led_Wlanspeed" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="ChangerMode" style="left: 0px;"><img src="images/changemode.png"><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="LED_set"  style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="worldTime"  style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="URL_blacklist" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="VPN_pptp_set"  style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="VPN_l2tp_set" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="timingReBoot" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="misc_reboot" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="rally_restore" style="left: 0px;"><i></i><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="password" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="upnp_set" style="left: 0px;"><em></em><p><span>UPNP</span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="dmz_set" style="left: 0px;"><em></em><p><span>DMZ</span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="webadmin" style="left: 0px;"><em></em><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+                <a href="javascript:void(0);"  id="update" style="left: 0px;"><img src="images/update.png"><p><span></span><img class="arrow" src="./images/arrow.png"></p></a>
+            </nav>
+        </section>
+        <section data-hash="app-content" class="swiper-slide app appContent sub-container" id="appContent" style="background-color: #fff;font-size:16px;">
+            <!-- wan设置 -->
+            <div id="setwan" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" id="dialoglan">
+                        <div class="tab_area">
+                            <div id="pppoe_title" data-id="1" class="wan_Item tab_item on text-center"></div>
+                            <div id="dhcp_title" data-id="2" class="wan_Item tab_item  text-center"></div>
+                            <div id="internet_type" data-id="3" class="wan_Item tab_item text-center"></div>
+                        </div>
+                        <div class="wan_body">
+                            <div id="div1" class="wan_body_div">
+                                <form id="form1" role="form">
+                                    <input type="hidden" name="mode" value="pppoe"/>
+                                    <ul class="listform">
+                                        <li>
+                                            <span class="sp-l" id="pppoename_span"></span>
+										<span class="sp-r" >
+											<label for="login_admin" id="pppoename_label"></label>
+											<input class="inpt inputLabel" id="login_admin" type="text" style="ime-mode:disabled"  name="pppoename" />
+										</span>
+                                        </li>
+                                        <li>
+                                            <span class="sp-l"  id="pppoepass_span"></span>
+										<span class="sp-r" >
+											<label for="login_pass" id="pppoepass_label"></label>
+											<input class="inpt inputLabel" style="ime-mode:disabled" type="text" id="login_pass" name="pppoepsw" />
+										</span>
+                                        </li>
+                                        <li>
+                                            <span id="server_name" class="sp-l" ></span>
+											<span class="sp-r">
+												<label for="pppoeServer"></label>
+												<input class="inpt inpt-mini" maxlength="128" id="pppoeServer" name="pppoeserver" />
+											</span>
+                                        </li>
+                                    </ul>
+                                    <div class="server_name">
+                                        <span id="server_optional"></span>
+                                    </div>
+                                    <ul class="listform">
+                                        <li>
+                                            <span class="sp-l" id="vpn_mtu_span" >MTU</span>
+											<span class="sp-r">
+												<label for="vpn_mtu" id="vpn_mtu_label"></label>
+												<input class="inpt" id="pppoe_mtu" name="pppoeMTU" maxlength="4"/>
+											</span>
+                                        </li>
+                                    </ul>
+                                </form>
+                                <div class="buttonbox">
+                                    <a href="javascript:;" class="btn list-btn" id="wan_pppoe_button"></a>
+                                </div>
+                            </div>
+                            <div id="div2" style="display:none" class="wan_body_div">
+                                <form id="form3" role="form">
+                                    <input type="hidden" name="mode" value="dhcp"/>
+                                </form>
+                                <div class="buttonbox">
+                                    <a href="javascript:;" class="btn list-btn" id="wan_dhcp_button"></a>
+                                </div>
+                            </div>
+                            <div id="div3" style="display:none" class="wan_body_div">
+                                <form id="form4" role="form">
+                                    <input type="hidden" name="mode" value="static"/>
+                                    <ul class="listform">
+                                        <li>
+                                            <span class="sp-l" id="ip3_span" ></span>
+									<span class="sp-r">
+										<label for="login_ip" id="login_ip_label"></label>
+										<input class="inpt inputLabel" id="login_ip" name="wanip" type="text" maxlength="15" />
+									</span>
+                                        </li>
+                                        <li>
+                                            <span class="sp-l" id="msk_span"></span>
+									<span class="sp-r">
+										<label for="login_msk" id="msk_label"></label>
+										<input class="inpt inputLabel" id="login_msk" name="wanmsk" type="text" maxlength="15" />
+									</span>
+                                        </li>
+                                        <li>
+                                            <span class="sp-l" id="gw_span"></span>
+									<span class="sp-r">
+										<label for="login_gateway" id="gw_label"></label>
+										<input class="inpt inputLabel" id="login_gateway" name="wangw" type="text" maxlength="15" />
+									</span>
+                                        </li>
+                                        <li>
+                                            <span class="sp-l" id="dns1_span" ></span>
+									<span class="sp-r">
+										<label for="login_dns1" id="dns1_label"></label>
+										<input class="inpt inputLabel" id="login_dns1" name="dns1" type="text" maxlength="15" />
+									</span>
+                                        </li>
+                                        <li>
+                                            <span class="sp-l" id="dns2_span"></span>
+									<span class="sp-r">
+										<label for="login_dns2" id="dns2_label"></label>
+										<input class="inpt inputLabel" id="login_dns2" name="dns2" type="text" maxlength="15" />
+									</span>
+                                        </li>
+                                    </ul>
+                                </form>
+                                <div class="buttonbox">
+                                    <a href="javascript:;" class="btn list-btn" id="wan_static_button"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- wan设置 end-->
+            <!-- 设置2.4G WIFI -->
+            <div id="2_4G_setwlan" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" id="2_4G_dialoglan" style="text-align:center;font-size:16px;">
+                        <div class="wlan_body">
+                            <div id="2gwlan" class="wifi_info">
+                                <div id="dialogwifiSet">
+                                    <form id="WIFI_key">
+                                        <input type="hidden" name="radioon" value="1" id="slidOne"/>
+                                        <ul class="listform">
+                                            <li>
+                                                <span class="sp-l" id="2gSwitch"></span>
+												<span class="sp-r">
+													<div id="2_4G_wifiSwtich" class="swtichOFF" style="width: 30%;display: inline-block;">
+														<img id="switchOff" src="../images/switchoff.png" />
+														<img id="switchOn" src="../images/switchon.png" />
+													</div>
+												</span>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    <form id="form2" role="form">
+                                        <input type="hidden" name="mode" value="wifi"/>
+                                        <input type="hidden" name="wlanpswencry" value="" id="wifiTkip" />
+                                        <ul class="listform">
+                                            <li>
+                                                <span class="sp-l" id="2gSsid"></span>
+											<span class="sp-r">
+												<label for="wifi_ssid" id="2gSsid_label"></label>
+												<input  class="inpt" id="wifi_ssid" name="wlanssid" type="text" maxlength="32" style="ime-mode:disabled" />
+											</span>
+                                            </li>
+                                            <li style="overflow: hidden;">
+                                                <span class="sp-l" id="2gSsidStatus" style="margin-left:4%;float:left;line-height: 45px;height: 10px;"></span>
+                                                <span class="sp-r" style="overflow: hidden;width:60%">
+                                                    <input id="wifi_2gssidStatus" type="checkbox" />
+                                                    <p></p>
+											</span>
+                                            </li>
+                                            <li>
+                                                <span class="sp-l" id="2gMODE"></span>
+											<span class="sp-r">
+												<select id="soft_mode" name="wlanpswmode" class="selection" style="width: 100%;padding: 0;height: 30px;margin-left: 15px;">
+													<option  value="wpawpa2" id="wifi_wpawpa2" style="background-color:transparent;color:#000"></option>
+													<option  id="wifi_open" value="open" style="background-color:transparent;color:#000"></option>
+												</select>
+											</span>
+                                            </li>
+                                            <li id="WifiKeyLabel">
+                                                <span class="sp-l" id="2gPass"></span>
+											<span class="sp-r">
+												<label for="wifi_pass1" id="2gPass_label"></label>
+												<input class="inpt" id="wifi_pass1" type="text" maxlength="64" name="wlanpsw" style="ime-mode:disabled" />
+											</span>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div class="buttonbox">
+                                    <a type="button" class="btn list-btn" id="wlan_buuton"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 设置2.4G WIFI end-->
+            <!-- 设置5G WIFI -->
+            <div id="5G_setwlan" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" id="5G_dialoglan" style="text-align:center;font-size:16px;">
+                        <div class="wlan_body">
+                            <div id="5gwlan" class="wifi_info">
+                                <div id="dialog5gwifiSet">
+                                    <form id="5gWIFI_key">
+                                        <input type="hidden" name="radioon" value="1" id="5gslidOne"/>
+                                        <ul class="listform">
+                                            <li style="line-height: 45px;"><span class="sp-l" id="5gSwitch"></span>
+												<span class="sp-r">
+													<div id="wifiSwtich" class="swtichOFF" style="width: 30%;display: inline-block;">
+														<img id="5gswitchOff" src="../images/switchoff.png"/>
+														<img id="5gswitchOn" src="../images/switchon.png"/>
+													</div>
+												</span>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    <form id="5gform2" role="form">
+                                        <input type="hidden" name="mode" value="wifi"/>
+                                        <input type="hidden" name="wlanpswencry" value="" id="5gwifiTkip" />
+                                        <ul class="listform">
+                                            <li>
+                                                <span class="sp-l" id="5gSsid"></span>
+											<span class="sp-r">
+												<label for="5gwifi_ssid" id="5gSsid_label"></label>
+												<input  class="inpt" id="5gwifi_ssid" name="wlanssid" type="text" maxlength="32" style="ime-mode:disabled"/>
+											</span>
+                                            </li>
+                                            <li style="overflow: hidden;">
+                                                <span class="sp-l" id="5gSsidStatus" style="margin-left:4%;float:left;line-height: 45px;height: 10px;"></span>
+											<span class="sp-r" style="overflow: hidden;width:60%">
+												<input id="wifi_5gssidStatus" style="float:left;vertical-align:middle;outline-style:none;"  type="checkbox" />
+												<p style="text-align:left;float:left;line-height:30px;padding-left:5px;"></p>
+											</span>
+                                            </li>
+                                            <li>
+                                                <span class="sp-l" id="5gMODE"></span>
+											<span class="sp-r">
+												<select id="5gsoft_mode" name="wlanpswmode" class="selection" style="width: 100%;padding: 0;height: 30px;margin-left: 15px;">
+													<option  value="wpawpa2" id="5gwifi_wpawpa2" style="background-color:transparent;color:#000"></option>
+													<option  id="5gwifi_open" value="open" style="background-color:transparent;color:#000"></option>
+												</select>
+											</span>
+                                            </li>
+                                            <li id="5gWifiKeyLabel">
+                                                <span class="sp-l" id="5gPass"></span>
+											<span class="sp-r">
+												<label for="5gwifi_pass1" id="5gPass_label"></label>
+												<input class="inpt" id="5gwifi_pass1" type="text" maxlength="64"  name="wlanpsw" style="ime-mode:disabled;" />
+											</span>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div class="buttonbox">
+                                    <a type="button" class="btn list-btn" id="5gwlan_button" ></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 设置5G WIFI end-->
+            <!--wifi定时关闭-->
+            <div id="setWifiTiming" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" style="text-align:center;font-size:15px;">
+                        <form id="wifiTiming_form" role="form">
+                            <ul class="listform">
+                                <li style="line-height: 40px;padding-top: 10px;">
+                                    <span class="sp-l workMode" style="margin-left: -80px;"></span>
+                                    <span class="sp-r">
+									<input type="radio" value="1" id="Wtiming_on" name="wifilimitsw" style="margin: 0px 0px 5px 11px;" />
+									<span  class="visitor_on" style="margin-right:5px;"></span>
+									<input type="radio" value="0" id="Wtiming_off" style="margin: 0px 0px 5px;" name="wifilimitsw"/>
+									<span class="visitor_off"></span>
+								</span>
+                                </li>
+                            </ul>
+                            <div class="edit_divW" style="padding: 10px 0"><span id="WPeriod1"></span><input type="text" id="Wstart_h1" maxlength="2">:<input type="text" id="Wstart_m1" maxlength="2">~<input type="text" id="Wend_h1" maxlength="2">:<input type="text" id="Wend_m1" maxlength="2"></div>
+                            <div class="edit_divW" style="padding: 10px 0 15px"><span id="WPeriod2"></span><input type="text" id="Wstart_h2" maxlength="2">:<input type="text" id="Wstart_m2" maxlength="2">~<input type="text" id="Wend_h2" maxlength="2">:<input type="text" id="Wend_m2" maxlength="2"></div>
+                        </form>
+                        <p id="WT_tip" style="padding:0 10px;color:rgb(206, 68, 58);"></p>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="wifi_TimeApply" class="btn list-btn WApply"></a>
+                    </div>
+                </div>
+            </div>
+            <!--wifi定时关闭 end-->
+            <!--终端列表-->
+            <div class="panel panel_6 appContent_info" id="set_terminallist" style="display:none;">
+                    <div class="terminal_list">
+                        <div><p id="device_pc"></p><div id="terminal_pc"></div></div>
+                        <div><p id="device_2g"></p><div id="terminal_2g"></div></div>
+                        <div><p id="device_5g"></p><div id="terminal_5g"></div></div>
+                    </div>
+                    <div id="set_device">
+                        <div class="device-edit">
+                            <div class="dev-content" style="text-align: center;"><input type="text" id="dev_name" name="device_name" style="width:85%;text-align:center;display:none;" onblur="changeName(this)"><span style="display:inline-block;width:85%;text-align:center;" id="span_alias"></span><i id="nameApply" class="icon iconfont">&#xe616;</i></div>
+                            <div class="dev-content"><span class="dev-left">MAC:</span><span id="dev_mac" class="span-r"></span></div>
+                            <div class="dev-content"><span class="dev-left">IP:</span><span id="dev_ip" class="span-r"></span></div>
+                            <div class="dev-content"><span id="up_label" class="dev-left" style="width:38%"></span><span id="dev_down" class="flow-total"></span><span id="dev_up" class="flow-total"></span></div>
+                            <div class="dev-content" style="line-height: 29px"><span id="upLimit_label" class="dev-left" style="width:25%">Qos:</span><span id="uplimit_span" style="width:50%"></span><span id="upapply" class="dev-right" data-id="1"></span><span id="limit_cm" class="dev-right" style="display:none;"></span></div>
+                            <div class="dev-center dev-content" style="display:none;text-align:center;"><span class="up-show"><input type="text" id="upLimit">KB/s</span><span class="down-show"><input type="text" id="downLimit">KB/s</span></div>
+                            <div class="dev-content" style="line-height: 29px"><span id="lostArp_label" class="dev-left"></span><span id="lostarp"></span><span id="lostArp_apply" class="dev-right" data-id="1"></span></div>
+                            <div class="dev-content" style="line-height: 29px"><span id="lostBlack_label" class="dev-left" style="width: 26%;"></span><span id="lostBlack_apply" class="dev-right"></span></div>
+                            <div class="dev-content" style="line-height: 29px;"><span id="timelimit_label" class="dev-left" style="width:49%;"></span><span id="add_timelimit" class="dev-right"></span></div>
+                            <div class="time-limit">
+                                <div class="add1">
+                                    <input type="text" class="hour1" id="start_hour1" name="startHour1" maxlength="2">
+                                    <span >:</span>
+                                    <input type="text" class="hour1" id="start_min1" name="startMin1" maxlength="2">
+                                    <span></span>
+                                    <span>~</span>
+                                    <input type="text" class="hour1" id="end_hour1" name="endHour1" maxlength="2">
+                                    <span>:</span>
+                                    <input type="text" class="hour1" id="end_min1" name="endMin1" maxlength="2">
+                                    <span></span>
+                                </div>
+                                <div class="add2">
+                                    <input type="text" class="hour2" id="start_hour2" name="startHour2" maxlength="2">
+                                    <span>:</span>
+                                    <input type="text" class="hour2" id="start_min2" name="startMin2" maxlength="2">
+                                    <span></span>
+                                    <span>~</span>
+                                    <input type="text" class="hour2" id="end_hour2" name="endHour2" maxlength="2">
+                                    <span>:</span>
+                                    <input type="text" class="hour2" id="end_min2" name="endMin2" maxlength="2">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;color:rgb(206, 68, 58);font-size: 15px;"><span id="add_time"></span><br><span id="hm_tips"></span></div>
+                        <div class="buttonbox" style="margin-top: 20px;">
+                            <a id="terminallist_cancel" class="cannel btn list-btn"></a>
+                        </div>
+                    </div>
+            </div>
+            <!--终端列表 end-->
+            <!-- 儿童保护设置 -->
+            <div id="term_limit" class="appContent_info" style="display:none;width:100%;">
+                <div class="time_terminal" style="padding: 10px 5px 0;">
+                    <div class="term_title" style="overflow: hidden;border-top:1px solid #ccc;">
+                        <span class="term_span termNO" style="width: 10%;border-left:1px solid #ccc;"></span>
+                        <span class="term_span" style="width: 41%;">
+                            <span id="term_name"></span>
+                        </span>
+                        <span class="term_span" style="width: 29%">
+                            <span id="termT"></span>
+                        </span>
+                        <span class="term_span" style="width: 20%" id="term_manage"></span>
+                    </div>
+                    <div id="termT_list" style="overflow: hidden"></div>
+                </div>
+                <div id="edit_time" style="display:none;">
+                    <div class="edit_div"><span id="termTime1"></span><input type="text" id="Mstart_hour1" maxlength="2">:<input type="text" id="Mstart_min1" maxlength="2">~<input type="text" id="Mend_hour1" maxlength="2">:<input type="text" id="Mend_min1" maxlength="2"></div>
+                    <div class="edit_div"><span id="termTime2"></span><input type="text" id="Mstart_hour2" maxlength="2">:<input type="text" id="Mstart_min2" maxlength="2">~<input type="text" id="Mend_hour2" maxlength="2">:<input type="text" id="Mend_min2" maxlength="2"></div>
+                    <div style="text-align: center;"><span id="Mhm_tips" style="color:rgb(206, 68, 58);font-size: 14px;"></span></div>
+                    <div class="buttonbox">
+                        <a class="btn list-btn" id="set_Edittime"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 儿童保护设置 end-->
+            <!-- lan设置 -->
+            <div id="setlan" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body" id="dialoglan">
+                        <div>
+                            <form id="form5" role="form">
+                                <input type="hidden" name="mode" value="LANInfo"/>
+                                <ul class="listform">
+                                    <li style="padding-top: 20px;">
+                                        <span class="sp-l" >DHCP</span>
+											<span class="sp-r" style="display: inline-block">
+											<input type="radio" name="landhcp" value="on" id="radio1" style="margin-left:10px" checked="checked" />
+											<a id="lan_radio1" for="radio1"></a>
+											<input   type="radio" name="landhcp" value="off" style="margin-left:5px" id="radio2" />
+											<a id="lan_radio2" for="radio2"></a>
+										</span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="lanip_span"></span>
+										<span class="sp-r">
+											<label for="lanip" id="lanIP_label"></label>
+											<input class="inpt"  id="lanip" name="lanip" maxlength="15"/>
+										</span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="lanmsk_span" ></span>
+										<span class="sp-r">
+											<label for="lanmsk" id="lanmsk_label" ></label>
+											<input class="inpt"  id="lanmsk" name="lanmsk" maxlength="15"/>
+										</span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="startip_span" ></span>
+										<span class="sp-r">
+											<label for="startip" id="startip_label"></label>
+											<input class="inpt" id="startip" name="startip" maxlength="15"/>
+										</span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="endip_span"></span>
+										<span class="sp-r">
+											<label for="endip" id="endip_label"></label>
+											<input class="inpt" id="endip" name="endip" maxlength="15"/>
+										</span>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="lan_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- lan设置 end-->
+            <!-- 模式切换 -->
+            <div class="appContent_info" id="set_Mode" style="background:#fff;border-radius:16px;padding: 0px;">
+                <div class="page-index" style="padding-bottom:10px;">
+                    <table class="ModeList">
+                        <tbody>
+                        <tr class="ListRow oddrow hand">
+                            <td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode1" class="radiogroup" type="radio">
+										</span>
+                            </td>
+                            <td class="Tdmiddle">
+                                <em></em>
+                            </td>
+                            <td class="Tdright"><img style="width:20px" src="../images/mode.png"></td>
+                        </tr>
+                        <tr class="ListRow evenrow hand">
+                            <td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode2" class="radiogroup" type="radio">
+										</span>
+                            </td>
+                            <td class="Tdmiddle">
+                                <em></em>
+                            </td>
+                            <td class="Tdright"><img style="width:20px" src="../images/mode.png"></td>
+                        </tr>
+                        <tr class="ListRow oddrow hand">
+                            <td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode3" class="radiogroup" type="radio">
+										</span>
+                            </td>
+                            <td class="Tdmiddle">
+                                <em></em>
+                            </td>
+                            <td class="Tdright"><img style="width:20px" src="../images/mode.png"></td>
+                        </tr>
+                        <tr class="ListRow evenrow hand">
+                            <td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode4" class="radiogroup" type="radio">
+										</span>
+                            </td>
+                            <td class="Tdmiddle">
+                                <em></em>
+                            </td>
+                            <td class="Tdright"><img style="width:20px" src="../images/mode.png"></td>
+                        </tr>
+                        <tr class="ListRow oddrow hand">
+                            <td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode5" class="radiogroup" type="radio">
+										</span>
+                            </td>
+                            <td class="Tdmiddle">
+                                <em></em>
+                            </td>
+                            <td class="Tdright"><img style="width:20px" src="../images/mode.png"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="wan-set" style="display:none;">
+                    <div class="wan-header row">
+                        <div class="tab_area" style="overflow: hidden;">
+                            <div id="wan_type1" class="tab_item on txt-center"></div>
+                            <div id="wan_type2" class="tab_item txt-center"></div>
+                            <div id="wan_type3" class="tab_item txt-center"></div>
+                        </div>
+                    </div>
+                    <div class="wan-box">
+                        <div id="wan_app1" class="wan_app_info">
+                            <ul class="listform">
+                                <li>
+                                    <span id="Change_pppoeuser" class="sp-l"></span>
+										<span class="sp-r">
+											<label for="pppoeUser"></label>
+											<input class="inpt inpt-mini" id="pppoeUser"/>
+										</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="Change_pppoepass"></span>
+										<span class="sp-r">
+											<label for="pppoePass"></label>
+											<input class="inpt inpt-mini" id="pppoePass"/>
+										</span>
+                                </li>
+                                <li>
+                                    <span id="Change_server_name" class="sp-l"></span>
+										<span class="sp-r">
+											<label for="pppoeServer"></label>
+											<input class="inpt inpt-mini" maxlength="128" id="pppoeserver" name="pppoeserver"/>
+										</span>
+                                </li>
+                            </ul>
+                            <div class="server_name">
+                                <span id="Change_server_optional"></span>
+                            </div>
+                            <ul class="listform">
+                                <li>
+                                    <span class="sp-l" id="vpn_mtu_span">MTU</span>
+										<span class="sp-r">
+											<label for="vpn_mtu" id="vpn_mtu_label"></label>
+											<input class="inpt inpt-mini" id="Spppoe_mtu" name="SpppoeMTU" maxlength="4"  />
+										</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="wan_app2" style="height:40px;display:none;" class="wan_app_info"></div>
+                        <div id="wan_app3" style="display:none;" class="wan_app_info">
+                            <ul class="listform">
+                                <li>
+                                    <span class="sp-l" id="Change_staticip"></span>
+										<span class="sp-r">
+											<label for="staticIp"></label>
+											<input class="inpt inpt-mini" id="staticIp"/>
+										</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="Change_staticmask"></span>
+										<span class="sp-r">
+											<label for="staticMask"></label>
+											<input class="inpt inpt-mini" id="staticMask"/>
+										</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="Change_staticgw"></span>
+										<span class="sp-r">
+											<label for="staticGw"></label>
+											<input class="inpt inpt-mini" id="staticGw"/>
+										</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l">DNS</span>
+										<span class="sp-r">
+											<label for="staticDNS"></label>
+											<input class="inpt inpt-mini" id="staticDNS"/>
+										</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="wan_prev" class="btn list-btn"></a>
+                        <a id="wan_after" class="btn list-btn"></a>
+                    </div>
+                </div>
+                <div class="wlan-set" style="display:none">
+                    <div id="floatWlan">
+                        <h4 class="wlan-title">2.4G WiFi</h4>
+                        <ul class="listform">
+                            <li>
+                                <span class="sp-l" id="Fwifi"></span>
+									<span class="sp-r">
+										<label for="floatWifiName"></label>
+										<input class="inpt inpt-mini"  id="floatWifiName"/>
+									</span>
+                            </li>
+                            <li>
+                                <span class="sp-l" id="Fpass"></span>
+									<span class="sp-r">
+										<label for="floatWifiPass"></label>
+										<input class="inpt inpt-mini" id="floatWifiPass" maxlength="64"/>
+									</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="doubleWlan" style="display:none;">
+                        <h4 class="wlan-title">5G WiFi</h4>
+                        <ul class="listform">
+                            <li>
+                                <span class="sp-l" id="Dwifi"></span>
+									<span class="sp-r">
+										<label for="doubleWifiName"></label>
+										<input class="inpt inpt-mini" id="doubleWifiName"/>
+									</span>
+                            </li>
+                            <li>
+                                <span class="sp-l" id="Dpass"></span>
+									<span class="sp-r">
+										<label for="doubleWifiPass"></label>
+										<input class="inpt inpt-mini" id="doubleWifiPass" maxlength="64"/>
+									</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="wlan_prev" class="btn list-btn"></a>
+                        <a id="wlan_after" class="btn list-btn"></a>
+                    </div>
+                </div>
+                <div class="ssid-list" style="display:none;">
+                    <div>
+                        <table style="width:95%;margin:0 auto;display: block;height:23.3rem;overflow-y: auto;" class="table">
+                            <tbody id="WifiList" style="display: block;">
+                            </tbody>
+                        </table>
+                        <nav style="text-align:center;">
+                            <ul class="pagination" id="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="buttonbox" style="margin-top:3px;">
+                        <a id="list_prev" class="btn list-btn"></a>
+                        <a style="display:none" id="list_after" class="btn list-btn"></a>
+                        <a id="toScan" class="btn list-btn"></a>
+                    </div>
+                </div>
+                <div class="login-set" style="display:none;">
+                    <ul class="listform">
+                        <li>
+                            <span class="sp-l" id="mangepass"></span>
+									<span class="sp-r">
+										<label for="routerpwd"></label>
+										<input class="inpt inpt-mini" id="routerpwd" />
+									</span>
+                        </li>
+                    </ul>
+                    <h5 id="routertip"></h5>
+                    <div class="buttonbox">
+                        <a id="login_prev" class="btn list-btn"></a>
+                        <a id="login_after" class="btn list-btn"></a>
+                    </div>
+                </div>
+                <!--wan口没插-->
+
+
+
+            </div>
+            <!-- 模式切换 end-->
+            <!-- 2.4G 访客模式设置 -->
+            <div id="2_4GsetVisitor" class="appContent_info" style="display:none;width:100%">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="form12" role="form">
+                            <input type="hidden" name="mode" value="getvisitorinfo" />
+                            <ul class="listform">
+                                <li>
+                                    <span class="sp-l" id="workMode"></span>
+                                    <span class="sp-r" style="padding-left: 18px;width: 214px">
+									<input type="radio" value="1" id="visitorON" name="visitorWlan" style="margin-left:11px;margin:0px 0px 5px;"  />
+									<a class="visitor_on" style="margin-right:5px;"></a>
+									<input type="radio" value="0" style="margin:0px 0px 5px;" id="visitorOFF" name="visitorWlan" checked="checked" />
+									<a class="visitor_off"></a>
+								</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="visitor_name_span"></span>
+								<span class="sp-r">
+									<label for="visitor_name" id="visitor_namelabel"></label>
+									<input id="visitor_name"  class="inpt" name="SSID" maxlength="32" />
+								</span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="visitor_pass_span"></span>
+								<span class="sp-r">
+									<label for="visitor_pass" id="visitor_passlabel"></label>
+									<input  id="visitor_pass" style="ime-mode:disabled"  class="inpt" name="password" maxlength="64" />
+								</span>
+                                </li>
+                            </ul>
+                        </form>
+                        <div class="visitor_tip text_tip"></div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="visitor_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 访客模式设置 end-->
+            <!-- 5G 访客模式设置 -->
+            <div id="5GsetVisitor" class="appContent_info" style="display:none;width:100%">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="form12_5G" role="form">
+                            <input type="hidden" name="mode" value="getvisitorinfo" />
+                            <ul class="listform">
+                                <li style="margin-top: 20px">
+                                    <span class="sp-l" id="5GworkMode" ></span>
+                                    <span class="sp-r" style="padding-left: 18px;display: inline-block;">
+									<input type="radio" value="1" id="5GvisitorON" name="visitorWlan_5G" style="margin-left:11px;margin:0px 0px 5px;"  />
+									<a class="visitor_on" style="margin-right:5px;"></a>
+									<input type="radio" value="0" style="margin:0px 0px 5px;" id="5GvisitorOFF" name="visitorWlan_5G" checked="checked" />
+									<a class="visitor_off"></a>
+								</span>
+                                </li>
+                                <li style="margin-top: 20px">
+                                    <span class="sp-l" id="5Gvisitor_name_span"></span>
+                                    <span class="sp-r" style="width:60%;display: inline-block;">
+									<label for="visitor_name" id="5Gvisitor_namelabel"></label>
+									<input id="5Gvisitor_name"  class="inpt" name="SSID_5G" maxlength="32" style="width:100%;margin-left: 15px" />
+								</span>
+                                </li>
+                                <li style="margin-top: 20px">
+                                    <span class="sp-l" id="5Gvisitor_pass_span" ></span>
+                                    <span class="sp-r" style="width:60%;display: inline-block;">
+									<label for="visitor_pass" id="5Gvisitor_passlabel"></label>
+									<input  id="5Gvisitor_pass" style="ime-mode:disabled;width: 100%;margin-left: 15px"  class="inpt" name="password_5G" maxlength="64" />
+								</span>
+                                </li>
+                            </ul>
+                        </form>
+                        <div class="visitor_tip text_tip"></div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="5Gvisitor_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 访客模式设置 end-->
+            <!-- 网络测速 -->
+            <div id="getSpeed" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="dialogspeed">
+                            <div>
+                                <h2 id="speedUp"></h2>
+                                <h2 style="text-align:center">
+                                    <h3 id="wlanup"></h3>
+                                    <h3 id="unitUp"></h3>
+                                </h2>
+                            </div>
+                            <div>
+                                <h2 id="speedDown"></h2>
+                                <h2 style="text-align:center">
+                                    <h3 id="wlandown"></h3>
+                                    <h3  id="unitDown"></h3>
+                                </h2>
+                            </div>
+                        </div>
+                        <div id="speedWait">
+                            <h3  id="timer"></h3>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="respeed_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 网络测速 end-->
+            <!-- 2.4G 信道设置 -->
+            <div id="2_4G_setChannel" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="dialogChannel">
+                            <ul class="listform" id="FloatChannelList">
+                                <li>
+                                    <span class="sp-l" id="CountryCodeFloat_span"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" name="countrycode" id="CountryCodeFloat" onchange="curChannel(this,0)">
+                                            <option value="US" class="united_states"></option>
+                                            <option value="JP" class="japan"></option>
+                                            <option value="FR" class="france"></option>
+                                            <option value="TW" class="taiwan"></option>
+                                            <option value="IE" class="ireland"></option>
+                                            <option value="HK" class="china"></option>
+                                            <option value="NONE" class="O_none"></option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="FloatChannel_span"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" name="channel" id="FloatChannel">
+                                            <option value="0" class="O_auto"></option>
+                                            <option class="FOption"  value="1" >1</option>
+                                            <option class="FOption"  value="2" >2</option>
+                                            <option class="FOption"  value="3" >3</option>
+                                            <option class="FOption"  value="4" >4</option>
+                                            <option class="FOption"  value="5" >5</option>
+                                            <option class="FOption"  value="6" >6</option>
+                                            <option class="FOption"  value="7" >7</option>
+                                            <option class="FOption"  value="8" >8</option>
+                                            <option class="FOption"  value="9" >9</option>
+                                            <option class="FOption"  value="10" >10</option>
+                                            <option class="FOption"  value="11" >11</option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="sp-l bandwidth"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" id="band_mode">
+                                            <option class="O_auto" value="0"></option>
+                                            <option class="band_mode1" value="1"></option>
+                                            <option class="band_mode2" value="2"></option>
+                                        </select>
+							        </span>
+                                </li>
+                                <li style="text-align: left;display:none;" id="channel2_show"><span class="C_channel"></span><span id="channel_2num"></span></li>
+                                <li style="text-align: left;display:none;" id="band2_show"><span class="M_channel"></span><span id="band2_num"></span></li>
+                                <li style="padding: 0px 5%;text-align: left;color:rgb(206, 68, 58)"><span class="Current2_tips"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="2_4G_Channelapply" onclick="onform_MChannel()" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 2.4G 信道设置end-->
+            <!-- 5G 信道设置 -->
+            <div id="5G_setChannel" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="5G_dialogChannel">
+                            <ul class="listform" id="DoubleChannelList">
+                                <li>
+                                    <span class="sp-l" id="CountryCodeDouble_span"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" name="countrycode" id="CountryCodeDouble" onchange="curChannel(this,1)">
+                                            <option value="US" class="united_states"></option>
+                                            <option value="JP" class="japan"></option>
+                                            <option value="FR" class="france"></option>
+                                            <option value="TW" class="taiwan"></option>
+                                            <option value="IE" class="ireland"></option>
+                                            <option value="HK" class="china"></option>
+                                            <option value="NONE" class="O_none"></option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="sp-l" id="DoubleChannel_span"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" name="channel" id="DoubleChannel">
+                                            <option value="0" class="O_auto"></option>
+                                            <option class="Doption JP FR IE HK" value="36" >36</option>
+                                            <option class="Doption JP FR IE HK" value="40" >40</option>
+                                            <option class="Doption JP FR IE HK" value="44" >44</option>
+                                            <option class="Doption JP FR IE HK" value="48" >48</option>
+                                            <option class="Doption FR TW IE HK" value="52" >52</option>
+                                            <option class="Doption FR TW IE HK" value="56" >56</option>
+                                            <option class="Doption FR TW IE HK" value="60" >60</option>
+                                            <option class="Doption FR TW IE HK" value="64" >64</option>
+                                            <option class="Doption IE" value="100" >100</option>
+                                            <option class="Doption IE" value="104" >104</option>
+                                            <option class="Doption IE" value="108" >108</option>
+                                            <option class="Doption IE" value="112" >112</option>
+                                            <option class="Doption IE" value="116" >116</option>
+                                            <option class="Doption IE" value="120" >120</option>
+                                            <option class="Doption IE" value="124" >124</option>
+                                            <option class="Doption IE" value="128" >128</option>
+                                            <option class="Doption IE" value="132" >132</option>
+                                            <option class="Doption IE" value="136" >136</option>
+                                            <option class="Doption IE" value="140" >140</option>
+                                            <option class="Doption HK" value="149" >149</option>
+                                            <option class="Doption HK" value="153" >153</option>
+                                            <option class="Doption HK" value="157" >157</option>
+                                            <option class="Doption HK" value="161" >161</option>
+                                            <option class="Doption HK" value="165" >165</option>
+                                        </select>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="sp-l bandwidth"></span>
+                                    <span class="sp-r">
+                                        <select class="selection" id="band_5mode">
+                                            <option class="O_auto" value="0"></option>
+                                            <option class="band_mode1" value="1"></option>
+                                            <option class="band_mode2" value="2"></option>
+                                            <option class="band_mode3" value="3"></option>
+                                        </select>
+							        </span>
+                                </li>
+                                <li style="text-align: left;display:none;" id="channel5_show"><span class="C_channel"></span><span id="channel_5num"></span></li>
+                                <li style="text-align: left;display:none;" id="band5_show"><span class="M_channel"></span><span id="band5_num"></span></li>
+                                <li style="padding: 0px 5%;text-align: left;color:rgb(206, 68, 58)"><span class="Current_tips"></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="5G_Channelapply" onclick="onform_MChannel()" class="btn list-btn">确定</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 5G 信道设置end-->
+            <!-- 黑名单设置 -->
+            <div id="setblack" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="blackList">
+                            <ul style="margin:0 auto;overflow: hidden;font-size: 15px;" id="blackItem">
+                                <li class='liner' style="width:10%;border-right-width:0px;">
+                                    <span id="bNum"></span>
+                                </li>
+                                <li class='liner' style="width:35%;border-right-width:0px;overflow: auto;">
+                                    <span id="bName"></span>
+                                </li>
+                                <li class='liner' style="width:34%;border-right-width:0px;overflow-x: auto;">
+                                    <span id="bMac"></span>
+                                </li>
+                                <li class='liner' style="width:21%">
+                                    <span id="bChance" onclick="lostBlack(this)"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="blackcannel" class="cannel btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!--黑名单设置 end-->
+            <!-- 2.4G信号强度设置 -->
+            <div id="2_4GsetSignal" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="form7" role="form">
+                            <input type="hidden" name="mode" value="getpamode"/>
+                            <input type="hidden" class="radio" name="progress"  value="0" id="radios" />
+                            <div style="margin:40px auto;width:80%">
+                                <span  class="label" id="label_1"></span>
+                                <span  class="label" id="label_2" style="margin-left:10px"></span>
+                                <span class="label" id="label_3" style="margin-left:10px"></span>
+                            </div>
+                            <div class="progress" style="width: 95%;margin: 5% auto;">
+                                <div class="progress-bar" id="signal_bar"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--信号强度设置 end-->
+            <!-- 5G信号强度设置 -->
+            <div id="5GsetSignal" class="appContent_info" style="display:none;width:100%;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="form7_5G" role="form">
+                            <input type="hidden" name="mode" value="getpamode"/>
+                            <input type="hidden" class="radio" name="progress_5G"  value="0" id="radios_5G" />
+                            <div style="margin:40px auto;width:80%">
+                                <span  class="label" id="label_4"></span>
+                                <span  class="label" id="label_5" style="margin-left:10px"></span>
+                                <span class="label" id="label_6" style="margin-left:10px"></span>
+                            </div>
+                            <div class="progress" style="width: 95%;margin: 5% auto;">
+                                <div class="progress-bar" id="signal_bar_5G"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--信号强度设置 end-->
+            <!-- 定时重启设置 -->
+            <div id="setTimingRestore" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <ul class="listform" style="margin-top: 20px;">
+                                <li>
+                                    <span class="sp-l workMode"></span>
+                                    <span class="sp-r">
+                                    <input type="radio" value="1" id="timingReboot_on" name="timingReboot" style="margin: 0px 0px 5px 11px;" />
+                                    <span  class="visitor_on" style="margin-right:5px;"></span>
+                                    <input type="radio" value="0" id="timingReboot_off" style="margin: 0px 0px 5px;" name="timingReboot"/>
+                                    <span class="visitor_off"></span>
+                                </span>
+                                </li>
+                            </ul>
+                            <div class="edit_divTiming" style="padding-top: 20px">
+                                <select name="" id="timingRebootSel" class="selection" style="padding: 5px 3px;width: 80px;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="reboot_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 重启设置 end-->
+            <!-- 重启设置 -->
+            <div id="setRestore" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <ul class="listform">
+                                <li style="margin:0">
+                                    <h4 id="rebootTitle"></h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="reboot_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 重启设置 end-->
+            <!-- 复位设置 -->
+            <div id="setrestore" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+                        <div>
+                            <ul class="listform">
+                                <li style="margin:0">
+                                    <h4 id="restoreTitle"></h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="restore_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!--复位设置 end-->
+            <!-- 设置登录密码 -->
+            <div id="setAccount" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <ul class="listform">
+                                <li class="superadminType">
+                                    <span class="sp-l superadminTypeTit" style="padding-right: 0px;margin-left: -7px;width: 46%;"></span>
+                                    <span class="sp-r"><select name="" id="superaAccount" class="inpt" style="width: 44%;padding: 0px;">
+                                        <option value="admin">user</option>
+                                        <option value="superadmin">superadmin</option>
+                                    </select><span style="width:29px;display:inline-block;"></span></span>
+                                </li>
+                                <!-- <li>
+                                    <span class="sp-l" id="oldpass_span" style="width: 46%"></span>
+							<span class="sp-r" id="tips_userpwd">
+								<label for="userpwd" id="userpwd_1_label"></label>
+								<input type="password" name="userpwd" maxlength="64" class="inpt" onchange="document.getElementById('userpwd_1').value=this.value;" style='width:44%;' id="userpwd" autocomplete="off" />
+								<input type="text" name="userpwd_1" id="userpwd_1" maxlength="64" onchange="document.getElementById('userpwd').value=this.value;" class="inpt" style="display: none;width:44%;" autocomplete="off" />
+								<em class="pwd-icon"><img src="/admin/images/pwd-icon.png" /></em>
+							</span>
+                                </li> -->
+                                <li>
+                                    <span class="sp-l"  id="newpass_span" style="width: 46%"></span>
+							<span class="sp-r"  id="tips_userpwd2">
+								<label for="userpwd2" id="userpwd2_label"></label>
+								<input type="password" name="routepwd" class="inpt" id="userpwd2" onchange="document.getElementById('userpwd_2').value=this.value;" style='width:44%;' maxlength="64" autocomplete="off" />
+								<input type="text" name="routepwd" id="userpwd_2" class="inpt" onchange="document.getElementById('userpwd2').value=this.value;" maxlength="64" style="display: none;width:44%;" autocomplete="off" />
+								<em class="pwd-icon"><img src="/admin/images/pwd-icon.png" /></em>
+							</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="user_confirm" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 设置登录密码 end-->
+            <!-- 固件升级设置 -->
+            <div id="setupgrade" class="appContent_info" style="display:none">
+                <div class="modal-content">
+                    <div class="modal-body" id="ChangeInfoBody">
+                        <div id="dialogupgrade">
+                            <form id="form14" role="form">
+                                <ul class="listform">
+                                    <li>
+                                        <span id="nowvsion" style="min-width:160px" class="sp-l"></span>
+                                        <span id="curver" class="sp-r"></span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" style="min-width:160px" id="newvsion"></span>
+                                        <span class="sp-r"  id="newver"></span>
+                                    </li>
+                                </ul>
+                            </form>
+                            <div id="version_tips" style="color:rgb(206, 68, 58);margin-top: 10px;text-align: left;padding-left: 7%;"></div>
+                        </div>
+                    </div>
+                    <div class="buttonbox" style="margin-top: 25px">
+                        <a id="upgrade_close" class="cannel btn list-btn"></a>
+                        <a id="upgrade_button" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 固件升级设置 end-->
+            <!-- 静态绑定设置 -->
+            <div id="setStatic" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="staticList">
+                            <ul style="margin:0 auto;overflow: hidden;font-size: 15px;" id="staticItem" data-id="1">
+                                <li class='liner' style="width:9%;border-right-width:0px;">
+                                    <span id="sNum"></span>
+                                </li>
+                                <li class='liner' style="width:30%;border-right-width:0px;overflow-x: auto;">
+                                    <span id="sName"></span>
+                                </li>
+                                <li class='liner' style="width:40%;border-right-width:0px;overflow-x: auto;">
+                                    <span id="sIP"></span><span id="sMac"></span>
+                                </li>
+                                <li class='liner' style="width:21%">
+                                    <span id="sChance" onclick="lostBind(this)"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="buttonbox">
+                        <a id="staticancel" class="cannel btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!--静态绑定设置 end-->
+            <!-- pptp客户端 -->
+            <div id="pptp_setvpn" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" id="pptp_dialoglan">
+                        <div id="pptp_dialogvpn">
+                            <form id="vpn_pptp_form" role="form">
+                                <input id="vpn_pptp_mode" type="hidden" name="type" value="setpptpinfo" />
+                                <ul class="listform">
+                                    <li>
+                                        <span class="sp-l" id="pptp_domain_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_domain" id="pptp_domain_label"></label>
+                                            <input class="inpt" maxlength="128" id="pptp_domain"  name="domain"  />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="pptp_username_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_username" id="pptp_username_label"></label>
+                                            <input class="inpt" id="pptp_username"  name="username"  />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="pptp_password_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_password" id="pptp_password_label"></label>
+                                            <input class="inpt" id="pptp_password"  name="password"  />
+                                        </span>
+                                    </li>
+                                    <li id="mppe_item">
+                                        <span class="sp-l" id="mppe">MPPE</span>
+                                        <span class="sp-r" style="width:57%">
+                                                <label for="mppeon" id="mppe_enable" style="position:static;padding-left:10px;color:#666"></label>
+                                                <input type="radio"  id="mppeon" value="1" style="margin-right:15px;margin:0 0 5px" name="mppe"/>
+                                                <label for="mppeoff" style="position:static;color:#666" id="mppe_disable"></label>
+                                                <input type="radio"  id="mppeoff" style="margin:0 0 5px" value="0" name="mppe"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="pptp_type_span"></span>
+                                        <span class="sp-r">
+                                            <select name='netmode' class="selection" id="pptp_type" onchange="changeMode(this)" style="width: 100%;margin-left: 15px;height: 30px;padding: 0;">
+                                                <option value="Static" class="pptp_static"></option>
+                                                <option value="DHCP">DHCP</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="pptp_ip_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_ip" id="pptp_ip_label"></label>
+                                            <input class="inpt vpn_inpt" id="pptp_ip"  name="staticip" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="pptp_mask_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_mask" id="pptp_mask_label"></label>
+                                            <input class="inpt vpn_inpt" id="pptp_mask" name="staticmask" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="pptp_gateway_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_gateway" id="pptp_gateway_label"></label>
+                                            <input class="inpt vpn_inpt" id="pptp_gateway" name="staticgateway" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="pptp_mtu_span">MTU</span>
+                                        <span class="sp-r">
+                                            <label for="vpn_mtu" id="pptp_mtu_label"></label>
+                                            <input class="inpt" id="pptp_mtu" name="MTU" maxlength="4"  />
+                                        </span>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="buttonbox" style="margin-top: 15px;">
+                        <a id="set_pptp" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!--pptp客户端 end-->
+            <!-- L2TP客户端 -->
+            <div id="L2TP_setvpn" class="appContent_info" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-body" id="dialoglan">
+                        <div id="dialogvpn">
+                            <form id="vpn_form" role="form">
+                                <input id="vpn_mode" type="hidden" name="type" value="setpptpinfo" />
+                                <ul class="listform">
+                                    <li>
+                                        <span class="sp-l" id="vpn_domain_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_domain" id="vpn_domain_label"></label>
+                                            <input class="inpt" maxlength="128" id="vpn_domain" name="domain"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="vpn_username_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_username" id="vpn_username_label"></label>
+                                            <input class="inpt" id="vpn_username" name="username"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="vpn_password_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_password" id="vpn_password_label"></label>
+                                            <input class="inpt" id="vpn_password" name="password"/>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="vpn_type_span"></span>
+                                        <span class="sp-r">
+                                            <select name='netmode' class="selection" id="vpn_type" onchange="changeMode(this)" style="width: 100%;margin-left: 15px;height: 30px;padding: 0">
+                                                <option value="Static" class="pptp_static">STATIC</option>
+                                                <option value="DHCP">DHCP</option>
+                                            </select>
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="vpn_ip_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_ip" id="vpn_ip_label"></label>
+                                            <input class="inpt vpn_inpt" id="vpn_ip"  name="staticip" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="vpn_mask_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_mask" id="vpn_mask_label"></label>
+                                            <input class="inpt vpn_inpt" id="vpn_mask" name="staticmask" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li class="static_type">
+                                        <span class="sp-l" id="vpn_gateway_span"></span>
+                                        <span class="sp-r">
+                                            <label for="vpn_gateway" id="vpn_gateway_label"></label>
+                                            <input class="inpt vpn_inpt" id="vpn_gateway" name="staticgateway" maxlength="15"  />
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="sp-l" id="vpn_mtu_span">MTU</span>
+                                        <span class="sp-r">
+                                            <label for="vpn_mtu" id="vpn_mtu_label"></label>
+                                            <input class="inpt" id="vpn_mtu" name="MTU" maxlength="4"/>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="buttonbox" style="margin-top:15px;">
+                        <a id="set_vpn" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!--L2PT客户端 end-->
+            <!-- LED -->
+            <div id="set_LED" class="appContent_info" style="display:none;">
+                <div>
+                    <form id="LED_timing" role="form">
+                        <ul class="listform">
+                            <li style="line-height: 45px;border-bottom:1px solid #ccc;">
+                                <span class="sp-l workMode" style="margin-left:0;width: 32%;" id="LEDMode"></span>
+                                <span class="sp-r">
+									<input type="radio" id="LEDval1" name="LEDval" value="1" style="margin:-3px 0 0 10px;"/>
+									<label for="LEDval1" style="position: static;font-size:15px;"><a style="color:#777;cursor:pointer;" id="LED_label1"></a></label>
+									<input  type="radio" id="LEDval2" name="LEDval" value="0" style="margin:-3px 0 0 5px;"/>
+									<label for="LEDval2" style="position: static;font-size:15px;"><a style="color:#777;cursor:pointer;" id="LED_label2"></a></label>
+								</span>
+                            </li>
+                            <li style="line-height: 45px;border-bottom:1px solid #ccc;" id="selectHide">
+                                <span class="sp-l" style="margin-left:0;width: 38%;text-align: left;padding-left: 10px;" id="led_modeTitle"></span>
+                                <span class="sp-r" style="width: 57%;display: inline-block;text-align: right;">
+									<select id="led_mode" name="ledeasysw" class="selection" style="margin-left:8px;width: 80%;padding: 3px;">
+										<option value="0" id="open_led" style="background-color:transparent;color:#000"></option>
+										<option value="1" id="close_led" style="background-color:transparent;color:#000"></option>
+									</select>
+								</span>
+                            </li>
+                        </ul>
+                        <div id="Wtime_con">
+                            <p id="Timing" style="line-height: 45px;border-bottom:1px solid #ccc;padding-left: 10px;"></p>
+                            <div class="Timing_content">
+                                <span style="float:left;padding-left: 10px;" id="startTime"></span>
+                                <span style="float:right;line-height: 40px;padding-right: 10px">
+                                    <input type="text" class="hour" id="start_hour" name="startHour" maxlength="2">
+                                    <span class="timeSlot"></span>
+                                    <input type="text" class="hour" id="start_min" name="startMin" maxlength="2">
+                                    <span class="spacing"></span>
+                                </span>
+                            </div>
+                            <div class="Timing_content">
+                                <span style="float:left;padding-left: 10px;" id="endTime"></span>
+                                <span style="float:right;line-height: 40px;padding-right: 10px;">
+                                    <input type="text" class="hour" id="end_hour" name="endHour" maxlength="2">
+                                    <span class="timeSlot"></span>
+                                    <input type="text" class="hour" id="end_min" name="endMin" maxlength="2">
+                                    <span class="spacing"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="led_tip" class="text_tip"></div>
+                    <div class="buttonbox">
+                        <a id="led_apply" onclick="onform_ledswitch()" class="btn list-btn"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- LED end -->
+                       <!-- 世界时间 -->
+            <div id="set_worldTime" class="appContent_info" style="display:none;">
+                <div>
+                    <form id="worldTiming" role="form">
+                        <div>
+                            <p id="cur_timeTitle" class="worldTiming_p" style="border:0;"></p>
+                            <p id="current_time" class="worldTiming_p"></p>
+                            <p id="time_server" class="worldTiming_p" style="border:0;"></p>
+                            <p class="worldTiming_p">
+                                <input type="text" name="ntpserver" id="ntpserver" class="selection" maxlength="64">
+                            </p>
+                            <p id="time_zoneTitle" class="worldTiming_p" style="border:0;"></p>
+                            <p class="worldTiming_p">
+                                <select id="timeZone" name="ntptz" class="selection" style="font-size: 12px;padding: 5px 3px;width:100%;">
+                                    <option value="UCT_-11" id="manNTPMidIsland"></option>
+                                    <option value="UCT_-10" id="manNTPHawaii"></option>
+                                    <option value="NAS_-09" id="manNTPAlaska"></option>
+                                    <option value="PST_-08" id="manNTPPacific"></option>
+                                    <option value="MST_-07" id="manNTPMountain"></option>
+                                    <option value="MST_-07" id="manNTPArizona"></option>
+                                    <option value="CST_-06" id="manNTPCentral"></option>
+                                    <option value="UCT_-06" id="manNTPMidUS"></option>
+                                    <option value="UCT_-05" id="manNTPIndianaEast"></option>
+                                    <option value="EST_-05" id="manNTPEastern"></option>
+                                    <option value="AST_-04" id="manNTPAtlantic"></option>
+                                    <option value="UCT_-04" id="manNTPBolivia"></option>
+                                    <option value="UCT_-03" id="manNTPGuyana"></option>
+                                    <option value="EBS_-03" id="manNTPBrazilEast"></option>
+                                    <option value="NOR_-02" id="manNTPMidAtlantic"></option>
+                                    <option value="EUT_-01" id="manNTPAzoresIslands"></option>
+                                    <option value="UCT_000" id="manNTPGambia"></option>
+                                    <option value="GMT_000" id="manNTPEngland"></option>
+                                    <option value="MET_001" id="manNTPCzechRepublic"></option>
+                                    <option value="MEZ_001" id="manNTPGermany"></option>
+                                    <option value="UCT_001" id="manNTPTunisia"></option>
+                                    <option value="EET_002" id="manNTPGreece"></option>
+                                    <option value="SAS_002" id="manNTPSouthAfrica"></option>
+                                    <option value="IST_003" id="manNTPIraq"></option>
+                                    <option value="MSK_003" id="manNTPMoscowWinter"></option>
+                                    <option value="UCT_004" id="manNTPArmenia"></option>
+                                    <option value="UCT_005" id="manNTPPakistan"></option>
+                                    <option value="UCT_006" id="manNTPBangladesh"></option>
+                                    <option value="UCT_007" id="manNTPThailand"></option>
+                                    <option value="CST_008" id="manNTPChinaCoast"></option>
+                                    <option value="CCT_008" id="manNTPTaipei"></option>
+                                    <option value="SST_008" id="manNTPSingapore"></option>
+                                    <option value="AWS_008" id="manNTPAustraliaWA"></option>
+                                    <option value="JST_009" id="manNTPJapan"></option>
+                                    <option value="KST_009" id="manNTPKorean"></option>
+                                    <option value="UCT_010" id="manNTPGuam"></option>
+                                    <option value="AES_010" id="manNTPAustraliaQLD"></option>
+                                    <option value="UCT_011" id="manNTPSolomonIslands"></option>
+                                    <option value="UCT_012" id="manNTPFiji"></option>
+                                    <option value="NZS_012" id="manNTPNewZealand"></option>
+                                    <option value="NUKU_013" id="manNTPNuku"></option>
+                                </select>
+                            </p>
+                        </div>
+                        <input type="hidden" id="ntpsync" name="ntpsync">
+                    </form>
+                    <div class="buttonbox">
+                        <a id="worldTime_apply" class="btn list-btn Wapply"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 世界时间 end -->
+            <!--网址黑名单-->
+            <div id="set_hostBlacklist" style="display: none;" class="appContent_info">
+                <div id="set_urllist">
+                    <div id="shost_blacklist" class="host_tab"><span></span><img src="./images/arrow.png"></div>
+                    <div id="host_blacklist" class="host_tab"><span></span><img src="./images/arrow.png"></div>
+                </div>
+                <div id="blacklit_con" style="display: none">
+                    <div id="get_blacklist">
+                        <div id="set_host">
+                            <div class="host_title" style="overflow:hidden;"><span id="host_con"></span><span id="set_hostCon" class="setup"></span></div>
+                            <div id="host_url" style="padding: 0 5%">
+                                <textarea id="g_urllist" class="textarea-style" disabled="disabled" style="border:none;"></textarea>
+                                <div class="buttonbox" style="margin-top: 0;">
+                                    <a id="url_edit" class="btn list-btn"></a>
+                                    <a id="url_del" class="btn list-btn"></a>
+                                </div>
+                            </div>
+                            <div class="host_title" id="term_Btitle"></div>
+                            <div id="t_blacklist" style="font-size: 14px;">
+                                <div id="term_online"></div>
+                                <div id="term_offline"></div>
+                            </div>
+                        </div>
+                        <div id="url_layer" style="display: none">
+                            <div style="padding: 20px 5%">
+                                <textarea id="s_urllist" class="textarea-style"></textarea>
+                            </div>
+                            <div class="buttonbox" style="margin-top: 0">
+                                <a id="url_sbu" class="btn list-btn"></a>
+                            </div>
+                            <div id="host_tips" style="padding: 0 5%">
+                                <p id="url_tip"></p>
+                                <div style="padding-left: 15px;">
+                                    <p id="url_tip1"></p>
+                                    <p id="url_tip2"></p>
+                                    <p id="url_tip3"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="term_layer" style="display: none">
+                            <div>
+                                <input type="hidden" id="mac_term">
+                                <div style="padding: 20px 5%">
+                                    <p><span class="Tblack" id="Tblacktitle"></span><span id="TblackName"></span></p>
+                                    <p style="overflow: hidden;margin-top: 15px;"><span class="Tblack" id="term_website"></span><textarea id="text_term" class="textarea-style" disabled="disabled" style="width: 70%;border:none;"></textarea></p>
+                                </div>
+                                <div class="buttonbox" style="margin-top: 0;">
+                                    <a id="term_edit" class="btn list-btn"></a>
+                                    <a id="term_sbu" class="btn list-btn"></a>
+                                    <a id="term_del" class="btn list-btn"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end 网址黑名单-->
+            <!--upnp-->
+            <div id="set_upnp" style="display: none;" class="appContent_info">
+                <div>
+                    <form id="UPNPset" role="form">
+                        <input type="hidden" name="type" value="setupnp" />
+                        <ul class="listform">
+                            <li style="line-height: 45px;">
+                                <span class="sp-l" id="UPNPMode" style="width:28%;margin-left: 0;"></span>
+                                <span class="sp-r" style="padding-left:20px;">
+                                    <input type="radio" value="1" id="UPNPON" name="enable" style="margin-left:11px;margin: 0px 0px 5px;"  />
+                                    <a id="UPNP_ON" style="margin-right:5px;color: #666;"></a>
+                                    <input type="radio" value="0" id="UPNPOFF" style="margin: 0px 0px 5px;" name="enable"  checked="checked"/>
+                                    <a id="UPNP_OFF" style="color:#666;"></a>
+						        </span>
+                            </li>
+                            <li>
+                                <div id="upnpList">
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="buttonbox" style="margin-top: 30px;">
+                    <a id="UPNP_apply" onclick="onformUpnp()" class="btn list-btn"></a>
+                </div>
+            </div>
+            <!--upnp end-->
+            <!--dmz-->
+            <div id="set_dmz" style="display: none;" class="appContent_info";>
+                <div>
+                    <form id="DMZset" role="form">
+                        <input type="hidden" name="type" value="setdmz" />
+                        <ul class="listform">
+                            <li style="margin: 20px 0;">
+                                <span class="sp-l" id="DMZMode" style="width: 30%;margin-left: 0;"></span>
+                                <span class="sp-r">
+                                    <input type="radio" value="1" id="DMZON" name="enable" style="margin: 0px 0px 5px;margin-left:11px"  />
+                                    <a id="DMZ_ON" style="margin-right:5px;color:#666;"></a>
+                                    <input type="radio" value="0" style="margin: 0px 0px 5px;" id="DMZOFF" name="enable" checked="checked" />
+                                    <a id="DMZ_OFF" style="color:#666;"></a>
+						        </span>
+                            </li>
+                            <li style="line-height: 35px">
+                                <span class="sp-l" id="mdz_ip_name" style="margin-left: 0;width: 30%;"></span>
+                                <span class="sp-r">
+                                    <label for="mdz_ip" id="mdz_ip_namelabel"></label>
+                                    <input id="mdz_ip"  class="inpt" name="ip" maxlength="32" style="width:55%;"/>
+                                </span>
+                            </li>
+                            <li style="display:none;">
+                                <span class="sp-l" id="dmz_port_name" style="margin-left: 0;"></span>
+                                <span class="sp-r">
+							        <label for="dmz_port" id="dmz_port_namelabel"></label>
+							        <input id="dmz_port"  class="inpt" name="port" maxlength="32" value="8080" style="width:60%;"/>
+						        </span>
+                            </li>
+                        </ul>
+                    </form>
+                    <div id="DMZ_tip" class="text_tip"></div>
+                </div>
+                <div class="buttonbox">
+                    <a id="DMZ_apply" onclick="onformDmz()" class="btn list-btn"></a>
+                </div>
+            </div>
+            <!--dmz end-->
+            <!--web管理-->
+            <div id="setwebAdmin" style="display: none;" class="appContent_info">
+                <div>
+                    <form id="webadminForm" role="form">
+                        <input type="hidden" name="type" value="setremotemanage">
+                        <ul class="listform">
+                            <li style="margin: 20px 0;">
+                                <span class="sp-l workMode" style="width: 36%;margin-left: 0;"></span>
+                                <span class="sp-r">
+                                    <input type="radio" value="1" id="webAdminOn" name="remotemanagesw" style="margin: 0px 0px 5px;margin-left:11px"  />
+                                    <a class="visitor_on" style="margin-right:5px;color:#666;"></a>
+                                    <input type="radio" value="0" style="margin: 0px 0px 5px;" id="webAdminOff" name="remotemanagesw" checked="checked" />
+                                    <a class="visitor_off" style="color:#666;"></a>
+						        </span>
+                            </li>
+                            <li style="line-height: 35px" id="webPortLi">
+                                <span class="sp-l" id="webPortSpan" style="margin-left: 0;"></span>
+                                <span class="sp-r">
+                                    <label for="webPort" id="webPortLabel"></label>
+                                    <input id="webPort"  class="inpt" name="remoteport" maxlength="32" style="width:55%;"/>
+                                </span>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <div class="buttonbox">
+                    <a id="webAdminApply" class="btn list-btn WApply"></a>
+                </div>
+            </div>
+            <!--web管理 end-->
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/countUp.min.js"></script>
+<script type="text/javascript" src="js/lang_mobile.js"></script>
+<script type="text/javascript" src="../js/getinfo.js"></script>
+<script type="text/javascript" src="../js/share.js"></script>
+<script type="text/javascript" src="../js/restart.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="../js/layer/layer.js"></script>
+<script type="text/javascript">
+    var NowMode=-1,IsFirst=false,curVersion=false,oldPass,animation="",REBOOT=null,curlang;
+    var speedLoad,timego;
+    var speedUp;
+    var maxtime = 35; //按秒计算
+    var ChannelMode=true;
+    get_Router_status();
+    function CountDown(){
+        if(maxtime>=0){
+            seconds = Math.floor(maxtime);
+            msg = seconds;
+            $("#timer").html(msg);
+            $(".appCallback").unbind("click");
+            --maxtime;
+        }
+        else{
+            clearInterval(timego);
+            $("#dialogspeed").css("display","block");
+            $("#speedWait").css("display","none");
+            $(".appCallback").click(function () {
+                $("#appContent").animate({"left": "50%"}, 500);
+                $(".appMenu").css("display", "none");
+                $(".hostMenu").css("display", "block")
+            });
+            palyspeed(speedUp,speedLoad);
+        }
+    }
+    function start(){
+        if(timego){
+            clearInterval(timego);
+        }
+        maxtime=35;
+        timego=setInterval("CountDown()",1000);
+    }
+    function palyspeed(n1,n2){
+        // fire animation
+        n1=Number(n1.replace(',','').replace(' ',''));
+        n2=Number(n2.replace(',','').replace(' ',''));
+        var options = {
+            useEasing : true,
+            useGrouping : true,
+            separator : ',',
+            decimal : '.'
+        }
+        var demo = new CountUp("wlanup", 0, n1, 2, 2.5, options);
+        var downSP = new CountUp("wlandown", 0, n2, 2, 2.5, options);
+        demo.start();
+        downSP.start();
+    }
+    function timeControl(num) {
+        if (num) {
+            TimeFlag = true;
+        } else {
+            TimeFlag = false;
+        }
+    }
+    function aliesGame(obj,e){
+        var keynum;
+        var theFocus=obj.id;
+        if(window.event) // IE
+        {
+            keynum = e.keyCode
+        }
+        else if(e.which) // Netscape/Firefox/Opera
+        {
+            keynum = e.which
+        }else{return;}
+        if(keynum==13){
+            $(obj).blur();
+        }
+    }
+    function get_Router_status() {
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_router_status',
+            data: {'type': 'getrouterstatus'},
+            dataType: "json",
+            success: function (msg) {
+                if ((typeof msg) == "object") {
+                    var data = msg;
+                }
+                else {
+                    var data = eval('(' + msg + ')');
+                }
+                $("#speed_value").html(data.cpu);
+                $("#mobileCountData").html(data.ternum);
+                $("#fnData").html(data.uptime);
+                $("#versionNumber").html(data.ver);
+                var up = parseInt(data.upspeed);
+                var down = parseInt(data.downspeed);
+                if (up < 1024) {
+                    $("#upside_rate").html(up + "B/s");
+                }
+                else {
+                    up = (up / 1024.0).toFixed(1);
+                    if (up > 1024) {
+                        up = (up / 1024.0).toFixed(1);
+                        $("#upside_rate").html(up + "MB/s");
+                    }
+                    else {
+                        $("#upside_rate").html(up + "KB/s");
+                    }
+                }
+
+                if (down < 1024) {
+                    $("#downside_rate").html(down + "B/s");
+                }
+                else {
+                    down = (down / 1024.0).toFixed(1);
+                    if (down > 1024) {
+                        down = (down / 1024.0).toFixed(1);
+                        $("#downside_rate").html(down + "MB/s");
+                    }
+                    else {
+                        $("#downside_rate").html(down + "KB/s");
+                    }
+                }
+                if (data.netstatus == "link") {
+                    $("#linkStatusInfo").attr("src", "/admin/images/wanOK.png")
+                } else {
+                    $("#linkStatusInfo").attr("src", "/admin/images/wanOff.png")
+                }
+                if (data.operationmode == "router") {
+                    $("#Mode_show").html(curlang.RouteMode);
+                } else if (data.operationmode == "repeater") {
+                    $("#Mode_show").html(curlang.RelayMode);
+                    $("#setup_terminallist").css("display","none");
+                } else if (data.operationmode == "bridge") {
+                    $("#Mode_show").html(curlang.BridgeMode);
+                    $("#setup_terminallist").css("display","none");
+                } else if (data.operationmode == "WISP") {
+                    $("#Mode_show").html(curlang.WISPmode);
+                } else if (data.operationmode == "client") {
+                    $("#Mode_show").html(curlang.ClientMode);
+                    $("#setup_terminallist").css("display","none");
+                }
+
+            },
+            error: function () {
+
+            }
+        })
+    }
+    function checkWlanInfo(){
+        if(NowMode==4 && curVersion)
+        {
+            var twoName=CheckSSID($("#doubleWifiName").val());
+            if(!twoName){return false;}
+            var twoPass=CheckSSIDKey($("#doubleWifiPass").val());
+            if(!twoPass){return false;}
+            return true;
+        }else
+        {
+            var oneName=CheckSSID($("#floatWifiName").val());
+            if(!oneName){return false;}
+            var onePass=CheckSSIDKey($("#floatWifiPass").val());
+            if(!onePass){return false;}
+            if(curVersion){
+                var twoName=CheckSSID($("#doubleWifiName").val());
+                if(!twoName){return false;}
+                var twoPass=CheckSSIDKey($("#doubleWifiPass").val());
+                if(!twoPass){return false;}
+            }
+            return true;
+        }
+    }
+    function IsChangeMode(){
+        $("#wlan_after").unbind();
+        $("#wlan_after").html(curlang.Apply);
+        $("#wlan_after").click(function(){
+            if(checkWlanInfo())
+            {
+				//showanimation(6);
+                setRouter();
+                //showanimation(4);
+            }
+        })
+    }
+    //易操作绑定
+    function compVer(str2,str1){
+        var local_ver = str1.split(".");
+        var ser_ver = str2.split(".");
+        if(parseInt(local_ver[0]) < parseInt(ser_ver[0])){
+            return true;
+        }
+        else if(parseInt(local_ver[0]) > parseInt(ser_ver[0])){
+            return false;
+        }
+        else{
+            if(parseInt(local_ver[1]) < parseInt(ser_ver[1])){
+                return true;
+            }
+            else if(parseInt(local_ver[1]) > parseInt(ser_ver[1])){
+                return false;
+            }
+            else{
+                if(parseInt(local_ver[2].split("_")[0]) < parseInt(ser_ver[2].split("_")[0])){
+                    return true;
+                }
+                else if(parseInt(local_ver[2].split("_")[0]) > parseInt(ser_ver[2].split("_")[0])){
+                    return false;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+    function getData_Mversion_info(){
+        $("#upgrade_button").css("display","none");
+        $.ajax({
+            type:"get",
+            url:"/goform/get_version_info",
+            data:{"type":"getfirmver"},
+            dataType:"json",
+            success: function(msg){
+                if((typeof msg)=="object"){var data=msg;}
+                else{ var data=eval('('+msg+')');}
+				set_restore = 0;
+                if(data.result==4){
+					layer.msg(curlang.sysError);
+					return false;
+				}else if(data.result==5){
+					layer.msg(curlang.sysModel);
+					return false;
+				}else if(data.result==1){
+					layer.msg(curlang.sysinfo);
+					return false;
+				}
+                var lastV=data.lastver;
+                var currV=data.curver;
+                if(compVer(lastV,currV))
+                {
+                    $("#upgrade_button").css("display","inline-block");
+                    $("#upgrade_button").unbind("click");
+                    if(getLang()=='zhcn'){
+                        $("#version_tips").html(data.content_zh);
+                    }else{
+                        $("#version_tips").html(data.content_en);
+                    }
+                    $("#upgrade_button").click(function(){
+                        onform_Mupgrade_versoin();
+                    })
+                }
+                else{
+                    $("#upgrade_button").css("display","none");
+                }
+                $("#newver").html(lastV);
+                $("#curver").html(currV);
+            },
+            error: function(msg){
+            }
+        })
+    }
+    function Mgetstatus(){
+        $.ajax({
+            type:"get",
+            url:"/goform/get_version_info",
+            data:{"type":"getstatus"},
+            dataType:"json",
+            success: function(msg){
+                if(msg.status=="download"){
+                    $("#msg").html(curlang.upgrade_down);
+                }
+                if(msg.status=="upgrade"){
+                    $("#msg").html(curlang.upgrade_ug);
+                }
+            },
+            error: function(msg){
+                $("#msg").html(curlang.upgrade_reboot);
+            }
+        })
+    }
+    //升级请求
+    function onform_Mupgrade_versoin(){
+        set_restore=1;
+        showanimation(1);
+        $.ajax({
+            type: 'post',
+            url: '/goform/upgrade_version',
+            data: {'type':'upgrade'},
+            dataType:"json",
+            success: function(data) {
+                if(data.result==0){
+                    setInterval(Mgetstatus,3000);
+                    lb_restart('update');
+                }else{
+                    showanimation(3);
+                }
+            },
+            error:function(data)
+            {
+                showanimation(3);
+               // restart('update');
+            }
+        })
+    }
+    function restart(type){
+        setTimeout(function () {
+            lb_restart(type);
+        },2000);
+        var word;
+        if(type=="update"){word=curlang.updatetime}else{word=curlang.waitingtime;}
+        setTimeout(function(){window.reset=layer.open({
+            type: 1,
+            closeBtn: 0, //不显示关闭按钮
+            shift: 3,
+            offset:'150px',
+            skin:'layui-layer-loading',
+            scrollbar: false,
+            title: false,
+            shade: [0.7, '#000'],
+            content: '<div style="margin:0 auto;width:90px;height:90px;background: url(/admin/js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(../backgroundsize.min.htc);behavior: url(../backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h4 style="text-align:center;font-size:15px;color:#fff"><span>'+word+'</span><label id="curTime" style="color:#7eda3d"></label>s</h4>'
+        })},2000);
+    }
+    function lb_restart(type) {
+        var Time;
+        if (type == "update") {
+            Time =105;
+        }
+        else{
+            if(curVersion){
+                Time =60;
+            }else{
+                Time =60;
+            }
+        }
+        var time = parseInt(Time, 10);
+        $("#curTime").html(time);
+        $("#ug_time").html(time+"s");
+        if (REBOOT){window.clearInterval(REBOOT);}
+        REBOOT = window.setInterval(function () {
+            time--;
+            $("#curTime").html(time);
+            $("#ug_time").html(time+"s");
+            if (time == 0) {
+                window.onbeforeunload = null;
+                window.clearInterval(REBOOT);
+                window.location="../../login.asp";
+            }
+        }, 1000)
+    }
+    //获取易操作基本信息
+    function GetEseayInfo(){
+        $(".Tdleft span").removeClass("radioOn");
+        $(".Tdright img").css("display","none");
+        $(".page-index").css("display","block");
+        $(".wan-set").css("display","none");
+        $(".wlan-set").css("display","none");
+        $(".ssid-list").css("display","none");
+        $(".login-set").css("display","none");
+        $("#list_prev").css("display","");
+        $("#wan_prev").css("display","");
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_easy_cfg',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                if((data.version).split('-')[4] == "D"){curVersion=true;}
+                if((data.version).split('-')[4] != "D"){$("#doubleWlan").hide();}
+                //if(data.password != ""){IsChangeMode();IsFirst=false;oldPass=data.password;window.getflag=setInterval(getLoginStatus,5000);}
+                //if(!(data.password=="" || data.operationmode.toString()=="client" || data.operationmode.toString()=="repeater")){$(".menu").show();}
+                //IsChangeMode();
+                IsFirst=false;
+                oldPass=data.password;
+                if(data.jumpflag!=1){
+                    $(".menu").show();
+                    IsChangeMode();
+                }
+
+               // window.getflag=setInterval(getLoginStatus,5000);
+
+
+                if(data.operationmode.toString()=="router"){
+                    //$(".wan-set").css("display","block");
+                    //$("#wan_prev").css("display","none");
+                    if(IsFirst){
+                        if(data.wanstatus.toString()=="unlink"){
+                            $(".wan-set").css("display","block");
+                            $(".page-index").css("display","none");
+                            if(getMobile()){
+                                $(".buttonbox").css("min-width","240px");
+                                $(".buttonbox a").css("width","110px");
+                                layer.open({
+                                    type: 1,
+                                    closeBtn: 0,
+                                    shift: 6,
+                                    offset:'150px',
+                                    area: ['280px', 'auto'],
+                                    title: false,
+                                    shade: [0.7, '#000'],
+                                    content: $('#ChangeInfo')
+                                });
+                            }else{
+                                layer.open({
+                                    type: 1,
+                                    closeBtn: 0,
+                                    shift: 6,
+                                    offset:'150px',
+                                    area: ['480px', 'auto'],
+                                    title: false,
+                                    shade: [0.7, '#000'],
+                                    content: $('#ChangeInfo')
+                                });
+                            }
+                        }else{
+                            $(".wan-set").css("display","block");
+                            $(".page-index").css("display","none");
+                            //$("#wan_prev").css("display","none");
+                            NowMode=1;
+
+                            Get_wan_info();
+                                Get_wanMode();
+                        }
+                        $("#changeTrue").click(function(){
+                            NowMode=3;
+                            $(".wan-set").css("display","none");
+                            $(".ssid-list").css("display","block");
+                            //$("#list_prev").css("display","none");
+                            layer.closeAll();
+                            getData_wificonnet();
+                            Get_wifilist();
+                        })
+                        $("#changeFalse").click(function(){
+                            //$("#wan_prev").css("display","none");
+                            NowMode=1;
+                            Get_wan_info();
+                            Get_wanMode();
+                            layer.closeAll();
+                        })
+                    }else{
+                        $(".wan-set").css("display","none");
+                        $(".page-index").css("display","block");
+                        //$("#wan_prev").css("display","none");
+                        $("#mode1").attr("checked",true);
+                        $("#mode1").parent("span").addClass("radioOn");
+                        $("#mode1").parent("span").parent("td").siblings("td").children("img").css("display","block");
+
+                    }}
+                if (data.operationmode.toString() == "WISP") {
+                    NowMode = 3;
+                    $(".wan-set").css("display", "none");
+                    $(".page-index").css("display", "block");
+                    $("#mode3").attr("checked", true);
+                    $("#mode3").parent("span").addClass("radioOn");
+                    $("#mode3").parent("span").parent("td").siblings("td").children("img").css("display", "block");
+                }
+                $("#toScan").click(function () {
+                    layer.closeAll();
+                    getData_wificonnet();
+                    Get_wifilist();
+                });
+                if(data.operationmode.toString()=="repeater"){
+                    NowMode=2;
+                    $(".wan-set").css("display","none");
+                    $(".page-index").css("display","block");
+                    $("#mode2").attr("checked",true);
+                    $("#mode2").parent("span").addClass("radioOn");
+                    $("#mode2").parent("span").parent("td").siblings("td").children("img").css("display","block");
+                    getData_wificonnet();
+                    Get_wifilist();
+                    layer.closeAll();
+                    $("#toScan").click(function () {
+                        layer.closeAll();
+                        getData_wificonnet();
+                        Get_wifilist();
+                    });
+                }
+
+                if(data.operationmode.toString()=="client"){
+                    NowMode=4;
+                    $(".wan-set").css("display","none");
+                    $(".page-index").css("display","block");
+                    $("#mode4").attr("checked",true);
+                    $("#mode4").parent("span").addClass("radioOn");
+                    $("#mode4").parent("span").parent("td").siblings("td").children("img").css("display","block");
+                }
+                if(data.operationmode.toString()=="bridge"){
+                    NowMode=5;
+                    $(".wan-set").css("display","none");
+                    $(".page-index").css("display","block");
+                    $("#mode5").attr("checked",true);
+                    $("#mode5").parent("span").addClass("radioOn");
+                    $("#mode5").parent("span").parent("td").siblings("td").children("img").css("display","block");
+                    $("#breadcrumb-mode").html(curlang.BridgeMode);
+                    $("#breadcrumb-msg").html(curlang.WIFISet);
+                }},
+            error:function(msg){}
+        })
+    }
+    //路由器学习获取wan信息
+    function Get_wanMode(){
+        set_restore=1;
+        layer.open({
+            type: 1,
+            closeBtn: 0, //不显示关闭按钮
+            shift: 3,
+            offset:'150px',
+            skin:'layui-layer-loading',
+            scrollbar: false,
+            title: false,
+            shade: [0.7, '#000'],
+            content: '<div style="margin:0 auto;width:90px;height:90px;background: url(/admin/js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(backgroundsize.min.htc);behavior: url(backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h5 style="color:#fff">'+curlang.WanScan+'</h5>'
+        });
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_wanmode_data',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                if(data.wanmode=="static"){
+                    $("#wan_type3").addClass("on");
+                    $("#wan_type3").siblings().removeClass("on");
+                    $("#wan_app3").css("display","block");
+                    $("#wan_app3").siblings().css("display","none");
+                }
+                else if(data.wanmode=="pppoe"){
+                    $("#wan_type1").addClass("on");
+                    $("#wan_type1").siblings().removeClass("on");
+                    $("#wan_app1").css("display","block");
+                    $("#wan_app1").siblings().css("display","none");
+                }
+                else{
+                    $("#wan_type2").addClass("on");
+                    $("#wan_type2").siblings().removeClass("on");
+                    $("#wan_app2").css("display","block");
+                    $("#wan_app2").siblings().css("display","none");
+                }
+                layer.closeAll();
+            },
+            error:function(msg){
+
+            }})
+        setTimeout(function(){set_restore=0;},8000);
+    }
+    //获取wan pppoe
+			function get_Mwan_pppoe_info(){
+				$.ajax({
+				type:"get",
+				url:"/goform/get_wan_pppoe_info",
+				dataType:"json",
+				success: function(msg){
+					if((typeof msg)=="object"){var data=msg;}
+				else{ var data=eval('('+msg+')');}
+					$("#pppoeUser").val(data.pppoename);
+					$("#pppoePass").val(data.pppoepsw);
+					$("#pppoeserver").val(data.server_name);
+					$("#Spppoe_mtu").val(data.mtu);
+				},
+				error: function(msg){		
+				}
+			})}
+			$("#wan_type1").click(function(){
+				get_Mwan_pppoe_info();
+			})
+    //获取后台wan配置信息
+    function Get_wan_info(){
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_wanset_info',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                if(data.wanmode=="static"){
+                    $("#wan_type3").addClass("on");
+                    $("#wan_type3").siblings().removeClass("on");
+                    $("#wan_app3").css("display","block");
+                    $("#wan_app3").siblings().css("display","none");
+                    $("#staticIp").val(data.wanip);
+                    $("#staticMask").val(data.wanmsk);
+                    $("#staticGw").val(data.wangw);
+                    $("#staticDNS").val(data.dns1);
+                    $("#Spppoe_mtu").val(data.mtu);
+                }
+                else if(data.wanmode=="pppoe"){
+                    $("#wan_type1").addClass("on");
+                    $("#wan_type1").siblings().removeClass("on");
+                    $("#wan_app1").css("display","block");
+                    $("#wan_app1").siblings().css("display","none");
+                    $("#pppoeUser").val(data.pppoename);
+                    $("#pppoePass").val(data.pppoepsw);
+                    $("#pppoeserver").val(data.server_name);
+                    $("#Spppoe_mtu").val(data.mtu);
+                }
+                else{
+                    $("#wan_type2").addClass("on");
+                    $("#wan_type2").siblings().removeClass("on");
+                    $("#wan_app2").css("display","block");
+                    $("#wan_app2").siblings().css("display","none");
+                    $("#Spppoe_mtu").val(data.mtu);
+                }
+            },
+            error:function(msg){
+
+            }})
+    }
+    //获取2.4gwifi信息
+    function Get_24gwifi_info(){
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_wifi_info',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                $("#floatWifiName").val(data.wlanssid);
+                $("#floatWifiPass").val(data.wlanpsw);
+            },
+            error:function(msg){
+
+            }})
+    }
+    //获取5gwifi信息
+    function Get_5gwifi_info(){
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_5wifi_info',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                $("#doubleWifiName").val(data.wlan5ssid);
+                $("#doubleWifiPass").val(data.wlan5psw);
+            },
+            error:function(msg){
+
+            }})
+    }
+    function getData_wificonnet(){
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_connetsta_cfg',
+            data:{"type":"setrepeaterinfo"},
+            dataType:"json",
+            success: function(data){
+                //Get_wifilist();
+                if(data==null||data==""){
+                    return;
+                }else{
+                    if((typeof data)=="object"){var msg=data;}
+                    else{var msg=eval('('+data+')'); }
+                    window.curmac=msg.mac;
+                }
+            },
+            error:function(data){}
+        })
+    }
+    function testMac(m1,m2){
+        var num1=testMac.arguments[0];
+        var num2=testMac.arguments[1];
+        if(num1.toUpperCase()!=num2.toUpperCase()){
+            return false;
+        }
+        return true;
+    }
+    //获取版本号浏览器 add by wgl 20170216 begin
+    function myBrowser(){
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+        if (isIE) {
+            var IE8 = IE9 = false;
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            IE8 = fIEVersion == 8.0;
+            IE9 = fIEVersion == 9.0;
+            if (IE8) {
+                return "IE8";
+            }
+            if (IE9) {
+                return "IE9";
+            }
+        }//isIE end
+    }
+    //add by wgl 20170216 end
+    //获取wifi列表
+    function Get_wifilist(){
+        layer.open({
+            type: 1,
+            closeBtn: 0, //不显示关闭按钮
+            shift: 3,
+            offset:'150px',
+            skin:'layui-layer-loading',
+            scrollbar: false,
+            title: false,
+            shade: [0.7, '#000'],
+            content: '<div style="margin:0 auto;width:90px;height:90px;background: url(/admin/js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(backgroundsize.min.htc);behavior: url(backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h5 style="color:#fff">'+curlang.WlanScan+'</h5>'
+        });
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_RepeaterScan_cfg',
+            dataType:"json",
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                if((typeof msg)=="object"){var data=msg;}
+                else{
+                    var data=eval('('+msg+')');
+                }
+                $(".wifirow").unbind();
+                $("#pagination li a").unbind();
+                $("#WifiList").children().remove();
+                $("#pagination").children().remove();
+                if(!data.list){
+                    return;
+                }
+                var buff="<tr class='wifihead'><td class='wifiCol lefttd'>"+curlang.No+"</td><td class='wifiCol midtd'>"+curlang.WlanName+"</td><td class='wifiCol righttd' style='min-width:42px'>"+curlang.SQ+"</td></tr>";
+                var linkbuff="";
+                var width=parseInt($(window).width());
+                var name;
+                for(var i=1;i<=data.list.length;i++){
+                    if(data.list[i-1].ssid=="" || data.list[i-1].bssid==""){
+                        continue;
+                    }
+                    if(testMac(window.curmac,data.list[i-1].bssid)){
+                        name=data.list[i-1].ssid;
+                        if(width<415 && width>=375){
+                            if(name.length>28){
+                                name=name.substr(0,27);
+                            }
+                        }
+                        if(width>320 && width<375)
+                        {
+                            if(name.length>24){
+                                name=name.substr(0,24);
+                            }
+                        }
+                        if(width<=320){
+                            if(name.length>21){
+                                name=name.substr(0,21);
+                            }
+                        }
+                        if(data.list[i-1].security.split("/")[0]=="NONE"){
+                            if(data.list[i-1].signal<45){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0;' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal1.png'/></td></tr>";
+                            }else if(data.list[i-1].signal<65 && data.list[i-1].signal>=45){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0;' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal2.png'/></td></tr>";
+                            }else if(data.list[i-1].signal<85 && data.list[i-1].signal>=65){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal3.png'/></td></tr>";
+                            }else{
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal4.png'/></td></tr>";
+                            }
+                        }else{
+                            if(data.list[i-1].signal<45){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key1.png'/></td></tr>";
+                            }else if(data.list[i-1].signal<65 && data.list[i-1].signal>=45){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key2.png'/></td></tr>";
+                            }else if(data.list[i-1].signal<85 && data.list[i-1].signal>=65){
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key3.png'/></td></tr>";
+                            }else{
+                                linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'><img style='width:20px;padding:0' src='/admin/images/gou.png'/></td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key4.png'/></td></tr>";
+                            }
+                        }
+                        continue;
+                    }
+                    name=data.list[i-1].ssid;
+                    if(width<415 && width>=375){
+                        if(name.length>28){
+                            name=name.substr(0,27);
+                        }
+                    }
+                    if(width>320 && width<375){
+                        if(name.length>24){
+                            name=name.substr(0,24);
+                        }
+                    }
+                    if(width<=320){
+                        if(name.length>21){
+                            name=name.substr(0,21);
+                        }
+                    }
+                    if(data.list[i-1].security.split("/")[0]=="NONE"){
+                        if(data.list[i-1].signal<23){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal1.png'/></td></tr>";
+                        }else if(data.list[i-1].signal<52 && data.list[i-1].signal>=23){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal2.png'/></td></tr>";
+                        }else if(data.list[i-1].signal<89 && data.list[i-1].signal>=52){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal3.png'/></td></tr>";
+                        }else{
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/signal4.png'/></td></tr>";
+                        }
+                    }else{
+                        if(data.list[i-1].signal<23){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key1.png'/></td></tr>";
+                        }else if(data.list[i-1].signal<52 && data.list[i-1].signal>=23){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key2.png'/></td></tr>";
+                        }else if(data.list[i-1].signal<89 && data.list[i-1].signal>=52){
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key3.png'/></td></tr>";
+                        }else{
+                            buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:15%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:65%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='/admin/images/key4.png'/></td></tr>";
+                        }
+                    }
+                }
+                $("#WifiList").html(buff);
+                $("#wlan_link").click(function(){
+                    if($("#wlanPassRow").css("display")!="none"){
+                        var pass=CheckSSIDKey($("#wlanPass").val());
+                        if(!pass){return;}
+                    }
+                    layer.closeAll();
+                    if(NowMode==3){
+                        $(".ssid-list").css("display","none");
+                        $(".wan-set").css("display","block");
+                        $("#wlan_prev").css("display","inline-block");
+                        $("#breadcrumb-msg").html(curlang.WanSet);
+                        Get_wan_info();
+                    }
+                    if(NowMode==2){
+                        $(".ssid-list").css("display","none");
+                        $(".wlan-set").css("display","block");
+                        $("#wlan_prev").css("display","inline-block");
+                        $("#floatWlan").css("display","block");
+                        $("#breadcrumb-msg").html(curlang.WIFISet);
+                        Get_24gwifi_info();
+                        if(curVersion){
+                            $("#doubleWlan").css("display","block");
+                            Get_5gwifi_info();
+                        }
+                    }
+                    if(NowMode==4){
+                        if(IsFirst){
+                            if(curVersion){
+                                $(".ssid-list").css("display","none");
+                                $(".wlan-set").css("display","block");
+                                $("#wlan_prev").css("display","inline-block");
+                                $("#floatWlan").css("display","none");
+                                $("#doubleWlan").css("display","block");
+                                $("#breadcrumb-msg").html(curlang.WIFISet);
+                                Get_5gwifi_info();
+                            }else{
+                                $(".ssid-list").css("display","none");
+                                $(".login-set").css("display","block");
+                                $("#breadcrumb-msg").html(curlang.Admin);
+                            }
+
+                        }else{
+                            if(curVersion){
+                                $(".ssid-list").css("display","none");
+                                $(".wlan-set").css("display","block");
+                                $("#wlan_prev").css("display","inline-block");
+                                $("#floatWlan").css("display","none");
+                                $("#doubleWlan").css("display","block");
+                                $("#breadcrumb-msg").html(curlang.WIFISet);
+                                Get_5gwifi_info();
+                            }else{
+                                setRouter();
+                            }
+                        }
+                    }
+                    $("#wlanInfo").css("display", "none");
+                    $(".weui_mask").css("display", "none");
+                })
+                $("#wlan_cancel").click(function () {
+                    layer.closeAll();
+                })
+                var strbuf="";
+                for(var j=1;j<=Math.ceil(data.list.length/7);j++){
+                    strbuf=strbuf+"<li><a style='cursor:pointer;' id='page"+j+"'>"+j+"</a></li>";
+                }
+                $("#pagination").html(strbuf);
+                $("#pagination").children(":first").addClass("active");
+                $("#pagination li a").click(function(){
+                    $(this).parent().addClass("active").siblings().removeClass("active");
+                    var num=$(this).attr('id').replace("page","");
+                    $(".wifirow").css("display","none");
+                    for(var j=7*num-6;j<=7*num;j++){
+                        $("#wlan"+j).css("display","");
+                    }
+                    $("#wlan0").css("display","");
+                })
+                $("#page1").trigger("click");
+                $("#WifiList .wifihead").after(linkbuff);
+                $(".wifirow").click(function(){
+                    var number=$(this).attr('id').replace("wlan","");
+                    $("#wifiFlag").val(number);
+                    if($("#security"+number).val()=="NONE"){
+                        $("#wlanPassRow").css("display","none");
+                    }else{
+                        $("#wlanPassRow").css("display","block");
+                    }
+                    $("#wlanSSID").val($(this).find("td").eq(1).text());
+                    $("#wlanPass").val("");
+                    $("#wlanPass").focus();
+                    if(NowMode===3){
+                        $("#mySmallModalLabel").html(curlang.WISP_Setup);
+                    }else if(NowMode===2){
+                        $("#mySmallModalLabel").html(curlang.Relay_Setup);
+                    }else{
+                        $("#mySmallModalLabel").html(curlang.Client_Setup);
+                    }
+                    if(getMobile()){
+                        layer.open({
+                            type: 1,
+                            closeBtn: 0,
+                            shift: 6,
+                            offset:'150px',
+                            area: ['300px', 'auto'],
+                            title: false,
+                            shade: [0.7, '#000'],
+                            content: $('#wlanInfo')
+                        });
+                    }else{
+                        if (!(myBrowser() == "IE8") && !(myBrowser() == "IE9"))
+                            console.log(getMobile());
+                        layer.open({
+                            type: 1,
+                            closeBtn: 0,
+                            shift: 6,
+                            offset:'150px',
+                            area: ['300px', 'auto'],
+                            title: false,
+                            shade: [0.7, '#000'],
+                            content: $('#wlanInfo')
+                        });
+                    }
+                    if(IsFirst || (curVersion&&(NowMode==4))){              
+						 $("#wlan_link").html(curlang.Connect);
+                    }else{
+                         $("#wlan_link").html(curlang.Apply);
+                    }
+                })
+                layer.closeAll();
+            },
+            error:function(msg){}
+        })
+    }
+    //提交数据包装
+    function Datapackage(){
+			var numFlag=$("#wifiFlag").val();			
+			var buff;
+			if(NowMode==1){
+				buff={"type":"seteasycfg","opermode":"router","wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if($('#wan_type1').hasClass('on')){
+					buff=$.extend({},buff,{"wanmode":"pppoe","pppoename":$("#pppoeUser").val(),"pppoepsw":$("#pppoePass").val(),"pppoeserver":$("#pppoeServer").val(),"mtu":$("#Spppoe_mtu").val()});
+				}
+				if($('#wan_type2').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"dhcp"});
+				}
+				if($('#wan_type3').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"static","wanip":$("#staticIp").val(),"wanmsk":$("#staticMask").val(),"wangw":$("#staticGw").val(),"dns1":$("#staticDNS").val()});
+				}
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}			
+			}
+			if(NowMode==2){
+				buff={"type":"seteasycfg","opermode":"repeater","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+                }else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}	
+			}
+			if(NowMode==3){
+				buff={"type":"seteasycfg","opermode":"WISP","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if($('#wan_type1').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"pppoe","pppoename":$("#pppoeUser").val(),"pppoepsw":$("#pppoePass").val(),"pppoeserver":$("#pppoeServer").val(),"mtu":$("#Spppoe_mtu").val()});
+				}
+				if($('#wan_type2').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"dhcp"});
+				}
+				if($('#wan_type3').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"static","wanip":$("#staticIp").val(),"wanmsk":$("#staticMask").val(),"wangw":$("#staticGw").val(),"dns1":$("#staticDNS").val()});
+				}
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}
+
+			}
+			if(NowMode==4){
+				buff={"type":"seteasycfg","opermode":"client","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}				
+			}
+			if(NowMode==5){
+				buff={"type":"seteasycfg","opermode":"bridge","wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}					
+			}
+			return 	buff;
+		}
+    //设置路由器
+    function setRouter(){
+        //showanimation(5);
+        showanimation(6);
+        showanimation(4);
+        set_restore=1;
+        var data=Datapackage();
+        $.ajax({
+            type: 'post',
+            url: '/goform/set_EasyCfg',
+            dataType:"json",
+            data:data,
+            success: function(msg){
+                if(msg=="" || msg=="undefine"){
+                    return;
+                }
+                //showMsg(msg);
+            },
+            error:function(msg){}
+        })
+    }
+
+    //解析ajax请求信息
+    function showMsg(obj){
+        if(obj==null||obj==""||(!obj)){
+            return;
+        }else{
+            if((typeof obj)=="object"){var msg=obj;}
+            else{var msg=JSON.parse(obj); }
+            if(msg.result==0){
+                showanimation(4);
+            }else{
+                showanimation(3);
+            }
+        }
+    }
+    function onform_MChannel(){
+        var data;
+        set_restore=1;
+        if(ChannelMode){
+            var URL='/goform/set_adv24ghannel';
+            data='{"type":"set2channel","channel":'+$("#FloatChannel").val()+',"countrycode":"'+$("#CountryCodeFloat").val().toString()+'","htbw":'+$("#band_mode").val()+'}';
+        }else{
+            var URL='/goform/set_adv5ghannel';
+            data='{"type":"set5channel","channel":'+$("#DoubleChannel").val()+',"countrycode":"'+$("#CountryCodeDouble").val().toString()+'","htbw":'+$("#band_5mode").val()+'}';
+        }
+        var buff=eval('('+data+')');
+        //sleep(1);
+        //showanimation(1,'0',0);
+        $.ajax({
+            type: 'get',
+            url: URL,
+            data: buff,
+            success: function(msg){
+                //showMessig(msg,0);
+                //sleep(0);
+                getData_Channel_info();
+                showanimation(2,msg,0);
+            },
+            error: function(msg){
+                set_restore=0;
+            }
+        });
+        showanimation(1)
+        setTimeout(function(){showanimation(5)},6000);
+    }
+    setInterval(getLoginStatus,8000);
+    //状态查询
+    function getweblink(){
+        function getlinkmsg(){
+            $.ajax({
+                type: 'get',
+                url: '/goform/get_lang_cfg',
+                dataType:"json",
+                success: function(msg) {
+                    window.location="../../login.asp";
+                },
+                error:function(msg)
+                {
+                }
+            })
+        }
+        setInterval(getlinkmsg,2000);
+    }
+    function getLoginStatus() {
+        if (set_restore == 0) {
+            $.ajax({
+                type: 'get',
+                url: '/goform/webheartbeat',
+                timeout: 5000,
+                dataType: "json",
+                success: function (msg) {
+                    if ((typeof msg) == "object") {
+                        var data = msg;
+                    }
+                    else {
+                        var data = eval('(' + msg + ')');
+                    }
+                    if (data.result == 8) {
+                        window.location = "../../login.asp";
+                    } else {
+                    }
+                },
+                error: function (msg) {
+                    getweblink();
+                }
+            })
+        }
+    }
+//    $(function () {
+//        // $('input, textarea').placeholder();
+        // setTimeout(function(){getPage();},100)
+//        // GetEseayInfo();
+//    });
+</script>
+
+</body>
+</html>

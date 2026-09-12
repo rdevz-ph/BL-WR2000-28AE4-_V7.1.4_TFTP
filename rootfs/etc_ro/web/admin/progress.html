@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Pragma" contect="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title></title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #message{text-align: center;color:#fff;padding: 15px 0 6px;}
+        #message img{width:90px;height: 90px;}
+    </style>
+</head>
+<body style="background: #3d8af5 url('images/bd_bg.png') repeat scroll 0% 0%;">
+<div style="display:block;" id="message">
+    <div id="msg_type" class="success">
+        <img src="js/layer/skin/default/loading-2.gif" />
+    </div>
+    <div id="msg" class="word" style="padding: 8px 0;"></div>
+    <div id="ug_time" style="color:#7eda3d;text-align: center;font-size: 15px;"></div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script>
+    var lang={
+        'en':{
+            'B_Link':'REDLINE Router',
+            'upgrade_reboot':"Upgrade success, rebooting, please waiting..."
+        },
+		'tr':{
+            'B_Link':'REDLINE Router',
+            'upgrade_reboot':"Güncelleme başarılı, Yendien yükleniyor, Lütfen bekleyiniz"
+        },
+		'ba':{
+            'B_Link':'REDLINE Router',
+            'upgrade_reboot':"Nadogradnja uspjesna, ponovno podizanje sistema, molimo pricekajte..."
+        },
+		'de':{
+            'B_Link': "REDLINE Router",
+            'upgrade_reboot':"Upgrade erfolgreich, Neustart, bitte warten ..."
+        },
+		'ar':{
+            'B_Link': "REDLINE Router",
+            'upgrade_reboot':"نجحت الترقية, يقوم بإعادة التشغيل, يرجى الإنتظار"
+        },
+		'fr':{
+            'B_Link': "REDLINE Router",
+            'upgrade_reboot':"Mise à niveau réussie, redémarrage, veuillez patienter …"
+        }
+    }
+    var languagetype,curlang;
+    function getLangs(){
+	$.ajax({
+		type: 'get',
+		url: '/goform/http_get_weblanguage_info',
+		data: {},
+		dataType:"json", 
+		success: function(data) {
+			if((typeof data)=='object'){
+				var msg=data;
+			}else{
+				var msg=eval('('+data+')');
+            }
+            languagetype = msg.languagetype;
+            if(languagetype=='en'){curlang=lang.en;}
+		else if(languagetype=='ba'){curlang=lang.ba;}
+		else if(languagetype=='de'){curlang=lang.de;}
+		else if(languagetype=='tr'){curlang=lang.tr;}
+		else if(languagetype=='fr'){curlang=lang.fr;}
+        else{curlang=lang.ar;}
+        getPage()
+		},
+		error:function(data){
+		}
+	})
+}
+getLangs();
+    var getPage=function(){
+        document.title=curlang.B_Link;
+        $("#msg").html(curlang.upgrade_reboot);
+    }
+        window.animation=layer.open({
+            offset:'30%',
+            area: '240px',
+            type: 1,
+            closeBtn: 0, //不显示关闭按钮
+            shift: 3,
+            skin:'layui-layer-loading',
+            scrollbar: false,
+            title: false,
+            shade: [0.7, '#000'],
+            content:$("#message")
+        });
+    var REBOOT;
+    function lb_restart(type) {
+        var Time;
+        if (type == "update") {
+            // Time =100;
+			Time =70;
+        }else{
+            if(IsDouble){
+                Time =75;
+            }else{
+                Time =70;
+            }
+        }
+        var time = parseInt(Time, 10);
+        $("#ug_time").html(time+"s");
+        if (REBOOT){window.clearInterval(REBOOT);}
+        REBOOT = window.setInterval(function () {
+            time--;
+            $("#ug_time").html(time+"s");
+            if (time == 0) {
+                window.onbeforeunload = null;
+                window.clearInterval(REBOOT);
+		window.location="../login.asp";
+               // if(type=="reboot"||type=="update")
+               // {window.location="../login.asp";}else{
+               //     window.location="setup.html";
+              //  }
+            }
+        }, 1000)
+    }
+    lb_restart("update");
+</script>
+</body>
+</html>

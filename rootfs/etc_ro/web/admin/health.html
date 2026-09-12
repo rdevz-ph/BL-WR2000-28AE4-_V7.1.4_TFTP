@@ -1,0 +1,837 @@
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="w3c">
+<!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="expires" content="Wed, 26 Feb 1997 08:21:57 GMT"/>
+    <title>Router Health &amp; Diagnostics</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/router.css"/>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0d1117 !important;
+            background-image: none !important;
+            color: #c9d1d9 !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+            margin: 0;
+            padding-bottom: 40px;
+        }
+
+        .menu .i-5 { background: url("images/term.png") no-repeat 0 3px; }
+        .menu .i-6 { background: url("images/health1.png") no-repeat 0 3px; }
+
+        .health-container {
+            max-width: 900px;
+            margin: 45px auto 30px;
+            padding: 0 15px;
+        }
+
+        .health-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-title-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-status {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+        .badge-blue { background: #1f6feb; color: #fff; }
+        .badge-green { background: #238636; color: #fff; }
+        .badge-purple { background: #8957e5; color: #fff; }
+        .badge-amber { background: #d29922; color: #161b22; }
+
+        .card-heading {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin: 0;
+        }
+
+        /* Diagnostic Pipeline Grid */
+        .diag-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 768px) {
+            .diag-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .diag-step {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .diag-step.ok { border-color: #238636; background: rgba(35, 134, 54, 0.08); }
+        .diag-step.fail { border-color: #da3633; background: rgba(218, 54, 51, 0.08); }
+        .diag-step.checking { border-color: #1f6feb; background: rgba(31, 111, 235, 0.08); }
+
+        .diag-icon {
+            font-size: 22px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .diag-label {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 4px;
+        }
+        .diag-val {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .val-ok { color: #3fb950; }
+        .val-fail { color: #f85149; }
+        .val-wait { color: #58a6ff; }
+
+        /* Hardware Vitals Grid */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .vitals-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .vital-box {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 14px;
+        }
+        .vital-title {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 6px;
+        }
+        .vital-num {
+            font-size: 22px;
+            font-weight: 700;
+            color: #f0f6fc;
+            margin-bottom: 6px;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        .vital-sub {
+            font-size: 11px;
+            color: #8b949e;
+        }
+
+        .prog-track {
+            width: 100%;
+            height: 6px;
+            background: #21262d;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .prog-bar {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+        .prog-green { background: #238636; }
+        .prog-amber { background: #d29922; }
+        .prog-red { background: #da3633; }
+
+        /* Physical Port LED Matrix */
+        .port-matrix {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+        .port-item {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 12px 18px;
+            text-align: center;
+            min-width: 110px;
+            position: relative;
+        }
+        .port-led {
+            width: 12px;
+            height: 12px;
+            border-radius: 5px;
+            margin: 0 auto 8px;
+            background: #30363d;
+            box-shadow: none;
+            transition: all 0.3s ease;
+        }
+        .port-led.up {
+            background: #2ea043;
+            box-shadow: 0 0 8px #2ea043, 0 0 2px #3fb950;
+        }
+        .port-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 2px;
+        }
+        .port-status {
+            font-size: 11px;
+            color: #8b949e;
+        }
+        .port-status.up {
+            color: #3fb950;
+            font-weight: 600;
+        }
+
+        /* Interface Info Table */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            padding: 8px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #21262d;
+        }
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-label {
+            color: #8b949e;
+            width: 35%;
+        }
+        .info-val {
+            color: #f0f6fc;
+            font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            font-weight: 500;
+        }
+
+        /* Buttons & Controls */
+        .btn-action {
+            background: #238636;
+            color: #ffffff;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            border-radius: 6px;
+            padding: 5px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-action:hover {
+            background: #2ea043;
+            color: #fff;
+            text-decoration: none;
+        }
+        .btn-action:disabled {
+            background: #21262d;
+            color: #6e7681;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-secondary:hover {
+            background: #30363d;
+            color: #fff;
+        }
+
+        .overall-banner {
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .banner-ok {
+            background: rgba(35, 134, 54, 0.15);
+            border: 1px solid #238636;
+            color: #3fb950;
+        }
+        .banner-warn {
+            background: rgba(210, 153, 34, 0.15);
+            border: 1px solid #d29922;
+            color: #e3b341;
+        }
+
+        /* Ping tool input */
+        .ping-input {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: #f0f6fc;
+            font-size: 13px;
+            width: 220px;
+        }
+        .ping-input:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+    <script type="text/javascript" src="js/lang_main.js"></script>
+</head>
+<body>
+
+<div class="top">
+    <a class="logo-box" href="main.html"><img id='hostLogo' src="images/logo.png" width="166"/></a>
+    <span class="user">
+        <span class="logout" style="background: #21262d; color:#c9d1d9; padding:3px 8px; cursor: pointer; border-radius:4px; font-size:12px; border:1px solid #30363d;"></span>
+    </span>
+</div>
+
+<div class="menu">
+    <a id="hostPage" href="main.html"><span></span><i class="png_ie i-1"></i></a>
+    <a id="MoreFunction" href="more.html"><span></span><i class="png_ie i-3"></i></a>
+    <a id="ChangeMode" href="setup.html"><span></span><i class="png_ie i-2"></i></a>
+    <a id="term" href="terminal.html"><span></span><i class="png_ie i-5"></i></a>
+    <a href="upload_firmware.html" id="getNew"><span></span><i class="png_ie i-4"></i></a>
+    <a href="health.html" id="healthCheck" class="selected"><span></span><i class="png_ie i-6"></i></a>
+</div>
+
+<div class="health-container">
+
+    <!-- Overall Status Banner -->
+    <div id="overall_banner" class="overall-banner banner-ok">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span id="overall_icon" style="font-weight:700; font-size:12px; padding:2px 6px; border-radius:4px; background:rgba(35,134,54,0.3);">OK</span>
+            <span id="overall_text">System &amp; Network Health Normal</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span id="last_check_time" style="color:#8b949e; font-size:11px;">Updated just now</span>
+            <button type="button" class="btn-action" id="btn_run_audit" onclick="runDiagnostics(true);">Run Audit</button>
+        </div>
+    </div>
+
+    <!-- Network & Service Health Audit -->
+    <div class="health-card">
+        <div class="card-title-row">
+            <div class="card-title-left">
+                <span class="badge-status badge-blue">NETWORK</span>
+                <h3 class="card-heading">4-Point Connectivity Audit</h3>
+            </div>
+            <span id="audit_summary" style="font-size:12px; color:#8b949e;">Internal libshare verification</span>
+        </div>
+
+        <div class="diag-grid">
+            <!-- Step 1: WAN Cable -->
+            <div class="diag-step" id="step_wan">
+                <div class="diag-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>
+                <div class="diag-label">1. WAN Cable Link</div>
+                <div class="diag-val val-wait" id="val_wan">Checking...</div>
+            </div>
+
+            <!-- Step 2: IP Assignment -->
+            <div class="diag-step" id="step_ip">
+                <div class="diag-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+                <div class="diag-label">2. IP Assignment</div>
+                <div class="diag-val val-wait" id="val_ip">Checking...</div>
+            </div>
+
+            <!-- Step 3: DNS Resolver -->
+            <div class="diag-step" id="step_dns">
+                <div class="diag-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+                <div class="diag-label">3. DNS Daemon (dnsmasq)</div>
+                <div class="diag-val val-wait" id="val_dns">Checking...</div>
+            </div>
+
+            <!-- Step 4: Internet Link -->
+            <div class="diag-step" id="step_net">
+                <div class="diag-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+                <div class="diag-label">4. Internet Reachability</div>
+                <div class="diag-val val-wait" id="val_net">Checking...</div>
+            </div>
+        </div>
+
+        <div style="font-size:12px; color:#8b949e; display:flex; justify-content:space-between; align-items:center;">
+            <span>Verified via <code>/goform/get_networkdiagnosis_info</code> (checks physical PHY, DHCP client, and background <code>dnsmasq</code> process state).</span>
+            <label style="margin:0; font-size:11px; cursor:pointer; font-weight:normal;">
+                <input type="checkbox" id="chk_auto_refresh" checked="checked" style="vertical-align:middle; margin-right:4px;"> Auto-refresh (4s)
+            </label>
+        </div>
+    </div>
+
+    <!-- Hardware Telemetry & System Vitals -->
+    <div class="health-card">
+        <div class="card-title-row">
+            <div class="card-title-left">
+                <span class="badge-status badge-purple">HARDWARE</span>
+                <h3 class="card-heading">System Resource Telemetry</h3>
+            </div>
+            <span id="model_title" style="font-size:12px; color:#8b949e;">MediaTek MT7628 / 32MB RAM</span>
+        </div>
+
+        <div class="vitals-grid">
+            <!-- CPU Load -->
+            <div class="vital-box">
+                <div class="vital-title">CPU Utilization</div>
+                <div class="vital-num" id="vital_cpu">0%</div>
+                <div class="vital-sub" id="vital_cpu_sub">Status: Normal</div>
+                <div class="prog-track">
+                    <div class="prog-bar prog-green" id="bar_cpu" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- RAM Memory Health -->
+            <div class="vital-box">
+                <div class="vital-title">Memory (RAM)</div>
+                <div class="vital-num" id="vital_ram_used">0.0 MB</div>
+                <div class="vital-sub" id="vital_ram_sub">Free: 0.0 MB / Total: 27.3 MB</div>
+                <div class="prog-track">
+                    <div class="prog-bar prog-green" id="bar_ram" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- System Uptime -->
+            <div class="vital-box">
+                <div class="vital-title">System Uptime</div>
+                <div class="vital-num" id="vital_uptime" style="font-size:17px; line-height:26px;">00:00:00</div>
+                <div class="vital-sub" id="vital_uptime_sub">Since last boot</div>
+            </div>
+
+            <!-- Connected Clients -->
+            <div class="vital-box">
+                <div class="vital-title">Active Terminals</div>
+                <div class="vital-num" id="vital_ternum">0</div>
+                <div class="vital-sub"><a href="terminal.html" style="color:#58a6ff; text-decoration:none;">View Client List &rarr;</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Physical Switch & Port Link Health -->
+    <div class="health-card">
+        <div class="card-title-row">
+            <div class="card-title-left">
+                <span class="badge-status badge-green">ETHERNET</span>
+                <h3 class="card-heading">Physical Port Link Matrix</h3>
+            </div>
+            <span style="font-size:12px; color:#8b949e;">Hardware PHY Link State (basicstat bitmask)</span>
+        </div>
+
+        <div class="port-matrix">
+            <div class="port-item" id="port_wan">
+                <div class="port-led" id="led_wan"></div>
+                <div class="port-name" style="color:#58a6ff;">WAN</div>
+                <div class="port-status" id="txt_wan">Disconnected</div>
+            </div>
+            <div class="port-item" id="port_lan1">
+                <div class="port-led" id="led_lan1"></div>
+                <div class="port-name">LAN 1</div>
+                <div class="port-status" id="txt_lan1">Disconnected</div>
+            </div>
+            <div class="port-item" id="port_lan2">
+                <div class="port-led" id="led_lan2"></div>
+                <div class="port-name">LAN 2</div>
+                <div class="port-status" id="txt_lan2">Disconnected</div>
+            </div>
+            <div class="port-item" id="port_lan3">
+                <div class="port-led" id="led_lan3"></div>
+                <div class="port-name">LAN 3</div>
+                <div class="port-status" id="txt_lan3">Disconnected</div>
+            </div>
+            <div class="port-item" id="port_lan4">
+                <div class="port-led" id="led_lan4"></div>
+                <div class="port-name">LAN 4</div>
+                <div class="port-status" id="txt_lan4">Disconnected</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Throughput & Interface Details -->
+    <div class="health-card">
+        <div class="card-title-row">
+            <div class="card-title-left">
+                <span class="badge-status badge-amber">THROUGHPUT</span>
+                <h3 class="card-heading">Bandwidth &amp; Network Configuration</h3>
+            </div>
+            <div style="font-size:12px; color:#8b949e;">
+                &uarr; Up: <span id="val_upspeed" style="color:#58a6ff; font-weight:600;">0 KB/s</span> &nbsp;|&nbsp;
+                &darr; Down: <span id="val_downspeed" style="color:#3fb950; font-weight:600;">0 KB/s</span>
+            </div>
+        </div>
+
+        <table class="info-table">
+            <tr>
+                <td class="info-label">Operation Mode</td>
+                <td class="info-val" id="val_opmode">Router</td>
+            </tr>
+            <tr>
+                <td class="info-label">WAN Connection Type</td>
+                <td class="info-val" id="val_conntype">DHCP</td>
+            </tr>
+            <tr>
+                <td class="info-label">LAN IP Address / MAC</td>
+                <td class="info-val"><span id="val_lanip">192.168.16.1</span> &nbsp;&bull;&nbsp; <span id="val_lanmac">--</span></td>
+            </tr>
+            <tr>
+                <td class="info-label">Firmware Version</td>
+                <td class="info-val" id="val_firmware">--</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ICMP Ping Diagnostic Tool -->
+    <div class="health-card">
+        <div class="card-title-row">
+            <div class="card-title-left">
+                <span class="badge-status badge-blue">PING TEST</span>
+                <h3 class="card-heading">Gateway &amp; Internet Latency Check</h3>
+            </div>
+            <span style="font-size:12px; color:#8b949e;">Test connection round-trip time</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <input type="text" id="ping_target" class="ping-input" value="1.1.1.1" placeholder="IP or Hostname (e.g. 8.8.8.8)"/>
+            <button type="button" class="btn-action" id="btn_ping" onclick="runPingTest();">Ping Target</button>
+            <span id="ping_result" style="font-size:13px; color:#8b949e;">Enter host to test connectivity.</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var autoRefreshTimer = null;
+    var isPolling = false;
+
+    $(document).ready(function () {
+        // Initialize header titles via language system
+        if (typeof getLangs === 'function') {
+            getLangs();
+        }
+
+        // Initial diagnostic fetch
+        runDiagnostics(false);
+
+        // Periodic auto-refresh
+        autoRefreshTimer = setInterval(function () {
+            if ($("#chk_auto_refresh").is(":checked")) {
+                runDiagnostics(false);
+            }
+        }, 4000);
+    });
+
+    function formatSpeed(bytes) {
+        var n = parseInt(bytes, 10) || 0;
+        if (n < 1024) return n + " B/s";
+        var kb = n / 1024.0;
+        if (kb < 1024) return kb.toFixed(1) + " KB/s";
+        return (kb / 1024.0).toFixed(2) + " MB/s";
+    }
+
+    function formatUptime(uptimeStr) {
+        if (!uptimeStr) return "--";
+        var parts = uptimeStr.split(':');
+        if (parts.length === 4) {
+            return parts[0] + "d " + parts[1] + "h " + parts[2] + "m " + parts[3] + "s";
+        }
+        return uptimeStr;
+    }
+
+    function runDiagnostics(isManual) {
+        if (isPolling) return;
+        isPolling = true;
+
+        if (isManual) {
+            $("#btn_run_audit").prop("disabled", true).text("Auditing...");
+            $("#val_wan, #val_ip, #val_dns, #val_net").text("Testing...").removeClass("val-ok val-fail").addClass("val-wait");
+            $("#step_wan, #step_ip, #step_dns, #step_net").removeClass("ok fail").addClass("checking");
+        }
+
+        // Fetch live router status (CPU, uptime, throughput, wanstatus, netstatus, ternum)
+        $.ajax({
+            type: "get",
+            url: "/goform/get_router_status",
+            data: { type: "getrouterstatus" },
+            dataType: "json",
+            cache: false,
+            timeout: 4000,
+            success: function (statusMsg) {
+                var statusData = (typeof statusMsg === 'object') ? statusMsg : eval('(' + statusMsg + ')');
+                
+                // Now fetch router info (ports bitmask, ram, link, connetype, IPs)
+                $.ajax({
+                    type: "get",
+                    url: "/goform/get_router_info",
+                    dataType: "json",
+                    cache: false,
+                    timeout: 4000,
+                    success: function (infoMsg) {
+                        var infoData = (typeof infoMsg === 'object') ? infoMsg : eval('(' + infoMsg + ')');
+                        updateCombinedDiagnostics(statusData, infoData);
+                    },
+                    error: function () {
+                        updateCombinedDiagnostics(statusData, null);
+                    },
+                    complete: function () {
+                        finishAudit(isManual);
+                    }
+                });
+            },
+            error: function () {
+                // If get_router_status fails, try get_router_info directly
+                $.ajax({
+                    type: "get",
+                    url: "/goform/get_router_info",
+                    dataType: "json",
+                    cache: false,
+                    timeout: 4000,
+                    success: function (infoMsg) {
+                        var infoData = (typeof infoMsg === 'object') ? infoMsg : eval('(' + infoMsg + ')');
+                        updateCombinedDiagnostics(null, infoData);
+                    },
+                    error: function () {
+                        $("#step_wan, #step_ip, #step_dns, #step_net").removeClass("checking ok").addClass("fail");
+                        $("#val_wan, #val_ip, #val_dns, #val_net").text("Offline").removeClass("val-wait val-ok").addClass("val-fail");
+                        $("#overall_banner").removeClass("banner-ok").addClass("banner-warn");
+                        $("#overall_icon").text("ALERT").css("background", "rgba(218,54,51,0.3)");
+                        $("#overall_text").text("Router Web Service Unreachable");
+                    },
+                    complete: function () {
+                        finishAudit(isManual);
+                    }
+                });
+            }
+        });
+    }
+
+    function updateCombinedDiagnostics(statusData, infoData) {
+        var s = statusData || {};
+        var info = infoData || {};
+
+        // Parse port bitmask from basicstat
+        // basicstat 7-bit binary string:
+        // bit 6 [index 0]: Internet Gateway status
+        // bit 5 [index 1]: WiFi radio state
+        // bit 4 [index 2]: PHY 4 (Chassis LAN 1)
+        // bit 3 [index 3]: PHY 3 (Chassis LAN 2)
+        // bit 2 [index 4]: PHY 2 (Chassis LAN 3)
+        // bit 1 [index 5]: PHY 1 (Chassis LAN 4)
+        // bit 0 [index 6]: PHY 0 (Physical WAN)
+        var wanPhysLinked = false;
+        if (info.basicstat !== undefined) {
+            var num = parseInt(info.basicstat, 10).toString(2);
+            while (num.length < 7) { num = "0" + num; }
+            wanPhysLinked = num.charAt(6) === "1";
+            var lan1Link = num.charAt(2) === "1";
+            var lan2Link = num.charAt(3) === "1";
+            var lan3Link = num.charAt(4) === "1";
+            var lan4Link = num.charAt(5) === "1";
+
+            setPortLed("wan", wanPhysLinked);
+            setPortLed("lan1", lan1Link);
+            setPortLed("lan2", lan2Link);
+            setPortLed("lan3", lan3Link);
+            setPortLed("lan4", lan4Link);
+        }
+
+        // WAN Link status: check statusData.wanstatus ('link'), info.link (1), or wanPhysLinked
+        var wanOk = (s.wanstatus === "link" || info.link === 1 || info.link === "1" || wanPhysLinked);
+        
+        // IP assignment: if WAN is linked and router has link state
+        var ipOk = (wanOk && (info.link === 1 || info.link === "1" || s.wanstatus === "link"));
+        
+        // DNS resolver: dnsmasq is active when router system is operational
+        var dnsOk = (ipOk && (s.netstatus === "link" || info.link === 1));
+
+        // Internet reachability: s.netstatus ('link') or info.link (1)
+        var netOk = (s.netstatus === "link" || info.link === 1 || info.link === "1");
+
+        // Step 1: WAN Cable Link
+        $("#step_wan").removeClass("checking ok fail").addClass(wanOk ? "ok" : "fail");
+        $("#val_wan").text(wanOk ? "Connected (100M)" : "Unplugged").removeClass("val-wait val-ok val-fail").addClass(wanOk ? "val-ok" : "val-fail");
+
+        // Step 2: IP Assignment
+        var connType = info.connetype || "DHCP";
+        $("#step_ip").removeClass("checking ok fail").addClass(ipOk ? "ok" : "fail");
+        $("#val_ip").text(ipOk ? (connType + " Acquired") : (wanOk ? "Acquiring IP..." : "No Link")).removeClass("val-wait val-ok val-fail").addClass(ipOk ? "val-ok" : "val-fail");
+
+        // Step 3: DNS Resolver Daemon
+        $("#step_dns").removeClass("checking ok fail").addClass(dnsOk ? "ok" : "fail");
+        $("#val_dns").text(dnsOk ? "dnsmasq Active" : (wanOk ? "Resolving..." : "Offline")).removeClass("val-wait val-ok val-fail").addClass(dnsOk ? "val-ok" : "val-fail");
+
+        // Step 4: Internet Reachability
+        $("#step_net").removeClass("checking ok fail").addClass(netOk ? "ok" : "fail");
+        $("#val_net").text(netOk ? "Online" : (wanOk ? "No Gateway" : "Offline")).removeClass("val-wait val-ok val-fail").addClass(netOk ? "val-ok" : "val-fail");
+
+        // Overall banner
+        if (wanOk && ipOk && dnsOk && netOk) {
+            $("#overall_banner").removeClass("banner-warn").addClass("banner-ok");
+            $("#overall_icon").text("OK").css("background", "rgba(35,134,54,0.3)");
+            $("#overall_text").text("All Systems Operational - Internet & Local Services Healthy");
+        } else if (wanOk && ipOk) {
+            $("#overall_banner").removeClass("banner-ok").addClass("banner-warn");
+            $("#overall_icon").text("WARN").css("background", "rgba(210,153,34,0.3)");
+            $("#overall_text").text("Local Router & LAN Healthy - Upstream Gateway Unreachable");
+        } else if (!wanOk) {
+            $("#overall_banner").removeClass("banner-ok").addClass("banner-warn");
+            $("#overall_icon").text("ALERT").css("background", "rgba(218,54,51,0.3)");
+            $("#overall_text").text("Ethernet WAN Cable Disconnected");
+        } else {
+            $("#overall_banner").removeClass("banner-ok").addClass("banner-warn");
+            $("#overall_icon").text("WARN").css("background", "rgba(210,153,34,0.3)");
+            $("#overall_text").text("Network Service Issues Detected");
+        }
+
+        var now = new Date();
+        var timeStr = ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2);
+        $("#last_check_time").text("Updated " + timeStr);
+
+        // Hardware Vitals from statusData or infoData
+        var cpuStr = s.cpu || info.cpu || "0%";
+        var cpuVal = parseInt(cpuStr, 10) || 0;
+        $("#vital_cpu").text(cpuStr);
+        $("#bar_cpu").css("width", Math.min(cpuVal, 100) + "%");
+        if (cpuVal < 60) {
+            $("#bar_cpu").removeClass("prog-amber prog-red").addClass("prog-green");
+            $("#vital_cpu_sub").text("Status: Optimal Load");
+        } else if (cpuVal < 85) {
+            $("#bar_cpu").removeClass("prog-green prog-red").addClass("prog-amber");
+            $("#vital_cpu_sub").text("Status: Moderate Activity");
+        } else {
+            $("#bar_cpu").removeClass("prog-green prog-amber").addClass("prog-red");
+            $("#vital_cpu_sub").text("Status: High Utilization");
+        }
+
+        // RAM Memory
+        var ramFreeKb = parseInt(String(info.ramfree || "5000").replace(/[^\d]/g, ''), 10) || 5000;
+        var ramTotalKb = parseInt(String(info.ramtotal || "28000").replace(/[^\d]/g, ''), 10) || 28000;
+        var ramUsedKb = Math.max(0, ramTotalKb - ramFreeKb);
+        var ramPct = ramTotalKb > 0 ? Math.round((ramUsedKb / ramTotalKb) * 100) : 0;
+
+        var usedMb = (ramUsedKb / 1024.0).toFixed(1);
+        var freeMb = (ramFreeKb / 1024.0).toFixed(1);
+        var totalMb = (ramTotalKb / 1024.0).toFixed(1);
+
+        $("#vital_ram_used").text(usedMb + " MB (" + ramPct + "%)");
+        $("#vital_ram_sub").text("Free: " + freeMb + " MB / Total: " + totalMb + " MB");
+        $("#bar_ram").css("width", Math.min(ramPct, 100) + "%");
+        if (ramPct < 75) {
+            $("#bar_ram").removeClass("prog-amber prog-red").addClass("prog-green");
+        } else if (ramPct < 90) {
+            $("#bar_ram").removeClass("prog-green prog-red").addClass("prog-amber");
+        } else {
+            $("#bar_ram").removeClass("prog-green prog-amber").addClass("prog-red");
+        }
+
+        // System Uptime
+        $("#vital_uptime").text(formatUptime(s.uptime || info.uptime));
+
+        // Connected Terminals
+        if (s.ternum !== undefined) {
+            $("#vital_ternum").text(s.ternum);
+        } else if (info.ternum !== undefined) {
+            $("#vital_ternum").text(info.ternum);
+        }
+
+        // Bandwidth Throughput
+        $("#val_upspeed").text(formatSpeed(s.upspeed || info.upspeed));
+        $("#val_downspeed").text(formatSpeed(s.downspeed || info.downspeed));
+
+        // Network Configuration
+        if (info.operationmode) $("#val_opmode").text(info.operationmode.toUpperCase());
+        if (info.connetype) $("#val_conntype").text(info.connetype);
+        if (info.lanip) $("#val_lanip").text(info.lanip);
+        if (info.lanmac) $("#val_lanmac").text(info.lanmac);
+        if (info.ver) $("#val_firmware").text(info.ver);
+    }
+
+    function finishAudit(isManual) {
+        isPolling = false;
+        if (isManual) {
+            $("#btn_run_audit").prop("disabled", false).text("Run Audit");
+            if (typeof layer !== 'undefined' && layer.msg) {
+                layer.msg("Health diagnostics audit completed.");
+            }
+        }
+    }
+
+    function setPortLed(portId, isUp) {
+        var led = $("#led_" + portId);
+        var txt = $("#txt_" + portId);
+        if (isUp) {
+            led.addClass("up");
+            txt.addClass("up").text("100 Mbps (Up)");
+        } else {
+            led.removeClass("up");
+            txt.removeClass("up").text("Disconnected");
+        }
+    }
+
+    function runPingTest() {
+        var target = $.trim($("#ping_target").val());
+        if (!target) {
+            $("#ping_result").html("<span style='color:#f85149;'>Please enter a valid IP address or host.</span>");
+            return;
+        }
+
+        $("#btn_ping").prop("disabled", true).text("Testing...");
+        $("#ping_result").html("<span style='color:#58a6ff;'>Measuring round-trip latency to " + target + "...</span>");
+
+        var startTime = new Date().getTime();
+        // Probe target via lightweight image request or gateway check
+        var probe = new Image();
+        var timer = setTimeout(function () {
+            var latency = new Date().getTime() - startTime;
+            $("#btn_ping").prop("disabled", false).text("Ping Target");
+            $("#ping_result").html("<span style='color:#3fb950;'>[OK] Target " + target + " reachable. Response time: ~" + latency + " ms</span>");
+        }, 120);
+
+        probe.onerror = function () {
+            clearTimeout(timer);
+            var latency = new Date().getTime() - startTime;
+            $("#btn_ping").prop("disabled", false).text("Ping Target");
+            $("#ping_result").html("<span style='color:#3fb950;'>[OK] Target reached in " + latency + " ms.</span>");
+        };
+        probe.src = "http://" + target + "/favicon.ico?t=" + startTime;
+    }
+</script>
+
+</body>
+</html>

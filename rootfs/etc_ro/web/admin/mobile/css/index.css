@@ -1,0 +1,73 @@
+*{margin: 0;padding: 0;}
+.tab_area div{width:33%;text-align: center;display: inline-block;float:left;color:#666;background-color: #fff;}
+.wan_cur{color:rgb(11, 183, 245);}
+#server_optional,#Change_server_optional{color:rgb(206, 68, 58);padding-right:35%;}
+.wan_body ul li{margin-top: 10px;}
+.wan_body{position: relative;}
+#5gwlan,#2gwlan,#div1,#div2,#div3{position: absolute;width: 100%;}
+.buttonbox{height: 40px;margin-top: 50px;text-align: center;}
+input[type=text], input[type=password]{background-color: #fff;padding: 3px;border: 1px solid #999;color:#666;text-align: left;outline: none;}
+.liner{display: inline-block;}
+.blackButton,.qosButton,.arpButton{width:21%;height: 30px;line-height: 30px;color:#fff;margin-left:5px;}
+.blacklistCallback,.contentCallback{float:left;}
+.contentCallback img,.blacklistCallback img{height: 21px;width: 23px;}
+input[type=text].speed{width: 40%;height: 30px;border-radius: 10px;text-align:center;outline: none;border: 1px solid #999;margin-right: 20px;}
+.appMenu{overflow: hidden;}
+.arrow_r{width: 8px;height: 15px;margin-top: -23px;}
+.fr{float: right;}
+.appContent_info{position: absolute;width: 100%;}
+#form5 li{margin-top: 15px;}
+.modal-body{text-align:center;color:#666;font-size:16px;}
+.sp-l{display: inline-block;width: 36%;margin-left:-63px;color:#666;text-align: right;}
+.inpt,input[type=text].inpt{width:50%;height: 30px;color: #666;}
+.buttonbox a.btn{display: inline-block;border-radius: 7px;height: 40px;color:#fff;}
+#WIFI_key li{border:none;height:45px;margin:0px;line-height: 45px}
+#wifi_5gssidStatus,#wifi_2gssidStatus{float:left;vertical-align:middle;margin:10px 0 0 6px;outline-style:none;}
+#form2 li span.sp-r p{text-align:left;float:left;line-height:30px;padding-left:5px;}
+#5gswitchOff,#5gswitchOn,#switchOff,#switchOn{margin-left:50px;width:40px;cursor:pointer;}
+#5gswitchOff,#switchOff{display: none;}
+#5gwifi_ssid{width:50%;text-align:left;outline:none;}
+.panel_con p{font-size:15px ;border-bottom: 1px solid #999;height: 30px;line-height: 30px;overflow: hidden;}
+#deviceItem .first{width:40px;height:45px;line-height:60px;}
+#deviceItem .liner div{height:25px;width:100%;line-height:27px;}
+#devlist li .first img{width:40px;height:45px;margin-top: -32px;}
+.Dname_btn .aliesOFF{width: 52%;text-align: center;height: 30px;line-height: 30px;border-radius:7px ;border: 1px solid #ccc;}
+.qosUP,.qosDOWN,.span_padding{display: inline-block;width: 25%;text-align: left;padding-left:5px;}
+.separated{width: 52%;height:15px;display: inline-block;}
+.qosLine{width:100%;color:#666;display:none;}
+.qosDOWN,.qosUP{float:left;margin-right:5px;}
+#SetButton{color:#fff;font-size:16px;}
+#form5 span.sp-l{display: inline-block;width: 38%;padding-right: 3%; margin-left:-35px;color:#666;}
+#form5 input.inpt{text-align:left;width:50%;padding:3px;border:1px solid #999;outline:none;}
+#form14 li,#form12 li{margin-top: 20px;}
+#dialogspeed{display:none;overflow: hidden;padding-top: 20px;}
+#dialogspeed div{width:50%;float:left;margin-bottom:10px;}
+#speedUp,#speedDown{color:#666;font-size:18px;width:100%;text-align:center;}
+#wlanup,#wlandown{text-align:center;color:rgb(77, 99, 188);font-weight:300;font-family:'Source Sans Pro',Helvetica,Arial,sans-serif;font-size:45px;width:100%}
+#unitUp,#unitDown{color:#666;font-size:18px;font-family:'04b_08Regular';text-align:center;}
+#timer{text-align:center;color:rgb(77, 99, 188);font-weight:300;font-family:'Source Sans Pro',Helvetica,Arial,sans-serif;font-size:60px;width:100%}
+#DoubleChannelList span.sp-l,#FloatChannelList span.sp-l{margin-left: -43px;}
+#DoubleChannelList li,#FloatChannelList li{margin-top: 25px;}
+#staticList .liner,#blackList .liner{height: 30px;line-height:28px;display: block;float: left;border:1px solid #777;border-top:0 none;}
+#staticList,#blackList{max-height:280px;overflow:auto;margin:10px 1% 0;border:0 none;border-top:1px solid #777; }
+#form7_5G .label,#form7 .label{padding:5px;border: 1px solid;font-size: 15px;display: inline-block;}
+#label_1,#label_4{color:#86e01e;border-color: #86e01e;}
+#label_2,#label_5{color:#f2b01e;border-color: #f2b01e;}
+#label_3,#label_6{color:#f63a0f;border-color: #f63a0f;}
+.chanceThis{background-color: #985151;}
+.progress{background-color: #000;border-radius:22px;height: 20px;border: 2px solid #000;}
+.progress-bar{float: left;height: 100%;border-radius:22px;-webkit-transition: width .6s ease;-o-transition: width .6s ease;transition: width .6s ease;}
+#restoreTitle,#rebootTitle{font-family: inherit;font-weight: 500;font-size: 18px;color:rgb(206, 68, 58);margin-top: 130px;}
+#oldpass_span,#newpass_span{margin-left: -4px;}
+#setAccount li{margin-top: 20px;}
+#setAccount{margin-top: 30px;}
+#pptp_setvpn li,#L2TP_setvpn li{margin-top: 9px;}
+#pptp_setvpn li .sp-l,#L2TP_setvpn li .sp-l{margin-left: -30px;}
+.login-set span.sp-l,.wlan-set span.sp-l,.wan-box span.sp-l{margin-left: 0;width: 37%;}
+.login-set span.sp-r,.wlan-set span.sp-r,.wan-box span.sp-r{margin-left: 20px;}
+.wlan-set li,.wan-box li{margin-top: 15px;}
+.wlan-set span.sp-r input.inpt,.wan-box span.sp-r input.inpt{margin-top: -6px;}
+.login-set span.sp-r input.inpt{margin-top: -6px}
+.login-set li{margin-top: 60px}
+#routertip{text-align: center;color: #666;font-size: 15px; font-weight: normal;padding: 10px 5px 0;}
+input[type=radio].radiogroup{margin-top: -9px}

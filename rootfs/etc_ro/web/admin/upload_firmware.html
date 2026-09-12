@@ -1,0 +1,837 @@
+<!doctype html>
+<!--[if lt IE 7 ]>
+<html class="ie6" lang="zh-cn"><![endif]-->
+<!--[if IE 7 ]>
+<html class="ie7" lang="zh-cn"><![endif]-->
+<!--[if IE 8 ]>
+<html class="ie8" lang="zh-cn"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="zh-cn"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="w3c"><!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="Keywords" content="" />
+<meta name="Description" content="" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="renderer" content="webkit" />
+<title>B-LINK</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/router.css" />
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/form.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
+<style type="text/css">
+    .menu .i-5{background:url("images/term.png") no-repeat 0 3px;}
+    .menu .i-6{background:url("images/health.png") no-repeat 0 3px;}
+    #update_online,#update_local{width:380px;background-color: #f4f4f4;padding: 8px;color:#777;cursor: pointer;display:inline-block;font-size: 17px;}
+    #update_online{border-top-right-radius:5px}
+    #update_local{border-top-left-radius:5px}
+    #nav_top{text-align: center;line-height: 40px;}
+    #upload_body{width:760px;min-height:550px;background-color: #fff;margin: 50px auto 0;border-radius: 5px;box-shadow: 0 4px 15px rgba(0,0,0,0.1);padding-bottom: 25px;}
+    #file_txt{width:130px;height:32px;display:inline-block;text-align: center;background: #0bb7f5;cursor:pointer;border: none;border-radius: 4px;color: #fff;line-height: 32px;font-weight: 500;transition: background 0.2s;}
+    #file_txt:hover{background: #099fd5;}
+    #file_val{vertical-align: middle;padding-left: 10px;color: #555;font-size: 13px;}
+    #filename{opacity: 0;cursor:pointer;width:0px;height:0px;position: absolute;}
+    .button1{padding: 8px 36px;background: #0bb7f5;border: none;border-radius: 4px;color: #fff;font-size: 15px;cursor: pointer;transition: all 0.2s;font-weight: 500;}
+    .button1:hover{background: #099fd5;}
+    .button1:disabled{background: #b0bec5;cursor: not-allowed;opacity: 0.7;}
+    
+    /* Pre-check Details Card */
+    #firmware_info_box {
+        display: none;
+        margin: 20px auto;
+        width: 82%;
+        padding: 16px 20px;
+        border-radius: 6px;
+        font-size: 13px;
+        text-align: left;
+        line-height: 1.6;
+    }
+    #firmware_info_box table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+    }
+    #firmware_info_box td {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+
+    /* Modal Progress Overlay */
+    #upgrade_overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.85);
+        z-index: 999999;
+    }
+    #upgrade_modal {
+        width: 540px;
+        background: #fff;
+        margin: 12% auto;
+        padding: 35px;
+        border-radius: 10px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+        text-align: center;
+    }
+    .ug-progress-wrap {
+        width: 100%;
+        background: #e2e8f0;
+        height: 24px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin: 18px 0;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #ug_progress_bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #0bb7f5, #3d8af5);
+        border-radius: 12px;
+        transition: width 0.2s ease;
+    }
+</style>
+</head>
+<body onLoad="pageInit()" style="background: #3d8af5 url('images/bd_bg.png') repeat scroll 0% 0%;">
+
+<div class="top"><a class="logo-box"><img id='hostLogo' src="images/logo.png" width="166" /></a></div>
+<div class="menu">
+	<a id="hostPage" href="main.html"><span></span><i class="png_ie i-1"></i></a>
+	<a id="MoreFunction" href="more.html"><span></span><i class="png_ie i-3"></i></a>
+	<a id="ChangeMode" href="setup.html"><span></span><i class="png_ie i-2"></i></a>
+	<a id="term" href="terminal.html"><span></span><i class="png_ie i-5"></i></a>
+    <a href="upload_firmware.html" id="getNew" class="selected"><span></span><i class="png_ie i-4"></i></a>
+    <a href="health.html" id="healthCheck"><span></span><i class="png_ie i-6"></i></a>
+</div>
+<div id="upload_body">
+    <div id="nav_top"><span id="update_local" style="color:#0bb7f5;">Local Firmware Upgrade</span><span id="update_online" style="color:#777;">Online Check</span></div>
+    
+    <!-- Local Firmware Upgrade Form -->
+    <div id="up_form" style="width:760px;display: block;">
+        <form method="post" name="UploadFirmware" id="UploadFirmwareForm" action="/cgi-bin/upload.cgi" enctype="multipart/form-data">
+            <div style="width:80%; margin: 10px auto 5px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #92400e; line-height: 1.5;">
+                <strong>Flashing Advisory:</strong> Due to MT7628 runtime RAM constraints (32MB), uploading firmware over the web interface buffers in memory simultaneously with running processes. <strong>Disconnect all other connected Wi-Fi/LAN clients</strong> and keep only your updating PC connected (via Ethernet cable) to ensure sufficient free RAM for flash writing. For 100% reliable flashing without memory pressure, use the manufacturer-recommended <strong>TFTP tool</strong> (<code>tftpd32.exe</code>).
+            </div>
+            <br>
+            <table border="0" class="content2" cellspacing="2" id="table1" style="width:80%;margin:0 auto;">
+                <tbody>
+                <tr>
+                    <td class="head" id="uploadFWLocation" style="width:140px;font-size:14px;font-weight:600;color:#333;vertical-align:middle;">Firmware File:</td>
+                    <td style="line-height: 32px;vertical-align:middle;">
+                        <label id="file_txt" for="filename">Select Firmware</label>
+                        <span id="file_val">No file chosen</span>
+                        <input name="filename" size="20" maxlength="256" type="file" id="filename" accept=".bin,.img">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Firmware Pre-Check Inspection Card -->
+            <div id="firmware_info_box">
+                <div id="fw_status_title" style="font-weight: bold; font-size: 14px;"></div>
+                <table id="fw_details_table">
+                    <tr><td style="width: 140px; color: #666;">File Name:</td><td id="fw_det_filename" style="font-weight: 600;">-</td></tr>
+                    <tr><td style="color: #666;">File Size:</td><td id="fw_det_filesize" style="font-weight: 600;">-</td></tr>
+                    <tr><td style="color: #666;">Image Label:</td><td id="fw_det_label" style="font-weight: 600;">-</td></tr>
+                    <tr><td style="color: #666;">Target Architecture:</td><td id="fw_det_arch" style="font-weight: 600;">-</td></tr>
+                    <tr><td style="color: #666;">Integrity Verification:</td><td id="fw_det_crc" style="font-weight: 600;">-</td></tr>
+                </table>
+            </div>
+
+            <table width="80%" border="0" align="center" style="margin-top:15px;">
+                <tr align="center">
+                    <td>
+                        <input value="Upload & Upgrade" class="button1" id="uploadFWApply" name="UploadFirmwareSubmit" type="button" onclick="startFirmwareUpgrade();" disabled>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Online OTA Upgrade Tab -->
+    <div id="setupgrade" style="width:760px;display: none; padding: 20px 40px;">
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; margin-top: 10px;">
+            <div style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 6px;">Online Firmware Update</div>
+            <div style="font-size: 13px; color: #64748b; margin-bottom: 20px;">Check for official and custom firmware releases via Cloudflare OTA updater.</div>
+
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+                <tr>
+                    <td style="width: 140px; padding: 8px 0; font-weight: 600; color: #475569; font-size: 13px; vertical-align: middle;">OTA Server URL:</td>
+                    <td style="padding: 8px 0;">
+                        <input type="text" id="ota_server_url" style="width: 100%; max-width: 440px; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; font-family: monospace;" placeholder="https://bl-wr2000-ota-updater.romel-brosas.workers.dev" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: 600; color: #475569; font-size: 13px;">Current Version:</td>
+                    <td style="padding: 8px 0; font-size: 14px; font-weight: 700; color: #1e293b;" id="ota_curr_ver">7.1.4</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-weight: 600; color: #475569; font-size: 13px;">Latest Version:</td>
+                    <td style="padding: 8px 0; font-size: 14px; font-weight: 700;" id="ota_latest_ver_box">
+                        <span id="ota_latest_ver" style="color: #64748b;">Not checked yet</span>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Release Notes Card -->
+            <div id="ota_changelog_card" style="display: none; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px; margin-bottom: 16px;">
+                <div style="font-weight: 700; font-size: 13px; color: #0f172a; margin-bottom: 6px;">Release Notes:</div>
+                <div id="ota_changelog_text" style="font-size: 13px; color: #334155; line-height: 1.6;"></div>
+                <div id="ota_md5_text" style="font-size: 11px; color: #64748b; font-family: monospace; margin-top: 8px;"></div>
+            </div>
+
+            <!-- Status message box -->
+            <div id="ota_status_msg" style="display: none; padding: 12px 16px; border-radius: 6px; font-size: 13px; margin-bottom: 16px;"></div>
+
+            <div style="text-align: center; margin-top: 15px;">
+                <button type="button" class="button1" id="ota_check_btn" onclick="checkOtaUpdate();">Check for Updates</button>
+                <button type="button" class="button1" id="ota_upgrade_btn" onclick="startOtaUpgrade();" style="display: none; background: #16a34a; margin-left: 12px;">Download &amp; Install Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Progress Overlay -->
+<div id="upgrade_overlay">
+    <div id="upgrade_modal">
+        <h3 id="ug_stage_title" style="color:#1e293b; margin:0 0 10px; font-size:22px; font-weight:700;">Uploading Firmware</h3>
+        <div id="ug_stage_desc" style="color:#64748b; font-size:14px; margin-bottom:18px;">Sending firmware to router memory...</div>
+        
+        <div class="ug-progress-wrap">
+            <div id="ug_progress_bar"></div>
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; font-size:13px; color:#475569; font-weight:500;">
+            <span id="ug_pct">0%</span>
+            <span id="ug_bytes">0 MB / 0 MB</span>
+        </div>
+        
+        <div id="ug_warning" style="display:none; background:#fffbeb; color:#b45309; border:1px solid #fde68a; padding:14px; border-radius:6px; font-size:13px; font-weight:600; margin-top:20px; text-align:left;">
+            WARNING: Firmware is writing to SPI flash memory. Do NOT power off or disconnect the router!
+        </div>
+        
+        <div id="ug_countdown" style="display:none; margin-top:18px;">
+            <div style="font-size:14px; color:#64748b; margin-bottom:5px;">Estimated time remaining:</div>
+            <div id="ug_timer" style="font-size:36px; font-weight:800; color:#0bb7f5; line-height:1;">70s</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/lang_main.js"></script>
+<script type="text/javascript" src="js/getinfo.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script>
+    var selectedFirmwareFile = null;
+    var firmwareValid = false;
+    var otaLatestData = null;
+
+    setTimeout(function(){
+        mode_terminal();
+    }, 100);
+
+    $("#update_local").click(function(){
+        $("#up_form").show();
+        $("#setupgrade").hide();
+        $("#update_online").css("color","#777");
+        $("#update_local").css("color","#0bb7f5");
+    });
+
+    $("#update_online").click(function(){
+        $("#up_form").hide();
+        $("#setupgrade").show();
+        $("#update_online").css("color","#0bb7f5");
+        $("#update_local").css("color","#777");
+    });
+
+    function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        else if (bytes < 1048576) return (bytes / 1024).toFixed(2) + " KB";
+        else return (bytes / 1048576).toFixed(2) + " MB";
+    }
+
+    function crc32(buf) {
+        var table = window._crc32_table;
+        if (!table) {
+            table = [];
+            for (var i = 0; i < 256; i++) {
+                var c = i;
+                for (var j = 0; j < 8; j++) {
+                    c = (c & 1) ? (0xedb88320 ^ (c >>> 1)) : (c >>> 1);
+                }
+                table[i] = c;
+            }
+            window._crc32_table = table;
+        }
+        var crc = 0 ^ (-1);
+        for (var k = 0; k < buf.length; k++) {
+            crc = (crc >>> 8) ^ table[(crc ^ buf[k]) & 0xff];
+        }
+        return (crc ^ (-1)) >>> 0;
+    }
+
+    $("#filename").change(function(){
+        var files = this.files;
+        if (!files || files.length === 0) {
+            resetFirmwareBox();
+            return;
+        }
+        var file = files[0];
+        selectedFirmwareFile = file;
+        $("#file_val").html(file.name);
+        validateFirmwareFile(file);
+    });
+
+    function resetFirmwareBox() {
+        selectedFirmwareFile = null;
+        firmwareValid = false;
+        $("#file_val").html("No file chosen");
+        $("#firmware_info_box").hide();
+        $("#uploadFWApply").attr("disabled", true);
+    }
+
+    function validateFirmwareFile(file) {
+        var box = $("#firmware_info_box");
+        var title = $("#fw_status_title");
+        $("#uploadFWApply").attr("disabled", true);
+        
+        $("#fw_det_filename").text(file.name);
+        $("#fw_det_filesize").text(formatBytes(file.size) + " (" + file.size + " bytes)");
+
+        var lowerName = file.name.toLowerCase();
+        if (!lowerName.endsWith(".bin") && !lowerName.endsWith(".img")) {
+            showValidationError("Invalid extension. Firmware file must be a .bin or .img image.");
+            return;
+        }
+
+        var MAX_FLASH_SIZE = 3866624; // 0x3b0000 Kernel partition size on MT7628 4MB flash
+        var MIN_FLASH_SIZE = 1048576; // 1MB minimum valid size
+        if (file.size < MIN_FLASH_SIZE) {
+            showValidationError("File too small (" + formatBytes(file.size) + "). Image appears corrupted or truncated.");
+            return;
+        }
+        if (file.size > MAX_FLASH_SIZE) {
+            showValidationError("File too large (" + formatBytes(file.size) + "). Exceeds router 4MB flash partition limit (" + formatBytes(MAX_FLASH_SIZE) + ").");
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                var bytes = new Uint8Array(e.target.result);
+                if (bytes.length < 64) {
+                    showValidationError("Unable to read image header.");
+                    return;
+                }
+
+                // Verify uImage Magic bytes: 0x27051956
+                if (bytes[0] !== 0x27 || bytes[1] !== 0x05 || bytes[2] !== 0x19 || bytes[3] !== 0x56) {
+                    showValidationError("Invalid uImage Magic (0x" + bytes[0].toString(16) + bytes[1].toString(16) + bytes[2].toString(16) + bytes[3].toString(16) + "). Not a valid router firmware!");
+                    return;
+                }
+
+                // Verify Header CRC32
+                var savedHcrc = ((bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8) | bytes[7]) >>> 0;
+                var hdrCopy = new Uint8Array(bytes.slice(0, 64));
+                hdrCopy[4] = 0; hdrCopy[5] = 0; hdrCopy[6] = 0; hdrCopy[7] = 0;
+                var calcHcrc = crc32(hdrCopy);
+                if (savedHcrc !== calcHcrc) {
+                    showValidationError("Header CRC32 checksum mismatch (Calculated: 0x" + calcHcrc.toString(16) + ", Header: 0x" + savedHcrc.toString(16) + "). Header is corrupted!");
+                    return;
+                }
+
+                // Verify payload size
+                var dataSize = ((bytes[12] << 24) | (bytes[13] << 16) | (bytes[14] << 8) | bytes[15]) >>> 0;
+                if (dataSize !== (file.size - 64)) {
+                    showValidationError("Payload size mismatch. File appears truncated (" + (file.size - 64) + " bytes vs expected " + dataSize + " bytes).");
+                    return;
+                }
+
+                // Verify OS (byte 28: 5 = Linux)
+                var os = bytes[28];
+                if (os !== 5) {
+                    showValidationError("Incompatible operating system (ID: " + os + "). Expected Linux (ID: 5).");
+                    return;
+                }
+
+                // Verify architecture (byte 29: 5 = MIPS)
+                var arch = bytes[29];
+                if (arch !== 5) {
+                    showValidationError("Incompatible architecture (ID: " + arch + "). This router requires MIPS architecture (ID: 5).");
+                    return;
+                }
+
+                // Verify Image Type (byte 30: 2 = Kernel, 5 = Firmware)
+                var itype = bytes[30];
+                if (itype !== 2 && itype !== 5) {
+                    showValidationError("Incompatible image type (ID: " + itype + "). Expected Kernel or Firmware.");
+                    return;
+                }
+
+                // Extract image label from bytes 32..63
+                var label = "";
+                for (var i = 32; i < 64; i++) {
+                    if (bytes[i] === 0) break;
+                    label += String.fromCharCode(bytes[i]);
+                }
+
+                // All verification checks passed!
+                firmwareValid = true;
+                box.css("background", "#f0fdf4").css("border", "1px solid #bbf7d0").show();
+                title.css("color", "#166534").html("&#10004; Firmware Verified: Valid MT7628 MIPS Image");
+                $("#fw_det_label").text(label || "uImage");
+                $("#fw_det_arch").html("<span style='color:#166534;'>MIPS Linux (Verified Compatible)</span>");
+                $("#fw_det_crc").html("<span style='color:#166534;'>Passed (Header CRC: 0x" + savedHcrc.toString(16) + ")</span>");
+                $("#uploadFWApply").attr("disabled", false);
+
+            } catch (err) {
+                showValidationError("Error parsing firmware header: " + err.message);
+            }
+        };
+        reader.onerror = function() {
+            showValidationError("Failed to read file.");
+        };
+        reader.readAsArrayBuffer(file.slice(0, 64));
+    }
+
+    function showValidationError(msg) {
+        firmwareValid = false;
+        var box = $("#firmware_info_box");
+        box.css("background", "#fef2f2").css("border", "1px solid #fecaca").show();
+        $("#fw_status_title").css("color", "#991b1b").html("&#10008; Incompatible or Corrupted Firmware");
+        $("#fw_det_label").text("-");
+        $("#fw_det_arch").text("-");
+        $("#fw_det_crc").html("<span style='color:#991b1b;font-weight:bold;'>" + msg + "</span>");
+        $("#uploadFWApply").attr("disabled", true);
+    }
+
+    function startFirmwareUpgrade() {
+        if (!firmwareValid || !selectedFirmwareFile) {
+            layer.msg("Please select a valid firmware file first.", {icon: 5});
+            return;
+        }
+
+        if (!confirm("Are you sure you want to flash this firmware?\n\nTarget: MT7628 MIPS Linux\nSize: " + formatBytes(selectedFirmwareFile.size) + "\n\nThe router will write flash memory and reboot. Do not disconnect power.")) {
+            return;
+        }
+
+        // Silence background heartbeat and polling watchdog
+        set_restore = 1;
+        if (loginStatusTimer) {
+            clearInterval(loginStatusTimer);
+            loginStatusTimer = null;
+        }
+
+        // Lock window against accidental close - clears itself upon first trigger so closing works in a single tap
+        window.onbeforeunload = function() {
+            window.onbeforeunload = null;
+            return "Firmware update in progress. Leaving this page will brick your router!";
+        };
+
+        $("#upgrade_overlay").show();
+        $("#ug_stage_title").text("Uploading Firmware to Router");
+        $("#ug_stage_desc").text("Transferring file to router RAM... Please wait.");
+        $("#ug_progress_bar").css("width", "0%");
+        $("#ug_pct").text("0%");
+        $("#ug_bytes").text("0 MB / " + formatBytes(selectedFirmwareFile.size));
+        $("#ug_warning").hide();
+        $("#ug_countdown").hide();
+
+        var formElem = document.getElementById("UploadFirmwareForm");
+        var formData = new FormData(formElem);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/cgi-bin/upload.cgi", true);
+
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var pct = Math.round((e.loaded / e.total) * 100);
+                $("#ug_progress_bar").css("width", pct + "%");
+                $("#ug_pct").text(pct + "%");
+                $("#ug_bytes").text(formatBytes(e.loaded) + " / " + formatBytes(e.total));
+            }
+        };
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                if (xhr.responseText.indexOf("error.html") !== -1) {
+                    window.onbeforeunload = null;
+                    isCountdownRunning = false;
+                    $("#ug_stage_title").text("Flash Error / Rejected");
+                    $("#ug_stage_desc").text("The router encountered an error during image verification or flash writing.");
+                    $("#ug_warning").css("background", "#fef2f2").css("color", "#991b1b").css("border-color", "#fecaca")
+                        .html("Image verification or mtd_write failed. If the router is unresponsive after rebooting, use <strong>TFTP Recovery Mode</strong> via <code>tftpd32.exe</code>.").show();
+                    startRebootCountdown(20);
+                    return;
+                }
+
+                // Accepted and currently flashing
+                $("#ug_progress_bar").css("width", "100%");
+                $("#ug_pct").text("100%");
+                $("#ug_stage_title").text("Writing Flash Memory");
+                $("#ug_stage_desc").text("Writing firmware into SPI flash and rebooting...");
+                $("#ug_warning").show();
+                $("#ug_countdown").show();
+                startRebootCountdown(70);
+            } else {
+                window.onbeforeunload = null;
+                isCountdownRunning = false;
+                $("#ug_stage_title").text("Upload Error");
+                $("#ug_stage_desc").text("Server returned error code " + xhr.status + ". Your router was not flashed.");
+            }
+        };
+
+        xhr.onerror = function() {
+            // If connection drops after upload completes, the router has rebooted
+            $("#ug_stage_title").text("Writing Flash Memory");
+            $("#ug_stage_desc").text("Writing firmware into SPI flash and rebooting...");
+            $("#ug_warning").show();
+            $("#ug_countdown").show();
+            startRebootCountdown(70);
+        };
+
+        xhr.send(formData);
+    }
+
+    var rebootCountdownTimer = null;
+    var isCountdownRunning = false;
+    function startRebootCountdown(seconds) {
+        if (isCountdownRunning) return;
+        isCountdownRunning = true;
+        if (rebootCountdownTimer) {
+            clearInterval(rebootCountdownTimer);
+            rebootCountdownTimer = null;
+        }
+        $("#ug_countdown").show();
+        var remaining = seconds;
+        $("#ug_timer").text(remaining + "s");
+        rebootCountdownTimer = setInterval(function() {
+            remaining--;
+            $("#ug_timer").text(remaining + "s");
+            if (remaining <= 0) {
+                clearInterval(rebootCountdownTimer);
+                rebootCountdownTimer = null;
+                window.onbeforeunload = null;
+                window.location.href = "/login.asp";
+            }
+        }, 1000);
+    }
+
+    function pageInit(){
+        resetFirmwareBox();
+
+        // Load saved OTA server URL or default
+        var savedOtaServer = localStorage.getItem("bl_ota_server_url") || "https://bl-wr2000-ota-updater.romel-brosas.workers.dev";
+        $("#ota_server_url").val(savedOtaServer);
+        $("#ota_server_url").on("change", function(){
+            localStorage.setItem("bl_ota_server_url", $(this).val().trim());
+        });
+
+        // Query router version
+        $.ajax({
+            url: "/goform/get_router_info",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                if (data && (data.firmwarever || data.softver)) {
+                    $("#ota_curr_ver").text(data.firmwarever || data.softver);
+                }
+            }
+        });
+    }
+
+    function checkOtaUpdate() {
+        var server = $("#ota_server_url").val().trim();
+        if (!server) {
+            alert("Please enter a valid OTA server URL.");
+            return;
+        }
+        localStorage.setItem("bl_ota_server_url", server);
+        server = server.replace(/\/+$/, "");
+
+        $("#ota_check_btn").prop("disabled", true).text("Checking...");
+        $("#ota_status_msg").hide();
+        $("#ota_upgrade_btn").hide();
+        $("#ota_changelog_card").hide();
+        $("#ota_latest_ver").html("<span style='color:#64748b;'>Contacting server...</span>");
+
+        var apiUrl = server + "/api/version";
+
+        $.ajax({
+            url: apiUrl,
+            type: "GET",
+            dataType: "json",
+            timeout: 10000,
+            success: function(data) {
+                $("#ota_check_btn").prop("disabled", false).text("Check for Updates");
+                otaLatestData = data;
+                var curVer = $("#ota_curr_ver").text().trim() || "7.1.4";
+                var lastVer = data.lastver || data.version || "7.1.5";
+
+                $("#ota_latest_ver").html("<strong style='color:#0f172a;'>" + lastVer + "</strong>");
+
+                var notes = (getLang() === "zhcn" ? data.content_zh : data.content_en) || data.content_en || "Official release update.";
+                $("#ota_changelog_text").text(notes);
+                if (data.md5) {
+                    $("#ota_md5_text").text("MD5: " + data.md5);
+                }
+                $("#ota_changelog_card").show();
+
+                var isNewer = compVer(lastVer, curVer);
+                if (isNewer) {
+                    $("#ota_status_msg").css({"background": "#f0fdf4", "color": "#166534", "border": "1px solid #bbf7d0"})
+                        .html("<strong>Update Available!</strong> A newer firmware version (v" + lastVer + ") is ready to install.")
+                        .show();
+                    $("#ota_upgrade_btn").text("Download & Install Update").css("background", "#16a34a").show();
+                } else {
+                    $("#ota_status_msg").css({"background": "#fffbeb", "color": "#92400e", "border": "1px solid #fde68a"})
+                        .html("<strong>Notice:</strong> Your router is currently running the same version (v" + curVer + ").<br><span style='color:#b45309; font-size:12px; margin-top:4px; display:inline-block;'><strong>Warning:</strong> Flashing will overwrite flash memory and restore the current firmware.</span>")
+                        .show();
+                    $("#ota_upgrade_btn").text("Reinstall / Restore Firmware").css("background", "#d97706").show();
+                }
+            },
+            error: function() {
+                fetchUpgradeTxtFallback(server);
+            }
+        });
+    }
+
+    function fetchUpgradeTxtFallback(server) {
+        var txtUrl = server + "/upgrade.txt";
+        $.ajax({
+            url: txtUrl,
+            type: "GET",
+            dataType: "text",
+            timeout: 10000,
+            success: function(txt) {
+                $("#ota_check_btn").prop("disabled", false).text("Check for Updates");
+                var lines = txt.split("\n");
+                var lastVer = (lines[1] || "7.1.5").trim();
+                var md5 = (lines[2] || "").trim();
+                
+                var contentEn = "Firmware update release.";
+                var contentZh = "固件更新发布。";
+                for (var i = 3; i < lines.length; i++) {
+                    if (lines[i].indexOf("content_en=") === 0) contentEn = lines[i].substring(11).trim();
+                    if (lines[i].indexOf("content_zh=") === 0) contentZh = lines[i].substring(11).trim();
+                }
+
+                otaLatestData = {
+                    lastver: lastVer,
+                    md5: md5,
+                    download_url: server + "/update_firmware.bin",
+                    content_en: contentEn,
+                    content_zh: contentZh
+                };
+
+                var curVer = $("#ota_curr_ver").text().trim() || "7.1.4";
+                $("#ota_latest_ver").html("<strong style='color:#0f172a;'>" + lastVer + "</strong>");
+                var notes = (getLang() === "zhcn" ? contentZh : contentEn);
+                $("#ota_changelog_text").text(notes);
+                if (md5) $("#ota_md5_text").text("MD5: " + md5);
+                $("#ota_changelog_card").show();
+
+                var isNewer = compVer(lastVer, curVer);
+                if (isNewer) {
+                    $("#ota_status_msg").css({"background": "#f0fdf4", "color": "#166534", "border": "1px solid #bbf7d0"})
+                        .html("<strong>Update Available!</strong> A newer firmware version (v" + lastVer + ") is ready to install.")
+                        .show();
+                    $("#ota_upgrade_btn").text("Download & Install Update").css("background", "#16a34a").show();
+                } else {
+                    $("#ota_status_msg").css({"background": "#fffbeb", "color": "#92400e", "border": "1px solid #fde68a"})
+                        .html("<strong>Notice:</strong> Your router is currently running the same version (v" + curVer + ").<br><span style='color:#b45309; font-size:12px; margin-top:4px; display:inline-block;'><strong>Warning:</strong> Flashing will overwrite flash memory and restore the current firmware.</span>")
+                        .show();
+                    $("#ota_upgrade_btn").text("Reinstall / Restore Firmware").css("background", "#d97706").show();
+                }
+            },
+            error: function() {
+                $("#ota_check_btn").prop("disabled", false).text("Check for Updates");
+                $("#ota_latest_ver").html("<span style='color:#991b1b;'>Check failed</span>");
+                $("#ota_status_msg").css({"background": "#fef2f2", "color": "#991b1b", "border": "1px solid #fecaca"})
+                    .html("<strong>Connection Failed:</strong> Could not reach the OTA server at <code>" + server + "</code>. Make sure the Worker is published and your network is connected.")
+                    .show();
+            }
+        });
+    }
+
+    function startOtaUpgrade() {
+        if (!otaLatestData) return;
+        var server = $("#ota_server_url").val().trim().replace(/\/+$/, "");
+        var downloadUrl = otaLatestData.download_url || (server + "/update_firmware.bin");
+        var curVer = $("#ota_curr_ver").text().trim() || "7.1.4";
+        var isNewer = compVer(otaLatestData.lastver, curVer);
+
+        var confirmMsg = "";
+        if (isNewer) {
+            confirmMsg = "Download and install firmware update v" + otaLatestData.lastver + "?\n\nThe router will download the binary, verify integrity, write to flash, and reboot automatically.";
+        } else {
+            confirmMsg = "WARNING: You are about to re-flash and restore firmware v" + otaLatestData.lastver + " to your router.\n\nAll current system files will be overwritten and restored to flash memory, and the router will reboot automatically.\n\nAre you sure you want to proceed with restoring this firmware?";
+        }
+
+        if (!confirm(confirmMsg)) {
+            return;
+        }
+
+        $("#upgrade_overlay").show();
+        $("#ug_stage_title").text("Downloading Firmware Update");
+        $("#ug_stage_desc").text("Fetching firmware binary from update server...");
+        $("#ug_progress_bar").css("width", "0%");
+        $("#ug_pct").text("0%");
+        $("#ug_bytes").text("Connecting...");
+        $("#ug_warning").hide();
+        $("#ug_countdown").hide();
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", downloadUrl, true);
+        xhr.responseType = "blob";
+
+        xhr.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var pct = Math.round((e.loaded / e.total) * 100);
+                $("#ug_progress_bar").css("width", pct + "%");
+                $("#ug_pct").text(pct + "%");
+                $("#ug_bytes").text(formatBytes(e.loaded) + " / " + formatBytes(e.total));
+            } else {
+                $("#ug_bytes").text(formatBytes(e.loaded) + " downloaded");
+            }
+        };
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var blob = xhr.response;
+                $("#ug_stage_title").text("Verifying Downloaded Firmware");
+                $("#ug_stage_desc").text("Validating U-Boot image headers and architecture...");
+
+                var reader = new FileReader();
+                reader.onload = function() {
+                    try {
+                        var bytes = new Uint8Array(reader.result);
+                        var magic = (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+                        if (magic !== 0x27051956) {
+                            throw new Error("Invalid U-Boot magic signature: 0x" + (magic >>> 0).toString(16));
+                        }
+                        var arch = bytes[29];
+                        if (arch !== 5) {
+                            throw new Error("Invalid target architecture: " + arch + " (expected MIPS)");
+                        }
+
+                        uploadAndFlashFirmwareBlob(blob, "update_firmware.bin");
+                    } catch (err) {
+                        $("#ug_stage_title").text("Verification Error");
+                        $("#ug_stage_desc").text(err.message);
+                        $("#ug_warning").css({"background": "#fef2f2", "color": "#991b1b", "border-color": "#fecaca"})
+                            .text("Downloaded file is not a valid firmware image. Flash cancelled.").show();
+                    }
+                };
+                reader.readAsArrayBuffer(blob.slice(0, 64));
+            } else {
+                $("#ug_stage_title").text("Download Failed");
+                $("#ug_stage_desc").text("Server returned HTTP " + xhr.status + ". Upgrade aborted.");
+            }
+        };
+
+        xhr.onerror = function() {
+            $("#ug_stage_title").text("Download Failed");
+            $("#ug_stage_desc").text("Network error while downloading firmware binary.");
+        };
+
+        xhr.send();
+    }
+
+    function uploadAndFlashFirmwareBlob(blob, filename) {
+        // Silence background heartbeat and polling watchdog
+        set_restore = 1;
+        if (loginStatusTimer) {
+            clearInterval(loginStatusTimer);
+            loginStatusTimer = null;
+        }
+
+        // Lock window against accidental close - clears itself upon first trigger so closing works in a single tap
+        window.onbeforeunload = function() {
+            window.onbeforeunload = null;
+            return "Firmware update in progress. Leaving this page will brick your router!";
+        };
+
+        $("#ug_stage_title").text("Uploading Firmware to Router");
+        $("#ug_stage_desc").text("Transferring file to router RAM... Please wait.");
+        $("#ug_progress_bar").css("width", "0%");
+        $("#ug_pct").text("0%");
+        $("#ug_bytes").text("0 MB / " + formatBytes(blob.size));
+
+        var formData = new FormData();
+        formData.append("filename", blob, filename);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/cgi-bin/upload.cgi", true);
+
+        xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+                var pct = Math.round((e.loaded / e.total) * 100);
+                $("#ug_progress_bar").css("width", pct + "%");
+                $("#ug_pct").text(pct + "%");
+                $("#ug_bytes").text(formatBytes(e.loaded) + " / " + formatBytes(e.total));
+            }
+        };
+
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                if (xhr.responseText.indexOf("error.html") !== -1) {
+                    window.onbeforeunload = null;
+                    isCountdownRunning = false;
+                    $("#ug_stage_title").text("Firmware Rejected");
+                    $("#ug_stage_desc").text("The router rejected this firmware image. Flash memory was not modified.");
+                    startRebootCountdown(15);
+                    return;
+                }
+                $("#ug_progress_bar").css("width", "100%");
+                $("#ug_pct").text("100%");
+                $("#ug_stage_title").text("Writing Flash Memory");
+                $("#ug_stage_desc").text("Writing firmware into SPI flash and rebooting...");
+                $("#ug_warning").show();
+                $("#ug_countdown").show();
+                startRebootCountdown(70);
+            } else {
+                window.onbeforeunload = null;
+                isCountdownRunning = false;
+                $("#ug_stage_title").text("Upload Error");
+                $("#ug_stage_desc").text("Server returned error code " + xhr.status + ".");
+            }
+        };
+
+        xhr.onerror = function() {
+            $("#ug_stage_title").text("Writing Flash Memory");
+            $("#ug_stage_desc").text("Writing firmware into SPI flash and rebooting...");
+            $("#ug_warning").show();
+            $("#ug_countdown").show();
+            startRebootCountdown(70);
+        };
+
+        xhr.send(formData);
+    }
+
+    function mode_terminal(){
+        $.ajax({
+            type: 'get',
+            url: '/goform/get_easy_cfg',
+            dataType: "json",
+            success: function(msg){
+                if(!msg || msg == "undefine") return;
+                var data = (typeof msg == "object") ? msg : eval('(' + msg + ')');
+                if(data.operationmode == "repeater" || data.operationmode == "client" || data.operationmode == "bridge"){
+                    $(".menu a").eq(3).css("display","none");
+                }
+            },
+            error: function(){}
+        });
+    }
+
+    var loginStatusTimer = setInterval(getLoginStatus, 13000);
+</script>
+</body>
+</html>

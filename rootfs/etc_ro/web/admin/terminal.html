@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie6" lang="zh-cn"><![endif]-->
+<!--[if IE 7 ]>
+<html class="ie7" lang="zh-cn"><![endif]-->
+<!--[if IE 8 ]>
+<html class="ie8" lang="zh-cn"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="zh-cn"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="w3c"><!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>B-LINK</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="css/default.css" rel="stylesheet" />
+    <link type="text/css" href="css/new_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/router.css" />
+    <link href="css/form.css" rel="stylesheet" />
+    <style>
+        .menu .i-5{background:url("images/term1.png") no-repeat 0 3px;}
+        .menu .i-6{background:url("images/health.png") no-repeat 0 3px;}
+        .section_show{margin-top: 40px;}
+        .tab_item_container{background-color:#fff;font-size: 13px;color:#777;border-radius:5px;}
+        .terminal-item{overflow:hidden;height:50px;}
+        .terminal-item div{float:left;}
+        p{margin:8px 0 0}
+        .p-margin{margin:0;}
+        .manage{margin:16px 0 0;}
+        .device-img{width: 32px;height:32px;margin:11px 30px 0 20px;overflow: hidden;position: relative;}
+        .device-img img{width: 195px;height:34px;position: absolute;}
+        .device-name{width: 27%}
+        .dev-speed{width: 23%}
+        .dev-time{display: inline-block;}
+        .device-ipmac{width: 30%}
+        .dev-speed p{background: url("images/up.png") no-repeat 3px -12px;padding-left: 15px;}
+        .dev-speed .p-margin{background-position:3px 7px;}
+        .tab_container .tab_title{border-bottom:0 none;margin-bottom:0;}
+        .tab_container .tab_title h3{padding:5px 15px;color:#000;background-color: #f4f4f4;margin: 0;font-size:18px;border-radius:5px 5px 0 0;}
+        .dev-content{height: 35px;font-size: 14px;padding: 0 15px;overflow: hidden;}
+        .dev-left{width: 115px;display: inline-block;margin-right: 10px;}
+        .dev-right{background-color: #0bb6f4;display:inline-block;float:right;width: 80px;line-height: 24px;cursor:pointer;text-align: center;color:#fff;border-radius:5px;}
+        .span-r{float:right;}
+        #upLimit,#downLimit{width:60%;text-align: center;}
+        .time-limit{text-align: center;font-size: 14px;}
+        .add1,.add2{line-height: 30px;}
+        .hour2,.hour1{width: 40px;text-align: center}
+        .manage,.glyphicon{cursor:pointer;}
+        .flow-total{display: inline-block;width: 24%;text-align: center;background: url("images/up.png") no-repeat 0px -11px;}
+        #dev_down{background-position:0px 7px;}
+        .down-show,.up-show{background: url("images/up.png") no-repeat 0px -11px;display: inline-block;width: 24%;padding-left: 10px;}
+        span.down-show{background-position:0px 7px;}
+        #lostblack,#lostarp,#uplimit_span{margin-left: 9px;display: inline-block;width: 140px;text-align: center;}
+        #set_device{display:none;background-color: #fff;padding:25px 10px 10px;border-radius:6px;}
+        #time_apply{padding: 3px 5px;background-color: #0bb6f4;border-radius:3px;width: 60px;color: #fff;height: 30px;margin-top: 10px;display: inline-block;}
+        #device_pc,#device_2g,#device_5g{padding: 5px 15px;color: #000;background-color: #f4f4f4;font-size:15px;margin-top: 18px;}
+        #re_btn{float: right;color: #fff;line-height: 30px;margin-top: 5px;background-color:#0bb6f4;padding: 0 10px;border-radius:5px;}
+    </style>
+    <!--[if IE 7]>
+    <script src="js/Respond.min.js"></script>
+    <![endif]-->
+    <!--[if IE 8]>
+    <script src="js/Respond.min.js"></script>
+    <![endif]-->
+</head>
+<body style="background: #3d8af5 url('images/bd_bg.png') repeat scroll 0% 0%;">
+<div class="top">
+    <!-- <a class="logo-box"><img id='hostLogo' src="images/redline.png" width="166"/></a> -->
+	<a class="logo-box"><img id='hostLogo' src="images/logo.png" width="166"/></a>
+</div>
+<div class="menu">
+    <a href="main.html"><span id="hostPage"></span><i class="png_ie i-1"></i></a>
+    <a href="more.html"><span id="MoreFunction"></span><i class="png_ie i-3"></i></a>
+    <a href="setup.html"><span id="ChangeMode"></span><i class="png_ie i-2"></i></a>
+    <a href="terminal.html" class="selected"><span id="term"></span><i class="png_ie i-5"></i></a>
+    <a href="upload_firmware.html" id="getNew"><span></span><i class="png_ie i-4"></i></a>
+    <a href="health.html" id="healthCheck"><span></span><i class="png_ie i-6"></i></a>
+</div>
+<div style="display:none"><img src="/admin/images/122.gif"></div>
+<div class="section_show" id="app_section">
+    <div id="detail_area">
+        <div id="app_list">
+            <div class="addon_container tab_container">
+                <div class="tab_item_container">
+                    <div class="tab_title"><h3><span id="device_list"></span><a href="./main.html" id="re_btn"></a></h3></div>
+                    <div class="terminal_list">
+                        <div><p id="device_pc"></p><div id="terminal_pc"></div></div>
+                        <div><p id="device_2g"></p><div id="terminal_2g"></div></div>
+                        <div><p id="device_5g"></p><div id="terminal_5g"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="set_device">
+    <div class="device-edit">
+        <div class="dev-content" style="text-align: center;"><input type="text" id="dev_name" name="device_name" style="width:85%;text-align:center;display:none;" onblur="changeName(this)"><span style="display:inline-block;width:85%;text-align:center;" id="span_alias"></span><span id="nameApply" style="width: 8%;top:3px;" class="glyphicon glyphicon-pencil"></span></div>
+        <div class="dev-content"><span class="dev-left">MAC:</span><span id="dev_mac" class="span-r"></span></div>
+        <div class="dev-content"><span class="dev-left">IP:</span><span id="dev_ip" class="span-r"></span></div>
+        <div class="dev-content"><span id="up_label" class="dev-left" style="width: 130px;"></span><span id="dev_up" class="flow-total"></span><span id="dev_down" class="flow-total"></span></div>
+        <div class="dev-content"><span id="upLimit_label" class="dev-left">Qos:</span><span class="dev-center" style="display:none"><span class="up-show"><input type="text" id="upLimit">KB/s</span><span class="down-show"><input type="text" id="downLimit">KB/s</span></span><span id="uplimit_span" style="width:158px"></span><span id="upapply" class="dev-right" data-id="1"></span><span id="limit_cm" class="dev-right" style="display:none;"></span></div>
+        <div class="dev-content"><span id="lostArp_label" class="dev-left" style="width: 124px;"></span><span id="lostarp"></span><span id="lostArp_apply" class="dev-right" data-id="1"></span></div>
+        <div class="dev-content"><span id="lostBlack_label" class="dev-left"></span><span id="lostBlack_apply" class="dev-right"></span></div>
+        <div class="dev-content"><span id="timelimit_label" class="dev-left" style="line-height:15px;"></span><span id="add_time" style="vertical-align:top"></span><span id="add_timelimit" class="dev-right"></span></div>
+        <div class="time-limit">
+                <div class="add1">
+                    <input type="text" class="hour1" id="start_hour1" name="startHour1" maxlength="2">
+                    <span class="timeSlot"></span>
+                    <input type="text" class="hour1" id="start_min1" name="startMin1" maxlength="2">
+                    <span class="spacing"></span>
+                    <span>~</span>
+                    <input type="text" class="hour1" id="end_hour1" name="endHour1" maxlength="2">
+                    <span class="timeSlot"></span>
+                    <input type="text" class="hour1" id="end_min1" name="endMin1" maxlength="2">
+                    <span class="spacing"></span>
+                </div>
+                <div class="add2">
+                    <input type="text" class="hour2" id="start_hour2" name="startHour2" maxlength="2">
+                    <span class="timeSlot"></span>
+                    <input type="text" class="hour2" id="start_min2" name="startMin2" maxlength="2">
+                    <span class="spacing"></span>
+                    <span>~</span>
+                    <input type="text" class="hour2" id="end_hour2" name="endHour2" maxlength="2">
+                    <span class="timeSlot"></span>
+                    <input type="text" class="hour2" id="end_min2" name="endMin2" maxlength="2">
+                    <span class="spacing"></span>
+                </div>
+        </div>
+        <div class="router-time-info" style="text-align: center; font-size: 12px; color: #7f7f7f; margin: 8px 0 4px 0;">
+            Router Time: <span id="term_router_time" style="font-weight: bold; color: #007bff;">--:--:--</span> (UTC+8 Manila)
+            <a href="more.html" style="font-size: 11px; color: #007bff; margin-left: 8px; text-decoration: underline;">Change Time Zone</a>
+        </div>
+    </div>
+    <div style="text-align: center;"><span id="hm_tips" style="color:rgb(206, 68, 58);font-size: 15px;"></span></div>
+    <div class="buttonbox">
+        <a id="terminallist_cancel" class="cannel btn list-btn"></a>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/lang_more.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+<script type="text/javascript" src="js/getinfo.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script>
+    var focus_D=false,curlang;
+    setTimeout(function(){
+        getData_terminal_info();
+    },300);
+    
+    function setinterm() {
+        if(limit_D){
+            getData_terminal_info();
+        }
+    }
+
+    $(".cannel").click(function(){
+        layer.closeAll();
+        limit_D=true;
+    })
+    $("#nameApply").click(function(){
+        if(alias_D){
+            $("#dev_name").hide();
+            $("#span_alias").css("display","inline-block");
+            alias_D=false;
+        }else{
+            $("#dev_name").css("display","inline-block");
+            $("#span_alias").hide();
+            alias_D=true;
+        }
+    })
+    $("#lostBlack_apply").click(function(){
+        addBlack(this);
+    })
+    $("#lostArp_apply").click(function(){
+        if($("#lostArp_apply").attr("data-id")==1){
+            addBind(this);
+        }else{
+            unBind(this);
+        }
+    });
+    $("#upapply").click(function(){
+        if($("#upapply").attr("data-id")==1){
+            $(this).siblings(".dev-center").css("display","inline");
+            $(this).siblings("#uplimit_span").hide();
+            $("#upapply").hide();
+            $("#limit_cm").html(curlang.limit_cm);
+            $("#limit_cm").css("display","inline-block");
+            $("#limit_cm").unbind("click");
+            $("#limit_cm").click(function() {
+                SetupSpeed(this);
+            })
+        }else{
+            focus_D=false;
+            SetupSpeed(this);
+        }
+    })
+    $(".dev-center").focusin(function(){
+        focus_D=true;
+        $("#upapply").hide();
+        $("#limit_cm").html(curlang.limit_cm);
+        $("#limit_cm").css("display","inline-block");
+        $("#limit_cm").unbind("click");
+        $("#limit_cm").click(function() {
+            $("#upapply").attr("data-id","1");
+            SetupSpeed(this);
+        })
+    })
+    $(".dev-center").parent().siblings().click(function(){
+        if(focus_D) {
+            if ($("#upapply").attr("data-id") == 1) {
+                $("#upapply").hide();
+                $("#limit_cm").html(curlang.limit_cm);
+                $("#limit_cm").css("display", "inline-block");
+            } else {
+                $("#upapply").css("display", "inline-block");
+                $("#limit_cm").hide();
+            }
+        }
+    })
+    $("#add_timelimit").click(function(){
+        var mac=$(this).parent().siblings(".dev-content").eq(1).find("#dev_mac").html();
+        var starth1=$("#start_hour1").val();
+        var endh1=$("#end_hour1").val();
+        var startm1=$("#start_min1").val();
+        var endm1=$("#end_min1").val();
+        var starth2=$("#start_hour2").val();
+        var endh2=$("#end_hour2").val();
+        var startm2=$("#start_min2").val();
+        var endm2=$("#end_min2").val();
+        set_limitTerm(mac,starth1,endh1,startm1,endm1,starth2,endh2,startm2,endm2);
+    })
+    setInterval(setinterm,5000);
+    setInterval(getLoginStatus,8000);
+    get_curTmie();
+    setInterval(get_curTmie,2000);
+</script>
+</body>
+</html>

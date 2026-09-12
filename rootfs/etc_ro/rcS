@@ -1,0 +1,25 @@
+#!/bin/sh
+mount -a
+mkdir -p /var/run
+makedevlinks.sh
+cat /etc_ro/motd
+nvram_daemon&
+#add by wgl 20160802 begin 7628AP1
+#reg s 0
+#reg w 1100 81c10000
+#add by wgl 20160802 end
+sleep 2
+goahead&
+
+#for telnet debugging
+telnetd
+
+# Set default timezone to UTC+8 (Manila) and start NTP
+echo "GMT-8" > /etc/TZ
+/sbin/ntp.sh &
+
+
+
+
+
+

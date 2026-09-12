@@ -1,0 +1,15 @@
+name = "bl-wr2000-ota-updater"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+FIRMWARE_DOWNLOAD_URL = "https://github.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP/releases/download/pre-release/update_firmware.bin"
+FALLBACK_DOWNLOAD_URL = "https://raw.githubusercontent.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP/main/update_firmware.bin"
+VERSION_INFO_URL = "https://raw.githubusercontent.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP/main/rootfs/etc_ro/FW-Version"
+MD5_INFO_URL = "https://github.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP/releases/download/pre-release/update_firmware.bin.md5"
+FALLBACK_MD5_URL = "https://raw.githubusercontent.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP/main/update_firmware.bin.md5"
+FALLBACK_MD5 = "950126ed7542b27b1f2cefbd8cb64927"
+FALLBACK_VERSION = "7.1.4"
+RELEASE_NOTES_EN = "BL-WR2000 Custom Firmware v7.1.4: Dedicated Health Check diagnostic dashboard, Timezone & NTP sync fix, UTC+8 Philippines Manila default, DHCP DNS fix, Telnet management, and modern dark UI."
+RELEASE_NOTES_ZH = "BL-WR2000 自定义固件 v7.1.4: 专用健康检查诊断页面、修复时区与NTP同步、默认UTC+8菲律宾马尼拉、修复DHCP DNS、支持Telnet管理与暗黑风格UI。"

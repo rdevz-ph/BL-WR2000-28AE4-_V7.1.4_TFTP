@@ -1,0 +1,119 @@
+name: Build and Release Firmware
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Publish Pre-Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build Firmware Binaries
+        run: |
+          python firmware_tool.py build
+
+      - name: Verify Firmware Binaries
+        run: |
+          python verify_uimage.py uImage
+          python verify_uimage.py update_firmware.bin
+
+      - name: Generate Release Notes
+        run: |
+          UIMAGE_SHA=$(sha256sum uImage | awk '{print $1}')
+          UPDATE_SHA=$(sha256sum update_firmware.bin | awk '{print $1}')
+          TFTPD_SHA=$(sha256sum tftpd32.exe | awk '{print $1}')
+          UIMAGE_SIZE=$(stat -c%s uImage)
+          UPDATE_SIZE=$(stat -c%s update_firmware.bin)
+          TFTPD_SIZE=$(stat -c%s tftpd32.exe)
+
+          cat <<EOF > release_notes.md
+          Automated rolling pre-release compiled from commit \`${{ github.sha }}\`.
+
+          > [!WARNING]
+          > Flash at your own risk. This project is open source. Feel free to check the code before flashing.
+
+          ## Highlights & Recent Fixes
+          * **Dedicated Health Check Diagnostic Dashboard**:
+            * Added a dedicated **Health Check** tab to the top navigation bar across all management pages (\`main.html\`, \`more.html\`, \`terminal.html\`, \`upload_firmware.html\`, \`urlBlack.html\`).
+            * Interactive 4-step connectivity and service audit pipeline (WAN Cable Link, IP Assignment, DNS Resolver Daemon, Gateway Reachability).
+            * Live hardware telemetry monitors: CPU utilization gauge, RAM usage meter (Total, Used, Free), system uptime counter, and active client terminal count.
+            * Real-time Physical Port Link Matrix with status LEDs for WAN and LAN 1-4 mapped directly to switch PHY hardware states.
+            * Live network bandwidth gauges and interactive in-browser ping tool.
+            * Multi-language translations across English, Turkish, German, French, Traditional Chinese, and Arabic.
+          * **Time Zone Settings & UTC+8 Manila Default**:
+            * Default timezone set to UTC+8 (Asia/Manila, \`PHT_008\`, \`GMT-8\`) with persistent NTP sync on startup.
+            * Enabled the **Time Zone** card under **Advanced -> System**, completing the 3x4 grid (12 cards).
+            * Time zone modal includes live system time, NTP server address, and \`(GMT+08:00) Philippines, Manila\`.
+            * Added live router clock display and shortcut link inside client time-limit configuration dialogs (\`terminal.html\`).
+          * **Telnet Service Management**:
+            * Added dedicated Telnet management card under **Advanced -> More** to enable or disable telnet daemon on demand.
+          * **Web UI Modernization & Fixes**:
+            * Redesigned "My Router" dashboard to modern GitHub dark theme.
+            * Added anti-caching headers and high-contrast dialogs.
+          * **DHCP & DNS Fixes**:
+            * Fixed custom DNS synchronization in DHCP server (\`udhcpd\`): Connected devices now properly receive custom primary and secondary (fallback) DNS addresses instead of remaining stuck on hardcoded defaults.
+          * **Tooling Improvements**:
+            * Single-command build (\`python firmware_tool.py build\`) to compile both \`uImage\` and \`update_firmware.bin\`.
+            * Added live hot-deploy script (\`scripts/deploy_to_router.py\`) to push web/system changes over Telnet in real-time.
+
+          ## Firmware Binaries & Tools
+
+          | File | Size (Bytes) | SHA-256 Checksum | Purpose |
+          | :--- | :--- | :--- | :--- |
+          | \`uImage\` | ${UIMAGE_SIZE} | \`${UIMAGE_SHA}\` | TFTP recovery / initial flashing via \`tftpd32.exe\` |
+          | \`update_firmware.bin\` | ${UPDATE_SIZE} | \`${UPDATE_SHA}\` | Web Admin UI local upgrade (\`/cgi-bin/upload.cgi\`) |
+          | \`tftpd32.exe\` | ${TFTPD_SIZE} | \`${TFTPD_SHA}\` | Windows TFTP tool for router flashing and recovery |
+
+          ## Flashing & Upgrade Instructions
+          * **Initial Flash / Unbrick Recovery**: Follow the [TFTP Flashing Guide](https://github.com/${{ github.repository }}/blob/main/FLASHING_GUIDE.md) using \`uImage\` and \`tftpd32.exe\`.
+          * **Subsequent Updates via Web Admin UI**: Log into \`http://192.168.16.1\`, navigate to **More Function** -> **Firmware Upgrade**, switch to **Local Upgrade**, and upload \`update_firmware.bin\`.
+
+          *Build Date: $(date -u '+%Y-%m-%d %H:%M:%S UTC')*
+          EOF
+
+      - name: Publish Rolling Pre-Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="pre-release"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git tag -f "$TAG" "${{ github.sha }}"
+          git push -f origin "$TAG"
+
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "Updating existing $TAG release..."
+            gh release upload "$TAG" uImage uImage.md5 update_firmware.bin update_firmware.bin.md5 tftpd32.exe --clobber
+            gh release edit "$TAG" \
+              --title "Continuous Pre-Release (Latest Build)" \
+              --notes-file release_notes.md \
+              --prerelease \
+              --target "${{ github.sha }}"
+          else
+            echo "Creating new $TAG release..."
+            gh release create "$TAG" uImage uImage.md5 update_firmware.bin update_firmware.bin.md5 tftpd32.exe \
+              --title "Continuous Pre-Release (Latest Build)" \
+              --notes-file release_notes.md \
+              --prerelease \
+              --target "${{ github.sha }}"
+          fi

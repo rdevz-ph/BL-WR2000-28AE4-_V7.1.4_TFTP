@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>B-LINK</title>
+    <!-- Bootstrap -->
+	<link href="css/router.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/form.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/Respond.min.js"></script>
+    <![endif]-->
+	<style>
+		.menu .i-5{background:url("images/term.png") no-repeat 0 3px;}
+		.server_name{position:relative;color:#777;}
+		.server_name #server_optional{position: absolute;top: -30px;right: 98px;}
+		.media-w{height:140px;margin:0 auto;}
+		.CWizard {display: none;float: right;margin-right: 10px;padding: 3px 7px;border-radius: 5px;background: #ffffff;color: #454545;cursor: pointer;font-size: 15px;font-weight: bolder;}
+		@media screen and (max-width: 1025px){
+			body{width:100%;}
+			.all{text-align:center;}
+		}
+		@media screen and (max-width: 685px) {
+			.server_name #server_optional{position: absolute;top: -30px;right: 60px;}
+		}
+		@media screen and (max-width: 435px){
+			.img-rounded{width:110px;}
+			.menu a{margin: 0 2px;}
+			.container>.graph>.media-w{height: 120px;margin: 20px auto 0;}
+			.menu{width: 83%;top: 20px;height: 30px;margin-top:28px;margin-left: -280px;left: 85%;}
+			.menu .i-1 {background-position: 2px 0}
+			.menu .i-3 {background-position: 2px -140px;}
+			.menu .i-4 {background-position: 2px -210px;}
+			.menu i {margin-left: 2px;}
+			.breadcrumb{font-size:12px;}
+			#wan_app3 ul{width:82%}
+			#pppoepass{width: 35%;padding-right: 0;}
+			#staticmask{padding-right: 0px;}
+			#staticmask,#staticip{width:40%}
+			.listform{min-width:270px;width:50%;margin:0 auto;padding:0;border:0;}
+			.listform li .sp-l{min-width:80px;width:20%;text-align:center;}
+			.listform li #server_name{padding-right: 0;width: 39%;}
+			.listform li .sp-r{min-width:160px;width:45%;text-align:left;position:relative;}
+			#floatWlan .sp-l,#doubleWlan .sp-l{min-width: 107px;}
+			.lefttd{width:45px;display: inline-block;}
+			.midtd{width:55%;}
+			.righttd{width:25%;}
+			.NetWork{width:50px;}
+			.linkStatus{width:120px}
+			.host{width:70px;}
+			.all{padding:0px;}
+			.server_name #server_optional{position: absolute;top: -30px;right: 0%;}
+		}
+		@media screen and (max-width: 320px){
+			.table>tbody>tr>.wifiCol{padding: 3px}
+			.server_name #server_optional{position: absolute;top: -30px;right: 0%;}
+			.menu{width: 97%;top: 20px;height: 30px;margin-top:28px;margin-left: -280px;left: 90%;}
+		}
+		input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px white inset;-webkit-text-fill-color:#838383;}
+	</style>
+  </head>
+  <body style="background: #3d8af5  url('images/bd_bg.png') repeat scroll 0% 0%;" id="bodyId">
+	<div id="header">
+		<div class="hd">
+			<div class="hd-container">
+				<!-- <h1><img width=166 id='hostLogo' src="images/redline.png" class="img-rounded" /></h1> -->
+				<h1><img width=166 id='hostLogo' src="images/logo.png" class="img-rounded" /></h1>
+				<div class="menu" style="display:none">
+					<a href="main.html"><span id="hostPage"></span><i class="png_ie i-1"></i></a>
+					<a href="more.html" ><span id="MoreFunction"></span><i class="png_ie i-3"></i></a>
+					<a href="setup.html" class="selected"><span id="ChangeMode"></span><i class="png_ie i-2"></i></a>
+					<a href="terminal.html"><span id="term"></span><i class="png_ie i-5"></i></a>
+					<a href="upload_firmware.html" id="getNew"><span></span><i class="png_ie i-4"></i></a>
+				</div>
+			</div>				
+		</div>
+	</div>
+	<div class="container">
+		<div class="graph row">
+				<span class="CWizard">跳过向导</span>
+			<div class="col-md-2 col-xs-0"></div>
+			<div class="col-md-8 col-xs-12 media-w">
+				<div class="col-md-1 col-xs-0"></div>
+				<div class="col-md-10 col-xs-12" style="margin-top:30px">
+					<div class="col-md-3 col-xs-3 all"><img class="NetWork" src="images/network.png"/></div>
+					<div class="col-md-6 col-xs-6 all">
+						<div class="col-md-10 col-xs-10" style="height:20px"></div>
+						<img id="linkStatus" class="linkStatus" src="images/lineOn.png"/>
+					</div>
+					<div class="col-md-3 col-xs-3 all"><img class="host" src="images/host.png"/></div>
+				</div>
+				<div class="col-md-1 col-xs-0"></div>
+			</div>
+			<div class="col-md-2 col-xs-0"></div>
+		</div>
+		<div class="showbox row" style="margin-bottom:20px;margin:auto 0;">
+				<div class="col-md-2 col-xs-0"></div>
+				<div class="col-md-8 col-xs-12" style="background:#fff;border-radius:16px;padding: 0px;">
+					<ol class="breadcrumb">
+					  <li><a id="host" href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span><span id="modeChange"></span></a></li>
+					  <li class="active" style="display:none" id="breadcrumb-mode"></li>
+					  <li class="active" style="display:none" id="breadcrumb-msg"></li>
+					  <li id="help" style="float:right;">
+						<span id="help-info" style="color: rgb(0, 204, 255);" class="glyphicon glyphicon-question-sign hand"></span>
+					  </li>
+					</ol>
+					<div class="page-index" style="padding-bottom:10px;">
+						<table class="ModeList">
+							<tbody>
+								<tr class="ListRow oddrow hand">
+									<td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode1" class="radiogroup" type="radio">
+										</span>
+									</td>
+									<td class="Tdmiddle">
+										<em></em>
+									</td>
+									<td class="Tdright"><img style="width:20px" src="images/mode.png"></td>
+								</tr>
+								<tr class="ListRow evenrow hand">
+									<td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode2" class="radiogroup" type="radio">
+										</span>
+									</td>
+									<td class="Tdmiddle">
+										<em></em>
+									</td>
+									<td class="Tdright"><img style="width:20px" src="images/mode.png"></td>
+								</tr>
+								<tr class="ListRow oddrow hand">
+									<td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode3" class="radiogroup" type="radio">
+										</span>
+									</td>
+									<td class="Tdmiddle">
+										<em></em>
+									</td>
+									<td class="Tdright"><img style="width:20px" src="images/mode.png"></td>
+								</tr>
+								<tr class="ListRow evenrow hand">
+									<td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode4" class="radiogroup" type="radio">
+										</span>
+									</td>
+									<td class="Tdmiddle">
+										<em></em>
+									</td>
+									<td class="Tdright"><img style="width:20px" src="images/mode.png"></td>
+								</tr>
+								<tr class="ListRow oddrow hand">
+									<td class="Tdleft">
+										<span class="demospan">
+											<input name="demo2" id="mode5" class="radiogroup" type="radio">
+										</span>
+									</td>
+									<td class="Tdmiddle">
+										<em></em>
+									</td>
+									<td class="Tdright"><img style="width:20px" src="images/mode.png"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>	
+					<div class="wan-set" style="display:none">
+						<div class="wan-header row">
+							<div class="tab_area">
+								<div id="wan_type1" class="tab_item on col-md-4 col-sm-4 text-center">PPPOE</div>
+								<div id="wan_type2" class="tab_item col-md-4 col-sm-4 text-center"></div>
+								<div id="wan_type3" class="tab_item col-md-4 col-sm-4 text-center"></div>
+							</div>
+						</div>
+						<div class="wan-box">
+							<div id="wan_app1">
+								<ul class="listform">
+									<li>
+										<span id="pppoeuser" class="sp-l"></span>
+										<span class="sp-r">
+											<label for="pppoeUser"></label>
+											<input class="inpt inpt-mini" id="pppoeUser"/>
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="pppoepass"></span>
+										<span class="sp-r">
+											<label for="pppoePass"></label>
+											<input class="inpt inpt-mini" id="pppoePass"/>
+										</span>
+									</li>
+									<li>
+										<span id="server_name" class="sp-l"></span>
+										<span class="sp-r">
+											<label for="pppoeServer"></label>
+											<input class="inpt inpt-mini" maxlength="128" id="pppoeServer" name="pppoeserver"/>
+										</span>
+									</li>
+								</ul>
+								<div class="server_name">
+									<span id="server_optional"></span>
+								</div>
+								<ul class="listform">
+									<li>
+										<span class="sp-l" id="vpn_mtu_span">MTU</span>
+										<span class="sp-r">
+											<label for="vpn_mtu" id="vpn_mtu_label"></label>
+											<input class="inpt inpt-mini" id="Spppoe_mtu" name="SpppoeMTU" maxlength="4"  />
+										</span>
+									</li>
+								</ul>
+							</div>
+							<div id="wan_app2" style="height:40px;display:none;"></div>
+							<div id="wan_app3" style="display:none;">
+								<ul class="listform">
+									<li>
+										<span class="sp-l" id="staticip"></span>
+										<span class="sp-r">
+											<label for="staticIp"></label>
+											<input class="inpt inpt-mini" id="staticIp"/>
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="staticmask"></span>
+										<span class="sp-r">
+											<label for="staticMask"></label>
+											<input class="inpt inpt-mini" id="staticMask"/>
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="staticgw"></span>
+										<span class="sp-r">
+											<label for="staticGw"></label>
+											<input class="inpt inpt-mini" id="staticGw"/>
+										</span>
+									</li>
+									<li>
+										<span class="sp-l">DNS</span>
+										<span class="sp-r">
+											<label for="staticDNS"></label>
+											<input class="inpt inpt-mini" id="staticDNS"/>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="buttonbox">
+							<a id="wan_prev" class="btn list-btn"></a>
+							<a id="wan_after" class="btn list-btn"></a>
+						</div>
+					</div>
+					<div class="wlan-set" style="display:none">
+						<div id="floatWlan">
+							<h4 class="wlan-title">2.4G WiFi</h4>
+							<ul class="listform">
+								<li>
+									<span class="sp-l" id="Fwifi"></span>
+									<span class="sp-r">
+										<label for="floatWifiName"></label>
+										<input class="inpt inpt-mini"  id="floatWifiName" style="width:100%"/>
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="Fpass"></span>
+									<span class="sp-r">
+										<label for="floatWifiPass"></label>
+										<input class="inpt inpt-mini" id="floatWifiPass" style="width:100%" maxlength="64"/>
+									</span>
+								</li>							
+							</ul>
+						</div>
+						<div id="doubleWlan" style="display:none;">
+							<h4 class="wlan-title">5G WiFi</h4>
+							<ul class="listform">
+								<li>
+									<span class="sp-l" id="Dwifi"></span>
+									<span class="sp-r">
+										<label for="doubleWifiName"></label>
+										<input class="inpt inpt-mini" id="doubleWifiName" style="width:100%"/>
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="Dpass"></span>
+									<span class="sp-r">
+										<label for="doubleWifiPass"></label>
+										<input class="inpt inpt-mini" id="doubleWifiPass" style="width:100%" maxlength="64"/>
+									</span>
+								</li>							
+							</ul>
+						</div>
+						<div class="buttonbox">
+							<a id="wlan_prev" class="btn list-btn"></a>
+							<a id="wlan_after" class="btn list-btn"></a>
+						</div>
+					</div>
+					<div class="ssid-list" style="display:none;">
+						<div>
+							<table style="width:90%;margin:0 auto;" class="table">
+								<tbody id="WifiList">
+								</tbody>
+							</table>
+							<nav style="text-align:center;">
+							  <ul class="pagination" id="pagination">
+							  </ul>
+							</nav>
+						</div>
+						<div class="buttonbox" style="margin-top:0px;">
+							<a id="list_prev" class="btn list-btn"></a>
+							<a style="display:none" id="list_after" class="btn list-btn"></a>
+							<a id="toScan" class="btn list-btn"></a>
+						</div>					
+					</div>
+					<div class="login-set" style="display:none;">
+							<ul class="listform">
+								<li>
+									<span class="sp-l" id="mangepass"></span>
+									<span class="sp-r">
+										<label for="routerpwd"></label>
+										<input class="inpt inpt-mini" id="routerpwd" maxlength="64"/>
+									</span>
+								</li>
+							</ul>
+							<h5 style="text-align:center;color:#666;" id="routertip"></h5>
+							<div class="buttonbox">
+								<a id="login_prev" class="btn list-btn"></a>
+								<a id="login_after" class="btn list-btn"></a>
+							</div>							
+					</div>
+				</div>
+				<div class="col-md-2 col-xs-0"></div>
+		</div>
+	</div>
+	<div id="helpInfo" style="display:none;background:rgb(0, 204, 255);color:#fff;padding:10px;">
+		<h3 style="text-align:center;margin-top:0px;" id="hlepTip"></h3>
+		<ul id="helpcontant">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<!--wan口没插-->
+	<div id="message_layer">
+		<div id="msg_type" class="success"><img src="images/122.gif" /></div>
+		<div id="msg" class="word"></div>
+	</div>
+	<!--提交动画-->
+	<!--无线中继（wisp）对话框-->
+	<div id="wlanInfo" style="display:none;width:auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="mySmallModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+			<input type="hidden" value="" id="wifiFlag" />
+			<ul class="listform">
+				<li>
+					<span class="sp-l" id="dialogWifi"></span>
+					<span class="sp-r">
+						<label></label>
+						<input class="inpt inpt-disabled inpt-mini" style="width:90%" id="wlanSSID" disabled="disabled" />
+					</span>
+				</li>
+				<li id="wlanPassRow">
+					<span class="sp-l" id="dialogPass"></span>
+					<span class="sp-r">
+						<label></label>
+						<input class="inpt inpt-mini" style="width:90%"  id="wlanPass"/>
+					</span>
+				</li>
+			</ul>
+			<div class="buttonbox">
+				<a id="wlan_link" class="btn list-btn"></a>
+			</div>
+        </div>
+      </div>
+    </div>
+	<!--提醒用户切换语言-->
+	<!-- <div id="ChangeLanguage" style="display:none;width:auto;">
+    <div class="modal-content">
+				<div class="modal-body" style="padding:22px 10px;text-align: center;">
+					<select name="system_lang" id="System_lang" style="height: 30px;width:170px;border:1px solid #ccc;">
+						<option id="lang_en" value="en">English</option> 
+						<option id="lang_zh" value="de">Deutsch</option>
+						<option id="lang_zh" value="fr">Français</option>
+						<option id="lang_zh" value="tr">Türkçe</option>
+						<option id="lang_zh" value="ba">Bosanski,Hrvatski</option>
+						<option id="lang_zh" value="ar">العربية</option>
+					</select>
+				</div>
+				<div class="buttonbox">
+					<a class="langBtn btn list-btn"></a>
+				</div>
+    </div>
+  </div> -->
+	<!--提醒用户切换到其他模式提醒-->
+	<div id="ChangeInfo" style="display:none;width:auto;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="ChangeInfoLabel"></h4>
+        </div>
+        <div class="modal-body" id="ChangeInfoBody" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;"></div>
+		<div class="buttonbox">
+			<a id="changeTrue" class="btn list-btn"></a>
+			<a id="changeFalse" class="btn list-btn"></a>
+		</div>
+      </div>
+    </div>
+	<div id="footer"></div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="js/lang_setup.js"></script>
+	<script src="js/restart.js"></script>
+	<script src="js/layer/layer.js"></script>
+	<script src="js/share.js"></script>
+	<script src="js/jquery.placeholder.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	var plath=window.location.pathname;
+		var buf=plath.split("/");
+		console.log(buf)
+		var CWizardSte;
+		for(var i=0;i<buf.length;i++){
+			console.log(buf[i])
+			if(buf[i]=="superadmin"){
+				CWizardSte=1;
+			}else{
+				CWizardSte=0;
+			}
+		}
+		$(".CWizard").click(function(){
+			window.location="main.html";
+		})
+		var NowMode=-1,IsFirst=true,curVersion=false,oldPass,animation="",REBOOT=null,set_restore=0,curlang;
+		function checkWlanInfo(){
+			if(NowMode==4 && curVersion)
+			{
+				var twoName=CheckSSID($("#doubleWifiName").val());
+				if(!twoName){return false;}
+				var twoPass=CheckSSIDKey($("#doubleWifiPass").val());
+				if(!twoPass){return false;}	
+				return true;
+			}else
+			{
+				var oneName=CheckSSID($("#floatWifiName").val());
+				if(!oneName){return false;}
+				var onePass=CheckSSIDKey($("#floatWifiPass").val());
+				if(!onePass){return false;}
+				if(curVersion){
+					var twoName=CheckSSID($("#doubleWifiName").val());
+					if(!twoName){return false;}
+					var twoPass=CheckSSIDKey($("#doubleWifiPass").val());
+					if(!twoPass){return false;}			
+				}
+				return true;
+			}
+		}
+		
+
+		function IsChangeMode(){
+			$("#wlan_after").unbind();
+			$("#wlan_after").html(curlang.Apply);
+			$("#wlan_after").click(function(){
+				if(checkWlanInfo())
+				{
+ 					showanimation(1);
+ 					showanimation(4);
+					setTimeout(function(){setRouter();},2000);
+				}
+			})
+		}
+		//易操作绑定
+		function compVer(str2,str1){
+			var local_ver = str1.split(".");
+			var ser_ver = str2.split(".");
+			if(parseInt(local_ver[0]) < parseInt(ser_ver[0])){
+				return true;
+			}
+			else if(parseInt(local_ver[0]) > parseInt(ser_ver[0])){
+				return false;
+			}
+			else{
+				if(parseInt(local_ver[1]) < parseInt(ser_ver[1])){
+					return true;
+				}
+				else if(parseInt(local_ver[1]) > parseInt(ser_ver[1])){
+					return false;
+				}
+				else{
+					if(parseInt(local_ver[2].split("_")[0]) < parseInt(ser_ver[2].split("_")[0])){
+						return true;
+					}
+					else if(parseInt(local_ver[2].split("_")[0]) > parseInt(ser_ver[2].split("_")[0])){
+						return false;
+					}
+					else{
+						return false;
+					}
+				}	
+			}
+			return false;	
+		}
+		//升级请求
+			function restart(type){
+				lb_restart(type);
+				var word;
+				if(type=="update"){word=curlang.updatetime}else{word=curlang.waitingtime;}
+				window.reset=layer.open({
+				  type: 1,
+				  closeBtn: 0, //不显示关闭按钮
+				  shift: 3,
+				  offset:'150px',
+				  skin:'layui-layer-loading',
+				  scrollbar: false,
+				  title: false,
+				  shade: [0.7, '#000'],
+				  content: '<div style="margin:0 auto;width:90px;height:90px;background: url(js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(/admin/backgroundsize.min.htc);behavior: url(/admin/backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h4 style="text-align:center;font-size:15px;color:#fff"><span>'+word+'</span><label id="curTime" style="color:#7eda3d"></label>s</h4>'
+				});	
+			}
+			function lb_restart(type) {
+				var Time;
+				if (type == "update") {
+					Time =150;
+				}
+				else{
+					if(curVersion){
+						Time =60;
+					}else{
+						Time =60;
+					}	
+				}
+				var time = parseInt(Time, 10);
+				$("#curTime").html(time);
+			   if (REBOOT){window.clearInterval(REBOOT);}
+			   REBOOT = window.setInterval(function () {
+					time--;
+					$("#curTime").html(time);
+					if (time == 0) {
+						window.onbeforeunload = null;
+						window.clearInterval(REBOOT);
+						window.location="../login.asp";
+						}
+				}, 1000)
+			}
+			//获取wan pppoe
+			function get_wan_pppoe_info(){
+				$.ajax({
+				type:"get",
+				url:"/goform/get_wan_pppoe_info",
+				dataType:"json",
+				success: function(msg){
+					if((typeof msg)=="object"){var data=msg;}
+				else{ var data=eval('('+msg+')');}
+					$("#pppoeUser").val(data.pppoename);
+					$("#pppoePass").val(data.pppoepsw);
+					$("#pppoeServer").val(data.server_name);
+					$("#Spppoe_mtu").val(data.mtu);
+				},
+				error: function(msg){		
+				}
+			})}
+			$("#wan_type1").click(function(){
+				get_wan_pppoe_info();
+			})
+		//获取易操作基本信息
+		function GetEseayInfo(){
+            $(".page-index").css("display","none");
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_easy_cfg',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				if(data.result == 8)
+				{
+					GetEseayInfo();
+				}
+				if((data.version).split('-')[4] == "D"){curVersion=true;}
+				if((data.version).split('-')[4] != "D"){$("#doubleWlan").hide();}
+				//if(data.password != ""){IsChangeMode();IsFirst=false;oldPass=data.password;window.getflag=setInterval(getLoginStatus,5000);}
+				//if(!(data.password=="" || data.operationmode.toString()=="client" || data.operationmode.toString()=="repeater")){$(".menu").show();}
+				if (data.netstatus.toString() == "unlink") { $("#linkStatus").attr("src", "images/lineOFF.png"); }
+				oldPass = data.password;
+				window.getflag = setInterval(getLoginStatus, 8000);
+
+					if(data.jumpflag!=1){
+					$(".menu").show();
+					IsFirst = false;
+					IsChangeMode();
+					oldPass = data.password;
+					//window.getflag=setInterval(getLoginStatus,5000);
+				} else {
+					$(".menu").hide();
+					if(CWizardSte==1){
+						$(".CWizard").hide();
+					}else{
+						$(".CWizard").show();
+					}
+					if(getLanguage==0){
+						console.log(333);
+						// layer.closeAll();
+						// layer.open({
+						// 	type: 1,
+						// 	closeBtn: 0,
+						// 	shift: 6,
+						// 	offset: '150px',
+						// 	area: ['305px', 'auto'],
+						// 	title: false,
+						// 	shade: [0.7, '#000'],
+						// 	content: $('#ChangeLanguage')
+						// });
+						
+						$(".langBtn").click(function () {
+							setLangs();
+						})
+						return false;
+					}
+				}
+				if(data.operationmode.toString()=="router"){
+					//$(".wan-set").css("display","block");
+					//$("#wan_prev").css("display","none");
+					if (IsFirst) {
+						if (data.wanstatus.toString() == "unlink") {
+							$(".wan-set").css("display", "block");
+							$(".page-index").css("display", "none");
+							if (getMobile()) {
+								$(".buttonbox").css("min-width", "240px");
+								$(".buttonbox a").css("width", "110px");
+								layer.open({
+									type: 1,
+									closeBtn: 0,
+									shift: 6,
+									offset: '150px',
+									area: ['280px', 'auto'],
+									title: false,
+									shade: [0.7, '#000'],
+									content: $('#ChangeInfo')
+								});
+							} else {
+								layer.open({
+									type: 1,
+									closeBtn: 0,
+									shift: 6,
+									offset: '150px',
+									area: ['480px', 'auto'],
+									title: false,
+									shade: [0.7, '#000'],
+									content: $('#ChangeInfo')
+								});
+							}
+						} else {
+							$(".wan-set").css("display", "block");
+							$(".page-index").css("display", "none");
+							//$("#wan_prev").css("display","none");
+							NowMode = 1;
+							Get_wan_info();
+							Get_wanMode();
+						}
+						$("#changeTrue").click(function () {
+							NowMode = 3;
+							$(".wan-set").css("display", "none");
+							$(".ssid-list").css("display", "block");
+							//$("#list_prev").css("display","none");
+							layer.closeAll();
+							getData_wificonnet();
+							Get_wifilist();
+						})
+						$("#changeFalse,#ChangeInfo .close").click(function () {
+							//$("#wan_prev").css("display","none");
+							NowMode = 1;
+							Get_wan_info();
+							Get_wanMode();
+							layer.closeAll();
+						})
+					} else {
+						$(".wan-set").css("display", "none");
+						$(".page-index").css("display", "block");
+						//$("#wan_prev").css("display","none");
+						$("#mode1").attr("checked", true);
+						$("#mode1").parent("span").addClass("radioOn");
+						$("#mode1").parent("span").parent("td").siblings("td").children("img").css("display", "block");
+					}
+				}
+				if(data.operationmode.toString()=="WISP"){
+					NowMode=3;
+					$(".wan-set").css("display","none");
+					$(".page-index").css("display","block");
+					$("#mode3").attr("checked",true);
+					$("#mode3").parent("span").addClass("radioOn");
+					$("#mode3").parent("span").parent("td").siblings("td").children("img").css("display","block");
+				}
+				$("#toScan").click(function () {
+					layer.closeAll();
+					getData_wificonnet();
+					Get_wifilist();
+				});
+				if(data.operationmode.toString()=="repeater"){
+					NowMode=2;
+					//$(".wan-set").css("display","none");
+					//$(".page-index").css("display","none");
+                    $(".menu a").eq(3).css("display","none");
+					$(".wan-set").css("display","none");
+					$(".page-index").css("display","block");
+					$("#mode2").attr("checked",true);
+					$("#mode2").parent("span").addClass("radioOn");
+					$("#mode2").parent("span").parent("td").siblings("td").children("img").css("display","block");
+				}
+
+				if(data.operationmode.toString()=="client"){
+					NowMode=4;
+                    $(".menu a").eq(3).css("display","none");
+					$(".wan-set").css("display","none");
+					$(".page-index").css("display","block");
+					$("#mode4").attr("checked",true);
+					$("#mode4").parent("span").addClass("radioOn");
+					$("#mode4").parent("span").parent("td").siblings("td").children("img").css("display","block");			
+				}
+				if(data.operationmode.toString()=="bridge"){
+					NowMode=5;
+					$(".menu a").eq(3).css("display","none");
+					$(".wan-set").css("display","none");
+					$(".page-index").css("display","block");
+					$("#mode5").attr("checked",true);
+					$("#mode5").parent("span").addClass("radioOn");
+					$("#mode5").parent("span").parent("td").siblings("td").children("img").css("display","block");
+					$("#breadcrumb-mode").html(curlang.BridgeMode);
+					$("#breadcrumb-msg").html(curlang.WIFISet);
+				}
+			},
+			error:function(msg){}
+			})
+		}
+		//路由器学习获取wan信息
+		function Get_wanMode(){
+		    set_restore=1;
+			layer.open({
+			  type: 1,
+			  closeBtn: 0, //不显示关闭按钮
+			  shift: 3,
+			  offset:'150px',
+			  skin:'layui-layer-loading',
+			   scrollbar: false,
+			  title: false,
+			  shade: [0.7, '#000'],
+			  content: '<div style="margin:0 auto;width:90px;height:90px;background: url(js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(backgroundsize.min.htc);behavior: url(backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h5 style="color:#fff">'+curlang.WanScan+'</h5>'
+			});
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_wanmode_data',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				if(data.wanmode=="static"){
+					$("#wan_type3").addClass("on");
+					$("#wan_type3").siblings().removeClass("on");
+					$("#wan_app3").css("display","block");
+					$("#wan_app3").siblings().css("display","none");
+				}
+				else if(data.wanmode=="pppoe"){
+					$("#wan_type1").addClass("on");
+					$("#wan_type1").siblings().removeClass("on");
+					$("#wan_app1").css("display","block");
+					$("#wan_app1").siblings().css("display","none");
+				}
+				else{
+					$("#wan_type2").addClass("on");
+					$("#wan_type2").siblings().removeClass("on");
+					$("#wan_app2").css("display","block");
+					$("#wan_app2").siblings().css("display","none");				
+				}
+                set_restore=0;
+				layer.closeAll();
+			},
+			error:function(msg){
+			
+			}})
+			//setTimeout(function(){set_restore=0},8000);
+		}
+		//获取后台wan配置信息
+		function Get_wan_info(){
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_wanset_info',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				if(data.wanmode=="static"){
+					$("#wan_type3").addClass("on");
+					$("#wan_type3").siblings().removeClass("on");
+					$("#wan_app3").css("display","block");
+					$("#wan_app3").siblings().css("display","none");
+					$("#staticIp").val(data.wanip);
+					$("#staticMask").val(data.wanmsk);
+					$("#staticGw").val(data.wangw);
+					$("#staticDNS").val(data.dns1);
+					$("#Spppoe_mtu").val(data.mtu);
+				}
+				else if(data.wanmode=="pppoe"){
+					$("#wan_type1").addClass("on");
+					$("#wan_type1").siblings().removeClass("on");
+					$("#wan_app1").css("display","block");
+					$("#wan_app1").siblings().css("display","none");
+					$("#pppoeUser").val(data.pppoename);
+					$("#pppoePass").val(data.pppoepsw);
+					$("#pppoeServer").val(data.server_name);
+					$("#Spppoe_mtu").val(data.mtu);
+				}
+				else{
+					$("#wan_type2").addClass("on");
+					$("#wan_type2").siblings().removeClass("on");
+					$("#wan_app2").css("display","block");
+					$("#wan_app2").siblings().css("display","none");
+					$("#Spppoe_mtu").val(data.mtu);
+				}
+			},
+			error:function(msg){
+			
+			}})			
+		}
+		//获取2.4gwifi信息
+		function Get_24gwifi_info(){
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_wifi_info',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				$("#floatWifiName").val(data.wlanssid);
+				$("#floatWifiPass").val(data.wlanpsw);
+			},
+			error:function(msg){
+			
+			}})				
+		}
+		//获取5gwifi信息
+		function Get_5gwifi_info(){
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_5wifi_info',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				$("#doubleWifiName").val(data.wlan5ssid);
+				$("#doubleWifiPass").val(data.wlan5psw);
+			},
+			error:function(msg){
+			
+			}})				
+		}
+		function getData_wificonnet(){
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_connetsta_cfg',
+			data:{"type":"setrepeaterinfo"},
+			dataType:"json", 
+			success: function(data){
+				//Get_wifilist();
+				if(data==null||data==""){
+					return;
+				}else{
+					if((typeof data)=="object"){var msg=data;}
+					else{var msg=eval('('+data+')'); }
+					window.curmac=msg.mac;
+				}				
+			},
+			error:function(data){}
+			})
+		}
+		function testMac(m1,m2){		
+			var num1=testMac.arguments[0];
+			var num2=testMac.arguments[1];
+				if(num1.toUpperCase()!=num2.toUpperCase()){
+					return false;
+				}
+			return true;
+		}
+		//获取版本号浏览器 add by wgl 20170216 begin
+		function myBrowser(){
+			var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+			var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
+			if (isIE) {
+				var IE8 = IE9 = false;
+				var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+				reIE.test(userAgent);
+				var fIEVersion = parseFloat(RegExp["$1"]);
+				IE8 = fIEVersion == 8.0;
+				IE9 = fIEVersion == 9.0;
+				if (IE8) {
+					return "IE8";
+				}
+				if (IE9) {
+					return "IE9";
+				}
+			}//isIE end
+		}
+		//add by wgl 20170216 end
+		//获取wifi列表
+		function Get_wifilist(){
+			layer.open({
+				  type: 1,
+				  closeBtn: 0, //不显示关闭按钮
+				  shift: 3,
+				  offset:'150px',
+				  skin:'layui-layer-loading',
+				   scrollbar: false,
+				  title: false,
+				  shade: [0.7, '#000'],
+				  content: '<div style="margin:0 auto;width:90px;height:90px;background: url(js/layer/skin/default/loading-2.gif) no-repeat;background-size: cover;-ms-behavior: url(backgroundsize.min.htc);behavior: url(backgroundsize.min.htc);" class="layui-layer-content layui-layer-loading2"></div><h5 style="color:#fff">'+curlang.WlanScan+'</h5>'
+				});	
+			$.ajax({
+			type: 'get',
+			url: '/goform/get_RepeaterScan_cfg',
+			dataType:"json", 
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				$(".wifirow").unbind();
+				$("#pagination li a").unbind();
+				$("#WifiList").children().remove();
+				$("#pagination").children().remove();
+				if(!data.list){
+					return;
+				}
+				var buff="<tr class='wifihead'><td class='wifiCol lefttd'>"+curlang.No+"</td><td class='wifiCol midtd'>"+curlang.WlanName+"</td><td class='wifiCol righttd' style='min-width:42px'>"+curlang.SQ+"</td></tr>";
+				var linkbuff="";
+				var width=parseInt($(window).width());
+				var name;
+				for(var i=1;i<=data.list.length;i++){
+					if(data.list[i-1].ssid=="" || data.list[i-1].bssid==""){
+						continue;
+					}
+					if(testMac(window.curmac,data.list[i-1].bssid)){
+						name=data.list[i-1].ssid;
+						if(width<415 && width>=375){
+							if(name.length>28){
+								name=name.substr(0,27);
+							}
+						}
+						if(width>320 && width<375)
+						{
+							if(name.length>24){
+								name=name.substr(0,24);
+							}					
+						}
+						if(width<=320){
+							if(name.length>21){
+								name=name.substr(0,21);
+							}					
+						}
+					if(data.list[i-1].security.split("/")[0]=="NONE"){
+						if(data.list[i-1].signal<45){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0;' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal1.png'/></td></tr>";
+						}else if(data.list[i-1].signal<65 && data.list[i-1].signal>=45){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0;' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal2.png'/></td></tr>";
+						}else if(data.list[i-1].signal<85 && data.list[i-1].signal>=65){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal3.png'/></td></tr>";
+						}else{
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal4.png'/></td></tr>";
+						}
+					}else{
+						if(data.list[i-1].signal<45){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key1.png'/></td></tr>";
+						}else if(data.list[i-1].signal<65 && data.list[i-1].signal>=45){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key2.png'/></td></tr>";
+						}else if(data.list[i-1].signal<85 && data.list[i-1].signal>=65){
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key3.png'/></td></tr>";
+						}else{
+							linkbuff=linkbuff+"<tr id='wlan0' class='wifirow'><input type='hidden' id='channel0' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid0' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security0' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic0' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl0' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch0' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname0' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'><img style='width:20px;padding:0' src='images/gou.png'/></td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key4.png'/></td></tr>";
+						}					
+					}
+						continue;
+					}
+					name=data.list[i-1].ssid;
+					if(width<415 && width>=375){
+						if(name.length>28){
+							name=name.substr(0,27);
+						}
+					}
+					if(width>320 && width<375){
+						if(name.length>24){
+							name=name.substr(0,24);
+						}					
+					}
+					if(width<=320){
+						if(name.length>21){
+							name=name.substr(0,21);
+						}					
+					}
+					if(data.list[i-1].security.split("/")[0]=="NONE"){
+						if(data.list[i-1].signal<23){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal1.png'/></td></tr>";
+						}else if(data.list[i-1].signal<52 && data.list[i-1].signal>=23){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal2.png'/></td></tr>";
+						}else if(data.list[i-1].signal<89 && data.list[i-1].signal>=52){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal3.png'/></td></tr>";
+						}else{
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/signal4.png'/></td></tr>";
+						}
+					}else{
+						if(data.list[i-1].signal<23){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key1.png'/></td></tr>";
+						}else if(data.list[i-1].signal<52 && data.list[i-1].signal>=23){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key2.png'/></td></tr>";
+						}else if(data.list[i-1].signal<89 && data.list[i-1].signal>=52){
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key3.png'/></td></tr>";
+						}else{
+							buff=buff+"<tr id='wlan"+i+"' class='wifirow'><input type='hidden' id='channel"+i+"' value='"+data.list[i-1].channel+"' /><input type='hidden' id='bssid"+i+"' value='"+data.list[i-1].bssid+"' /><input type='hidden' id='security"+i+"' value='"+data.list[i-1].security.split('/')[0]+"' /><input type='hidden' id='arithmetic"+i+"' value='"+data.list[i-1].security.split('/')[1]+"' /><input type='hidden' id='siganl"+i+"' value='"+data.list[i-1].signal+"' /><input type='hidden' id='ext_ch"+i+"' value='"+data.list[i-1].ext_ch+"' /><input type='hidden' id='wlanname"+i+"' value='"+data.list[i-1].ssid+"' /><td class='wifiCol' style='width:10%'>"+data.list[i-1].channel+"</td><td class='wifiCol' style='width:70%'>"+name+"</td><td class='wifiCol' style='width:20%;min-width:42px'><img src='images/key4.png'/></td></tr>";
+						}					
+					}					
+				}
+				$("#WifiList").html(buff);
+				$("#wlan_link").click(function(){
+					if($("#wlanPassRow").css("display")!="none"){
+						var pass=CheckSSIDKey($("#wlanPass").val());
+						if(!pass){return;}
+					}
+					layer.closeAll();
+					if(NowMode==3){
+						$(".ssid-list").css("display","none");
+						$(".wan-set").css("display","block");
+						$("#breadcrumb-msg").html(curlang.WanSet);
+						Get_wan_info();
+					}
+					if(NowMode==2){
+						$(".ssid-list").css("display","none");
+						$(".wlan-set").css("display","block");
+						$("#floatWlan").css("display","block");
+						$("#breadcrumb-msg").html(curlang.WIFISet);
+						Get_24gwifi_info();
+						if(curVersion){
+							$("#doubleWlan").css("display","block");
+							Get_5gwifi_info();
+						}
+					}
+					if(NowMode==4){
+						if(IsFirst){
+							if(curVersion){
+								$(".ssid-list").css("display","none");
+								$(".wlan-set").css("display","block");
+								$("#floatWlan").css("display","none");
+								$("#doubleWlan").css("display","block");
+								$("#breadcrumb-msg").html(curlang.WIFISet);
+								Get_5gwifi_info();
+							}else{
+								$(".ssid-list").css("display","none");
+								$(".login-set").css("display","block");	
+								$("#breadcrumb-msg").html(curlang.Admin);
+							}
+
+						}else{
+							if(curVersion){
+								$(".ssid-list").css("display","none");
+								$(".wlan-set").css("display","block");
+								$("#floatWlan").css("display","none");
+								$("#doubleWlan").css("display","block");
+								$("#breadcrumb-msg").html(curlang.WIFISet);
+								Get_5gwifi_info();
+							}else{
+                            showanimation(1);
+                            showanimation(4);
+							setRouter();
+							}							
+						}
+					}
+				})
+				var strbuf="";
+				for(var j=1;j<=Math.ceil(data.list.length/9);j++){
+					strbuf=strbuf+"<li><a style='margin-right:5px;cursor:pointer;' id='page"+j+"'>"+j+"</a></li>";
+				}
+				$("#pagination").html(strbuf);
+				$("#pagination").children(":first").addClass("active");
+				$("#pagination li a").click(function(){
+					$(this).parent().addClass("active");
+					$(this).parent().siblings().removeClass("active");
+					var num=$(this).attr('id').replace("page","");
+					$(".wifirow").css("display","none");
+					for(var j=9*num-8;j<=9*num;j++){
+						$("#wlan"+j).css("display","");
+					}
+					$("#wlan0").css("display","");
+				})
+				$("#page1").trigger("click");
+				$("#WifiList .wifihead").after(linkbuff);
+				$(".wifirow").click(function(){
+					var number=$(this).attr('id').replace("wlan","");
+					$("#wifiFlag").val(number);
+					if($("#security"+number).val()=="NONE"){
+						$("#wlanPassRow").css("display","none");
+					}else{
+						$("#wlanPassRow").css("display","block");
+					}
+					$("#wlanSSID").val($(this).find("td").eq(1).text());
+					$("#wlanPass").val("");
+					$("#wlanPass").focus();
+					if(NowMode===3){
+						$("#mySmallModalLabel").html(curlang.WISP_Setup);
+					}else if(NowMode===2){
+						$("#mySmallModalLabel").html(curlang.Relay_Setup);
+					}else{
+						$("#mySmallModalLabel").html(curlang.Client_Setup);
+					}
+							if(getMobile()){
+										$(".buttonbox").css("min-width","240px");
+										$(".buttonbox a").css("width","110px");
+										$(".listform").css("min-width","250px");
+										$(".listform li .sp-l").css("min-width","80px");
+										$(".listform li .sp-r").css("min-width","160px");
+										layer.open({
+										  type: 1,
+										  closeBtn: 0, 
+										  shift: 6,
+										  offset:'150px',
+										  area: ['280px', 'auto'],
+										  title: false,
+										  shade: [0.7, '#000'],
+										  content: $('#wlanInfo')
+										});				
+							}else{
+										//if (!(myBrowser() == "IE8") && !(myBrowser() == "IE9"))
+											//console.log(getMobile());
+										layer.open({
+										  type: 1,
+										  closeBtn: 0, 
+										  shift: 6,
+										  offset:'150px',
+										  area: ['480px', 'auto'],
+										  title: false,
+										  shade: [0.7, '#000'], 
+										  content: $('#wlanInfo')
+										});
+							}
+							if(IsFirst || (curVersion&&(NowMode==4))){
+								$("#wlan_link").html(curlang.Connect);
+							}else{
+								$("#wlan_link").html(curlang.Apply);
+							}
+					})
+				layer.closeAll();
+			},
+			error:function(msg){}
+			})			
+		}
+		//提交数据包装
+		function Datapackage(){
+			var numFlag=$("#wifiFlag").val();			
+			var buff;
+			if(NowMode==1){
+				buff={"type":"seteasycfg","opermode":"router","wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if($('#wan_type1').hasClass('on')){
+					buff=$.extend({},buff,{"wanmode":"pppoe","pppoename":$("#pppoeUser").val(),"pppoepsw":$("#pppoePass").val(),"pppoeserver":$("#pppoeServer").val(),"mtu":$("#Spppoe_mtu").val()});
+				}
+				if($('#wan_type2').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"dhcp"});
+				}
+				if($('#wan_type3').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"static","wanip":$("#staticIp").val(),"wanmsk":$("#staticMask").val(),"wangw":$("#staticGw").val(),"dns1":$("#staticDNS").val()});
+				}
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}			
+			}
+			if(NowMode==2){
+				buff={"type":"seteasycfg","opermode":"repeater","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+                }else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}	
+			}
+			if(NowMode==3){
+				buff={"type":"seteasycfg","opermode":"WISP","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if($('#wan_type1').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"pppoe","pppoename":$("#pppoeUser").val(),"pppoepsw":$("#pppoePass").val(),"pppoeserver":$("#pppoeServer").val(),"mtu":$("#Spppoe_mtu").val()});
+				}
+				if($('#wan_type2').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"dhcp"});
+				}
+				if($('#wan_type3').hasClass('on')){
+                    buff=$.extend({},buff,{"wanmode":"static","wanip":$("#staticIp").val(),"wanmsk":$("#staticMask").val(),"wangw":$("#staticGw").val(),"dns1":$("#staticDNS").val()});
+				}
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}
+
+			}
+			if(NowMode==4){
+				buff={"type":"seteasycfg","opermode":"client","channel":$("#channel"+numFlag).val(),"bssid":$("#bssid"+numFlag).val(),"ssid":$("#wlanSSID").val(),"security":$("#security"+numFlag).val(),"arithmetic":$("#arithmetic"+numFlag).val(),"key":$("#wlanPass").val(),"ext_ch":$("#ext_ch"+numFlag).val(),"wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}				
+			}
+			if(NowMode==5){
+				buff={"type":"seteasycfg","opermode":"bridge","wlan2ssid":$("#floatWifiName").val(),"wlan2psw":$("#floatWifiPass").val()};
+				if(curVersion){
+                    buff=$.extend({},buff,{"wlan5ssid":$("#doubleWifiName").val(),"wlan5psw":$("#doubleWifiPass").val()});
+				}
+				if(IsFirst){
+                    buff=$.extend({},buff,{"routepwd":$("#routerpwd").val()});
+				}else{
+                    buff=$.extend({},buff,{"routepwd":oldPass});
+				}					
+			}
+			return 	buff;
+		}
+		//设置路由器
+		function setRouter(){
+		    set_restore=1;
+			var data=Datapackage();
+			$.ajax({
+			type: 'post',
+			url: '/goform/set_EasyCfg',
+			dataType:"json",
+			data:data,
+			success: function(msg){
+				if(msg=="" || msg=="undefine"){
+					return;
+				}
+
+				//showMsg(msg);
+			},
+			error:function(msg){
+
+			}
+			})
+
+		}
+		//动画显示 1 开始 2 成功 3 失败
+		function showanimation(type){
+			if(type==1){
+				$("#msg_type").children("img").attr("src","images/122.gif");
+				$("#msg").html(curlang.PeaseWait);					
+				animation=layer.open({
+				  type: 1,
+				  closeBtn: 0, //不显示关闭按钮
+				  shift: 3,
+				  offset:'150px',
+				  scrollbar: false,
+				  title: false,
+				  shade: [0.7, '#000'],
+				  content: $('#message_layer')
+				});	
+			}
+			if(type==2){
+				$("#msg_type").children("img").attr("src","images/msg-success.png");
+				$("#msg").html(curlang.Success);
+				setTimeout(function(){layer.closeAll();restart('update');},2000);
+			}
+			if(type==3){
+				$("#msg_type").children("img").attr("src","images/msg-error.png");
+				$("#msg").html(curlang.Failed);
+				setTimeout(function(){layer.close(animation);},2000);
+			}
+			if(type==4){
+				$("#msg_type").children("img").attr("src","images/msg-success.png");
+				$("#msg").html(curlang.Success);
+				setTimeout(function(){layer.close(animation);restart('reboot');},2000);				
+			}
+            if(type==5){
+                $("#msg_type").children("img").attr("src","/admin/images/msg-success.png");
+                setTimeout(function(){layer.close(window.animation);},1000);
+            }
+		}
+		//解析ajax请求信息
+		function showMsg(obj){
+			if(obj==null||obj==""||(!obj)){
+			 return;
+			}else{
+			if((typeof obj)=="object"){var msg=obj;}
+			else{var msg=JSON.parse(obj); }
+				if(msg.result==0){
+					showanimation(4);
+				}else{
+					showanimation(3);
+				}
+			}		
+		}
+		//状态查询
+		function getweblink(){
+			function getlinkmsg(){
+				$.ajax({
+				type: 'get',
+				url: '/goform/get_lang_cfg',
+				dataType:"json",
+				success: function(msg) {
+					window.location="../login.asp";
+				},
+				error:function(msg)
+				{
+				}
+				})
+			}
+			setInterval(getlinkmsg,2000);
+		}
+		function getLoginStatus()
+		{	if(set_restore==0){
+			$.ajax({
+			type: 'get',
+			url: '/goform/webheartbeat',
+			timeout: 5000,
+			dataType:"json", 
+			success: function(msg) {
+				if((typeof msg)=="object"){var data=msg;}
+				else{
+					var data=eval('('+msg+')');
+				}
+				if(data.result==8){
+					window.location="../login.asp";
+				}else{}
+			},
+			error:function(msg)
+			{
+				getweblink();
+			}
+		})}}
+		$(function () {	
+			$('input, textarea').placeholder();	
+			setTimeout(function(){GetEseayInfo();},100)
+			$("#upgrade_button").click(function(){
+				onform_upgrade_versoin();
+			})			
+		});
+	</script>
+  </body>
+</html>

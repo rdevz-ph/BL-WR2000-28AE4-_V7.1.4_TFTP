@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="Keywords" content="" />
+		<meta name="Description" content="" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="renderer" content="webkit" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>B-LINK</title>
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/router.css" />
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/form.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/jquery.mCustomScrollbar.css" />
+		<!--[if IE 6]>
+            <style>
+            .menu{
+                width:500px;
+                top:10px;
+                height:30px;
+                margin-top:0;
+                margin-left:-250px;
+                left:50%;
+            }
+            .menu a{padding:0;float:left;}
+            </style>
+            <script type="text/javascript" src="js/DD_belatedPNG.min.js"></script>
+            <script type="text/javascript">
+            DD_belatedPNG.fix("img,.png_ie");
+            </script>
+        <![endif]-->
+		<!--[if IE 7]>
+			<script src="js/Respond.min.js"></script>
+        <![endif]-->
+		<!--[if IE 8]>
+            <script src="js/Respond.min.js"></script>
+        <![endif]-->
+		<style>
+			.clearMargin{margin:0;}
+			.server_name{position:relative;color:#777;}
+			.server_name #server_optional{position: absolute;top: -35px;right: 15px;}
+			.layui-layer-msg{top:280px !important;}
+			#rebootTitle{line-height:27px;}
+			#setwlan .listform{width: 70%}
+			.device-info{height: 160px;overflow: hidden;}
+			.device-img{display: inline-block;width: 155px;height: 160px;padding: 35px 0 0 31px;overflow: hidden;}
+			.device-img img{width: 120px;height: 120px;}
+			.device-num{display: inline-block;width: 178px;height: 105px;line-height: 40px;overflow: hidden;}
+			#deviceum{display:block;padding-left:35px;}
+			#terminal{display:block;color:#b7d3de;font-size: 17px;text-align: center;}
+			#deviceum span{color:#fff;font-size: 30px;width:85px;background-color: #0293c3;text-align: center;border-radius: 18px;display: inherit;}
+			.device-type{display: inline-block;height: 50px;line-height: 50px;margin-top: 30px;color: #b7d3de;font-size: 14px;overflow: hidden;}
+			#device_pc_num,#device_5g_num{float:right;}
+			.device-type i{font-size: 25px;float:right;padding-left: 15px}
+			#device_pc,#device_5g{padding-left: 10px;float:left;}
+			#device_2g{padding-left: 8px;float:left;}
+			#device_2g_num{padding-left: 15px;}
+			#device_pc_num,#device_2g_num,#device_5g_num{color:#fff;font-size:23px;}
+			input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{-webkit-box-shadow: 0 0 0 1000px white inset;-webkit-text-fill-color:#838383;}
+			.menu .i-5{background:url("images/term.png") no-repeat 0 3px;}
+			.menu .i-6{background:url("images/health.png") no-repeat 0 3px;}
+
+			/* =========================================================
+			   GitHub Dark Default Theme
+			   ========================================================= */
+			body {
+				background-color: #0d1117 !important;
+				background-image: none !important;
+				color: #c9d1d9 !important;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+			}
+
+			/* Top Navbar */
+			.top {
+				background: #161b22 !important;
+				border-bottom: 1px solid #30363d !important;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+			}
+			#websit_info {
+				display: inline-flex !important;
+				align-items: center;
+				color: #58a6ff !important;
+				font-size: 13px !important;
+				font-weight: 600 !important;
+				transition: color 0.2s ease;
+			}
+			#websit_info:hover {
+				color: #79c0ff !important;
+				text-decoration: none;
+			}
+			.logout {
+				background: #21262d !important;
+				color: #f85149 !important;
+				border: 1px solid rgba(248, 81, 73, 0.4) !important;
+				border-radius: 6px !important;
+				font-size: 12px !important;
+				font-weight: 500 !important;
+				padding: 4px 10px !important;
+				transition: all 0.2s ease;
+			}
+			.logout:hover {
+				background: #b62324 !important;
+				color: #ffffff !important;
+				border-color: #b62324 !important;
+			}
+
+			/* Main Workspace Container */
+			.wrap.userWrap {
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 12px !important;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+				position: relative;
+				overflow: hidden;
+			}
+			.version {
+				display: none !important;
+			}
+			.bg-img {
+				opacity: 0.85;
+				filter: saturate(0.85) brightness(0.95);
+			}
+
+			/* Hide old 9-slice image borders */
+			.panel .imgBox {
+				display: none !important;
+			}
+
+			/* =========================================================
+			   GitHub Dark Cards & Components
+			   ========================================================= */
+			.card-header {
+				display: flex !important;
+				align-items: center !important;
+				justify-content: space-between !important;
+				border-bottom: 1px solid #30363d !important;
+				padding-bottom: 8px !important;
+				margin-bottom: 10px !important;
+			}
+			.gh-badge {
+				font-size: 9px !important;
+				font-weight: 700 !important;
+				letter-spacing: 0.5px !important;
+				padding: 2px 7px !important;
+				border-radius: 9999px !important;
+				text-transform: uppercase !important;
+			}
+			.gh-badge-green {
+				background: #238636 !important;
+				color: #ffffff !important;
+			}
+			.gh-badge-blue {
+				background: #1f6feb !important;
+				color: #ffffff !important;
+			}
+			.gh-badge-purple {
+				background: #8957e5 !important;
+				color: #ffffff !important;
+			}
+			.gh-title {
+				color: #f0f6fc !important;
+				font-size: 12px !important;
+				font-weight: 600 !important;
+			}
+
+			/* GitHub Dark Cards Common */
+			.panel {
+				background: #161b22 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 8px !important;
+				box-shadow: 0 4px 16px rgba(1, 4, 9, 0.6) !important;
+				backdrop-filter: blur(8px);
+				-webkit-backdrop-filter: blur(8px);
+				box-sizing: border-box !important;
+				transition: border-color 0.2s ease, box-shadow 0.2s ease;
+			}
+			.panel:hover {
+				border-color: #58a6ff !important;
+				box-shadow: 0 4px 20px rgba(88, 166, 255, 0.15) !important;
+			}
+
+			/* Panel 1: Connection & Status */
+			.panel_1 {
+				width: 250px !important;
+				height: 115px !important;
+				left: 18px !important;
+				top: 32px !important;
+				padding: 12px 14px !important;
+			}
+			.panel_1 .panel_con {
+				position: relative !important;
+				display: flex !important;
+				justify-content: space-between !important;
+				gap: 10px !important;
+			}
+			.panel_1 .p1-col {
+				flex: 1 !important;
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 6px 8px !important;
+				text-align: center !important;
+			}
+			.panel_1 p {
+				margin: 0 0 4px 0 !important;
+				color: #8b949e !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				text-transform: uppercase !important;
+				letter-spacing: 0.5px !important;
+			}
+			.panel_1 h1 {
+				margin: 0 !important;
+				font-size: 15px !important;
+				font-weight: 700 !important;
+				color: #3fb950 !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+			}
+			.panel_1 #linkType {
+				color: #58a6ff !important;
+			}
+
+			/* Panel 2: Network IPs & MAC */
+			.panel_2 {
+				width: 250px !important;
+				height: 215px !important;
+				left: 18px !important;
+				top: 162px !important;
+				padding: 12px 14px !important;
+			}
+			.panel_2 .panel_con {
+				position: relative !important;
+				display: flex !important;
+				flex-direction: column !important;
+				gap: 8px !important;
+			}
+			.panel_2 .p2-row {
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 6px 10px !important;
+				display: flex !important;
+				flex-direction: column !important;
+			}
+			.panel_2 p {
+				margin: 0 0 2px 0 !important;
+				color: #8b949e !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				text-transform: uppercase !important;
+				letter-spacing: 0.5px !important;
+			}
+			.panel_2 h2 {
+				margin: 0 !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+				font-size: 13px !important;
+				font-weight: 600 !important;
+				color: #f0f6fc !important;
+				letter-spacing: 0.5px !important;
+			}
+
+			/* Panel 3: Bandwidth Usage & GitHub Updates */
+			.panel_3 {
+				width: 250px !important;
+				height: 255px !important;
+				left: 18px !important;
+				top: 392px !important;
+				padding: 12px 14px !important;
+			}
+			.bw-panel-con {
+				padding: 0 !important;
+				position: relative !important;
+				width: 100% !important;
+				height: 100% !important;
+				display: flex !important;
+				flex-direction: column !important;
+			}
+			.bw-hero-card {
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 8px 10px !important;
+				text-align: center !important;
+				margin-bottom: 8px !important;
+				box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+			}
+			.bw-hero-title {
+				color: #8b949e !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				letter-spacing: 0.6px !important;
+				margin-bottom: 2px !important;
+			}
+			.bw-hero-number {
+				color: #58a6ff !important;
+				font-size: 22px !important;
+				font-weight: 700 !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+			}
+			.bw-metrics-grid {
+				display: flex !important;
+				justify-content: space-between !important;
+				margin-bottom: 6px !important;
+				padding: 0 4px !important;
+			}
+			.bw-metric-box {
+				display: flex !important;
+				flex-direction: column !important;
+			}
+			.bw-metric-box.text-right {
+				text-align: right !important;
+			}
+			.bw-metric-label {
+				color: #8b949e !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				margin-bottom: 1px !important;
+			}
+			.bw-metric-value {
+				color: #f0f6fc !important;
+				font-size: 11px !important;
+				font-weight: 600 !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+			}
+			.bw-progress-container {
+				width: 100% !important;
+				height: 6px !important;
+				background: #21262d !important;
+				border-radius: 9999px !important;
+				overflow: hidden !important;
+				display: flex !important;
+				margin-bottom: 10px !important;
+				border: none !important;
+			}
+			.bw-progress-bar-dl {
+				background: #1f6feb !important;
+				height: 100% !important;
+				transition: width 0.3s ease !important;
+			}
+			.bw-progress-bar-ul {
+				background: #238636 !important;
+				height: 100% !important;
+				transition: width 0.3s ease !important;
+			}
+			.gh-repo-card {
+				display: flex !important;
+				align-items: center !important;
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 7px 10px !important;
+				color: #f0f6fc !important;
+				text-decoration: none !important;
+				transition: all 0.2s ease !important;
+				gap: 8px !important;
+				margin-top: auto !important;
+			}
+			.gh-repo-card:hover {
+				background: #21262d !important;
+				border-color: #58a6ff !important;
+				color: #ffffff !important;
+				text-decoration: none !important;
+				box-shadow: 0 0 10px rgba(88, 166, 255, 0.2) !important;
+			}
+			.gh-octo-icon {
+				flex-shrink: 0 !important;
+				color: #f0f6fc !important;
+			}
+			.gh-repo-info {
+				flex-grow: 1 !important;
+				display: flex !important;
+				flex-direction: column !important;
+				text-align: left !important;
+				line-height: 1.25 !important;
+			}
+			.gh-repo-title {
+				color: #f0f6fc !important;
+				font-size: 11px !important;
+				font-weight: 600 !important;
+			}
+			.gh-repo-sub {
+				color: #8b949e !important;
+				font-size: 9px !important;
+			}
+			.gh-repo-badge {
+				background: #1f6feb22 !important;
+				border: 1px solid #1f6feb !important;
+				color: #58a6ff !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				padding: 1px 5px !important;
+				border-radius: 4px !important;
+			}
+
+			/* Panel 5: Connected Terminals */
+			.panel_5 {
+				width: 320px !important;
+				height: 290px !important;
+				right: 18px !important;
+				top: 32px !important;
+				padding: 12px 14px !important;
+			}
+			.panel_5 .panel_con {
+				position: relative !important;
+				width: 100% !important;
+				height: calc(100% - 30px) !important;
+				display: flex !important;
+				flex-direction: column !important;
+				justify-content: space-between !important;
+			}
+			.panel_5 .device-info {
+				display: flex !important;
+				align-items: center !important;
+				justify-content: space-around !important;
+				width: 100% !important;
+				height: 135px !important;
+				overflow: visible !important;
+			}
+			.panel_5 .device-img {
+				display: flex !important;
+				align-items: center !important;
+				justify-content: center !important;
+				width: auto !important;
+				height: auto !important;
+				padding: 0 !important;
+				overflow: visible !important;
+			}
+			.panel_5 .device-img img {
+				width: 96px !important;
+				height: 96px !important;
+				filter: drop-shadow(0 4px 14px rgba(31, 111, 235, 0.45));
+				transition: transform 0.2s ease;
+			}
+			.panel_5 .device-img img:hover {
+				transform: scale(1.05);
+			}
+			.panel_5 .device-num {
+				display: flex !important;
+				flex-direction: column !important;
+				align-items: center !important;
+				justify-content: center !important;
+				width: auto !important;
+				height: auto !important;
+				line-height: normal !important;
+				overflow: visible !important;
+			}
+			.panel_5 #terminal {
+				color: #8b949e !important;
+				font-size: 12px !important;
+				font-weight: 600 !important;
+				margin-bottom: 6px !important;
+				text-align: center !important;
+			}
+			.panel_5 #deviceum {
+				padding-left: 0 !important;
+				display: block !important;
+			}
+			.panel_5 #deviceum span {
+				background: #1f6feb !important;
+				color: #ffffff !important;
+				font-size: 24px !important;
+				font-weight: 700 !important;
+				width: 72px !important;
+				line-height: 36px !important;
+				border-radius: 18px !important;
+				display: inline-block !important;
+				box-shadow: 0 4px 14px rgba(31, 111, 235, 0.45);
+			}
+			.panel_5 .device-list {
+				display: flex !important;
+				align-items: center !important;
+				justify-content: space-between !important;
+				padding-top: 10px !important;
+				border-top: 1px solid #30363d !important;
+				gap: 10px !important;
+			}
+			.panel_5 .device-type {
+				flex: 1 !important;
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 7px 8px !important;
+				display: flex !important;
+				flex-direction: column !important;
+				align-items: center !important;
+				justify-content: center !important;
+				margin: 0 !important;
+				color: #8b949e !important;
+				font-size: 11px !important;
+				font-weight: 600 !important;
+				height: auto !important;
+			}
+			.panel_5 .device-type i {
+				display: none !important;
+			}
+			.panel_5 #device_pc_num, .panel_5 #device_2g_num, .panel_5 #device_5g_num {
+				color: #f0f6fc !important;
+				font-size: 18px !important;
+				font-weight: 700 !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+				margin-top: 2px !important;
+				padding-left: 0 !important;
+			}
+
+			/* Panel 6: System Performance */
+			.panel_6 {
+				width: 320px !important;
+				height: 285px !important;
+				right: 18px !important;
+				top: 338px !important;
+				padding: 12px 14px !important;
+			}
+			.panel_6 .list_con {
+				width: 100% !important;
+				margin: 0 !important;
+				position: relative !important;
+			}
+			.panel_6 .perf-grid {
+				display: grid !important;
+				grid-template-columns: repeat(3, 1fr) !important;
+				gap: 8px !important;
+			}
+			.panel_6 .perf-box {
+				background: #0d1117 !important;
+				border: 1px solid #30363d !important;
+				border-radius: 6px !important;
+				padding: 9px 4px !important;
+				text-align: center !important;
+				display: flex !important;
+				flex-direction: column !important;
+				justify-content: center !important;
+			}
+			.panel_6 p {
+				color: #8b949e !important;
+				font-size: 9px !important;
+				font-weight: 600 !important;
+				text-transform: uppercase !important;
+				letter-spacing: 0.5px !important;
+				margin: 0 0 4px 0 !important;
+			}
+			.panel_6 .detail {
+				color: #f0f6fc !important;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+				font-size: 12px !important;
+				font-weight: 600 !important;
+				margin: 0 !important;
+			}
+
+			/* Footer */
+			#footer {
+				position: absolute !important;
+				left: 0 !important;
+				right: 0 !important;
+				bottom: 12px !important;
+				top: auto !important;
+				text-align: center !important;
+			}
+			#footer p {
+				color: #8b949e !important;
+				font-size: 12px !important;
+				margin: 0 !important;
+			}
+
+			/* Modal & Dialog Styling */
+			.modal-content {
+				background-color: #ffffff !important;
+				color: #212529 !important;
+			}
+			.modal-header {
+				border-bottom: 1px solid #e5e7eb !important;
+			}
+			.modal-title,
+			.modal-header h4,
+			h4.modal-title,
+			#waninfotitle,
+			#wanTitle,
+			#wlanTitle,
+			#lantitle,
+			#RestoreTitle,
+			#upgradeTitle {
+				color: #111827 !important;
+				font-weight: 700 !important;
+				font-size: 16px !important;
+			}
+			.modal-header .close {
+				color: #111827 !important;
+				opacity: 0.5 !important;
+				text-shadow: none !important;
+			}
+			.modal-header .close:hover {
+				color: #000000 !important;
+				opacity: 1 !important;
+			}
+		</style>
+	</head>
+	<body style="background: #0d1117;">
+		<div class="top">
+			<!-- <a class="logo-box"><img id='hostLogo' src="images/redline.png" width="166" /></a> -->
+			<a class="logo-box"><img id='hostLogo' src="images/logo.png" width="166" /></a>
+			<span class="user">
+				<span class="logout" style="background: #ffffff;color:#56606d;padding:3px 6px;cursor: pointer;border-radius:4px;"></span>
+			</span>
+			<!-- <a href="http://redline.com.tr" target="_blank" class="user" id="websit_info"> -->
+			<a href="https://github.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP" target="_blank" rel="noopener noreferrer" class="user" id="websit_info" title="GitHub Repository">
+				<img src="images/web.png" style="width:30px;padding-right:5px;" />
+				<span>GitHub Project</span>
+			</a>
+
+		</div>
+		<div class="menu">
+			<a id="hostPage" href="main.html" class="selected"><span></span><i class="png_ie i-1"></i></a>
+			<a id="MoreFunction" href="more.html"><span></span><i class="png_ie i-3"></i></a>
+			<a id="ChangeMode" href="setup.html"><span></span><i class="png_ie i-2"></i></a>
+			<a id="term" href="terminal.html"><span></span><i class="png_ie i-5"></i></a>
+			<a href="upload_firmware.html" id="getNew"><span></span><i class="png_ie i-4"></i></a>
+			<a href="health.html" id="healthCheck"><span></span><i class="png_ie i-6"></i></a>
+		</div>
+		<div class="wrap userWrap">
+			<div class="version"><a href="#"><em></em><em id="version">...</em></a></div>
+			<div class="bg-img">
+				<img src="images/bg-main.png?v=clean-dark" />
+				<img src="images/linkOn.png" id="linkStus" />
+				<img src="images/busOK.png" id="wanImg" />
+				<img src="images/busOK.png" id="lan1" class="lancon" />
+				<img src="images/busOK.png" id="lan2" class="lancon" />
+				<img src="images/busOK.png" id="lan3" class="lancon" />
+				<img src="images/busOK.png" id="lan4" class="lancon" />
+				<img src="images/internet.png" id="internet" />
+				<img src="images/wanOK.png" id="lineStus" />
+				<img src="images/reset.png" id="reset" />
+				<img src="images/wifiOn.gif" id="wifi" />
+			</div>
+			<div class="panel panel_1">
+				<div class="imgBox"><img src="images/bg-1.png" /></div>
+				<div class="card-header">
+					<span class="gh-badge gh-badge-green">STATUS</span>
+					<span class="gh-title">Network Status</span>
+				</div>
+				<div class="panel_con">
+					<div class="p1-col netStatus_div">
+						<p>Status</p>
+						<h1 id="netStatus">Online</h1>
+					</div>
+					<div class="p1-col">
+						<p>Connection</p>
+						<h1 id="linkType">DHCP</h1>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel_2">
+				<div class="imgBox"><img src="images/bg-2.png" /></div>
+				<div class="card-header">
+					<span class="gh-badge gh-badge-blue">NETWORK</span>
+					<span class="gh-title">IP &amp; Hardware</span>
+				</div>
+				<div class="panel_con">
+					<div class="p2-row">
+						<p>Local IP</p>
+						<h2 id="lanIP">192.168.16.1</h2>
+					</div>
+					<div class="p2-row">
+						<p>WAN IP</p>
+						<h2 id="interIP">Disconnected</h2>
+					</div>
+					<div class="p2-row">
+						<p>MAC Address</p>
+						<h2 id="Mac">--:--:--:--:--:--</h2>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel_3">
+				<div class="imgBox"><img src="images/bg-3.png" /></div>
+				<div class="panel_con bw-panel-con">
+					<div class="card-header">
+						<span class="gh-badge gh-badge-green">TRAFFIC</span>
+						<span class="gh-title">Bandwidth Usage</span>
+					</div>
+
+					<div class="bw-hero-card">
+						<div class="bw-hero-title">TOTAL DATA USED</div>
+						<div class="bw-hero-number" id="totalBandwidth">0.00 MB</div>
+					</div>
+
+					<div class="bw-metrics-grid">
+						<div class="bw-metric-box">
+							<span class="bw-metric-label">DOWNLOAD</span>
+							<span class="bw-metric-value" id="totalDownBandwidth">0.00 MB</span>
+						</div>
+						<div class="bw-metric-box text-right">
+							<span class="bw-metric-label">UPLOAD</span>
+							<span class="bw-metric-value" id="totalUpBandwidth">0.00 MB</span>
+						</div>
+					</div>
+
+					<div class="bw-progress-container" title="Download vs Upload Ratio">
+						<div class="bw-progress-bar-dl" id="bwMeterDl" style="width:50%;"></div>
+						<div class="bw-progress-bar-ul" id="bwMeterUl" style="width:50%;"></div>
+					</div>
+
+					<a href="https://github.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP" target="_blank" rel="noopener noreferrer" class="gh-repo-card" title="Check GitHub Repository for Updates">
+						<svg class="gh-octo-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+							<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+						</svg>
+						<div class="gh-repo-info">
+							<span class="gh-repo-title">BL-WR2000 Firmware</span>
+							<span class="gh-repo-sub">GitHub Updates &amp; Source</span>
+						</div>
+						<span class="gh-repo-badge">v7.1.4</span>
+					</a>
+				</div>
+			</div>
+			<div class="panel panel_5">
+				<div class="imgBox"><img src="images/bg-5.png" style="height:100%;" /></div>
+				<div class="card-header">
+					<span class="gh-badge gh-badge-blue">CLIENTS</span>
+					<span class="gh-title">Connected Terminals</span>
+				</div>
+				<div class="panel_con">
+					<div class="device-info">
+						<span class="device-img"><a href="terminal.html" title="Manage Connected Devices"><img src="images/set_up.png"></a></span>
+						<span class="device-num"><span id="terminal">Number of terminal</span><span id="deviceum"><span>0</span></span></span>
+					</div>
+					<div class="device-list">
+						<span class="device-type"><span id="device_pc">Wired Device</span><span id="device_pc_num">0</span></span>
+						<span class="device-type"><span id="device_2g">2.4G Wireless</span><span id="device_2g_num">0</span></span>
+						<span style="display:none;"><span id="device_5g"></span><span id="device_5g_num"></span></span>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel_6">
+				<div class="imgBox"><img src="images/bg-6.png" /></div>
+				<div class="card-header">
+					<span class="gh-badge gh-badge-purple">SYSTEM</span>
+					<span class="gh-title">Performance</span>
+				</div>
+				<div class="list_con">
+					<div class="perf-grid">
+						<div class="perf-box">
+							<p>Upload</p>
+							<div class="detail" id="upSpeed">0 KB/s</div>
+						</div>
+						<div class="perf-box">
+							<p>Download</p>
+							<div class="detail" id="downSpeed">0 KB/s</div>
+						</div>
+						<div class="perf-box">
+							<p>CPU</p>
+							<div class="detail" id="cpu">0%</div>
+						</div>
+						<div class="perf-box">
+							<p>Memory</p>
+							<div class="detail" id="remainMemory">-- MB</div>
+						</div>
+						<div class="perf-box">
+							<p>Free Mem</p>
+							<div class="detail" id="totalMemory">-- MB</div>
+						</div>
+						<div class="perf-box">
+							<p>Up-Time</p>
+							<div class="detail" id="playTime">00:00:00</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer" style="position:absolute;left:30%;top:95%;">
+				<!-- <p align="center" style="color:#fff;"><span class="reserved"></span>&nbsp;&nbsp;&nbsp;<em></em><span id="version_num"></span>&nbsp;&nbsp;&nbsp;<span
+					 id="phone"></span></p> -->
+			   
+			   <p align="center" style="color:#fff;">©2019 Corporation. All rights reserved.&nbsp;&nbsp;&nbsp;<em></em><span id="version_num"></span>&nbsp;&nbsp;&nbsp;<span><span></span>:&nbsp;<span
+			   		 id="mac"></span></span>&nbsp;&nbsp;&nbsp;</p>
+			   
+              <!--  <p align="center" style="color:#fff;">©2019 Corporation. All rights reserved.&nbsp;&nbsp;&nbsp;<em></em><span id="version_num"></span>&nbsp;&nbsp;&nbsp;<span><span></span>:&nbsp;<span
+                		 id="Mac"></span></span>&nbsp;&nbsp;&nbsp;</p> -->
+			</div>
+		</div>
+
+		<!-- 设置WIFI -->
+		<div id="setwlan" style="display:none;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="wlanTitle"></h4>
+				</div>
+				<div class="modal-body" id="dialoglan" style="text-align:center;font-size:15px;">
+					<div id="wifi_tab" style="height:38px;line-height:38px;display:none;font-weight:700;cursor: pointer;">
+						<div id="wifi_2G" style="height:38px;" class="wan_Item tab_item on col-md-6 col-sm-6 text-center"></div>
+						<div id="wifi_5G" style="height:38px;" class="wan_Item tab_item col-md-6 col-sm-6 text-center"></div>
+					</div>
+					<div class="wlan_body">
+						<div id="2gwlan">
+							<div id="dialogwifiSet">
+								<form id="WIFI_key">
+									<input type="hidden" name="radioon" value="1" id="slidOne" />
+									<ul class="listform">
+										<li style="border:none;height:45px;margin:0px">
+											<span class="sp-l" style="border:0px" id="2gSwitch"></span>
+											<span class="sp-r">
+												<div id="wifiSwtich" class="swtichOFF">
+													<img id="switchOff" src="images/switchoff.png" style="margin-left:50px;width:40px;cursor:pointer;display:none;" />
+													<img id="switchOn" src="images/switchon.png" style="margin-left:50px;width:40px;cursor:pointer;" />
+												</div>
+											</span>
+										</li>
+									</ul>
+								</form>
+								<form id="form2" role="form">
+									<input type="hidden" name="mode" value="wifi" />
+									<input type="hidden" name="wlanpswencry" value="" id="wifiTkip" />
+									<ul class="listform">
+										<li>
+											<span class="sp-l" id="2gSsid"></span>
+											<span class="sp-r">
+												<label for="wifi_ssid" id="2gSsid_label"></label>
+												<input class="inpt" id="wifi_ssid" name="wlanssid" type="text" maxlength="32" />
+											</span>
+										</li>
+										<li>
+											<span class="sp-l" id="2gSsidStatus"></span>
+											<span class="sp-r">
+												<input id="wifi_2gssidStatus" style="float:left;vertical-align:middle;margin:16px 0;outline-style:none;"
+												 type="checkbox" />
+												<p style="text-align:left;float:left;line-height:45px;padding-left:5px;"></p>
+											</span>
+										</li>
+										<li>
+											<span class="sp-l" id="2gMODE"></span>
+											<span class="sp-r">
+												<select id="soft_mode" name="wlanpswmode" class="selection">
+													<option value="wpawpa2" id="wifi_wpawpa2" style="background-color:transparent;color:#000"></option>
+													<option id="wifi_open" value="open" style="background-color:transparent;color:#000"></option>
+												</select>
+											</span>
+										</li>
+										<li id="WifiKeyLabel">
+											<span class="sp-l" id="2gPass"></span>
+											<span class="sp-r">
+												<label for="wifi_pass1" id="2gPass_label"></label>
+												<input class="inpt" id="wifi_pass1" style="ime-mode:disabled" type="text" maxlength="64" name="wlanpsw" />
+											</span>
+										</li>
+									</ul>
+								</form>
+							</div>
+							<div class="buttonbox">
+								<a type="button" class="cannel btn list-btn" id="2gCannel"></a>
+								<a type="button" class="btn list-btn" id="wlan_buuton"></a>
+							</div>
+						</div>
+						<div id="5gwlan" style="display:none">
+							<div id="dialog5gwifiSet">
+								<form id="5gWIFI_key">
+									<input type="hidden" name="radioon" value="1" id="5gslidOne" />
+									<ul class="listform">
+										<li style="border:none;height:45px;margin:0px">
+											<span class="sp-l" style="border:0px" id="5gSwitch"></span>
+											<span class="sp-r">
+												<div id="wifi5Swtich" class="swtichOFF">
+													<img id="5gswitchOff" src="images/switchoff.png" style="margin-left:50px;width:40px;cursor:pointer;display:none;" />
+													<img id="5gswitchOn" src="images/switchon.png" style="margin-left:50px;width:40px;cursor:pointer;" />
+												</div>
+											</span>
+										</li>
+									</ul>
+								</form>
+								<form id="5gform2" role="form">
+									<input type="hidden" name="mode" value="wifi" />
+									<input type="hidden" name="wlanpswencry" value="" id="5gwifiTkip" />
+									<ul class="listform">
+										<li>
+											<span class="sp-l" id="5gSsid"></span>
+											<span class="sp-r">
+												<label for="5gwifi_ssid" id="5gSsid_label"></label>
+												<input class="inpt" id="5gwifi_ssid" name="wlanssid" type="text" maxlength="32" />
+											</span>
+										</li>
+										<li>
+											<span class="sp-l" id="5gSsidStatus"></span>
+											<span class="sp-r">
+												<input id="wifi_5gssidStatus" style="float:left;vertical-align:middle;margin:16px 0;outline-style:none;"
+												 type="checkbox" />
+												<p style="text-align:left;float:left;line-height:45px;padding-left:5px;"></p>
+											</span>
+										</li>
+										<li>
+											<span class="sp-l" id="5gMODE"></span>
+											<span class="sp-r">
+												<select id="5gsoft_mode" name="wlanpswmode" class="selection">
+													<option value="wpawpa2" id="5gwifi_wpawpa2" style="background-color:transparent;color:#000"></option>
+													<option id="5gwifi_open" value="open" style="background-color:transparent;color:#000"></option>
+												</select>
+											</span>
+										</li>
+										<li id="5gWifiKeyLabel">
+											<span class="sp-l" id="5gPass"></span>
+											<span class="sp-r">
+												<label for="5gwifi_pass1" id="5gPass_label"></label>
+												<input class="inpt" id="5gwifi_pass1" type="text" maxlength="64" style="ime-mode:disabled" name="wlanpsw" />
+											</span>
+										</li>
+									</ul>
+								</form>
+							</div>
+							<div class="buttonbox">
+								<a type="button" class="cannel btn list-btn" id="5gCannel"></a>
+								<a type="button" class="btn list-btn" id="5gwlan_button"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 设置WIFI end-->
+		<!-- 复位设置 -->
+		<div id="setRestore" style="display:none;width:auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="RestoreTitle"></h4>
+				</div>
+				<div class="modal-body" id="dialogwaninfo" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+					<div>
+						<h4 id="rebootTitle"></h4>
+					</div>
+				</div>
+				<div class="buttonbox">
+					<a id="rebootcancel" class="cannel btn list-btn"></a>
+					<a id="restore_button" class="btn list-btn"></a>
+				</div>
+			</div>
+		</div>
+		<!-- 复位设置 end-->
+		<!-- WANinfo -->
+		<div id="getWanInfo" style="display:none;width:auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="waninfotitle"></h4>
+				</div>
+				<div class="modal-body" id="dialogwaninfo" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+					<div>
+						<ul class="listform" style="width: 96%;">
+							<li style="margin:0">
+								<span id="wan_mac1_td" class="sp-l"></span>
+								<span id="wan_mac1" class="sp-r"></span>
+							</li>
+							<li style="margin:0">
+								<span class="sp-l" id="connettype1_td"></span>
+								<span class="sp-r" id="wan_connettype1"></span>
+							</li>
+							<li style="margin:0">
+								<span id="wan_ip1_td" class="sp-l"></span>
+								<span id="wan_ip1" class="sp-r"></span>
+							</li>
+							<li style="margin:0">
+								<span class="sp-l" id="wan_mask1_td"></span>
+								<span class="sp-r" id="wan_mask1"></span>
+							</li>
+							<li style="margin:0">
+								<span id="gateway1_td" class="sp-l"></span>
+								<span id="wan_gateway1" class="sp-r"></span>
+							</li>
+							<li style="margin:0">
+								<span class="sp-l" id="wan_dns1_td"></span>
+								<span class="sp-r" id="wan_dns1"></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="buttonbox">
+					<a id="wanninfocancel" class="cannel btn list-btn"></a>
+				</div>
+			</div>
+		</div>
+		<!-- WANinfo end-->
+		<!-- wan设置 -->
+		<div id="setwan" style="display:none;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="wanTitle"></h4>
+				</div>
+				<div class="modal-body" id="dialoglan" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+					<div class="tab_area">
+						<div id="pppoe_title" data-id="1" class="wan_Item tab_item on col-md-4 col-sm-4 text-center">PPPOE</div>
+						<div id="dhcp_title" data-id="2" class="wan_Item tab_item col-md-4 col-sm-4 text-center"></div>
+						<div id="internet_type" data-id="3" class="wan_Item tab_item col-md-4 col-sm-4 text-center"></div>
+					</div>
+					<div class="wan_body">
+						<div id="div1">
+							<form id="form1" role="form">
+								<input type="hidden" name="mode" value="pppoe" />
+								<ul class="listform" style="width:71%">
+									<li>
+										<span class="sp-l" id="pppoename_span"></span>
+										<span class="sp-r">
+											<label for="login_admin" id="pppoename_label"></label>
+											<input class="inpt inputLabel" id="login_admin" type="text" style="ime-mode:disabled" name="pppoename" />
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="pppoepass_span"></span>
+										<span class="sp-r">
+											<label for="login_pass" id="pppoepass_label"></label>
+											<input class="inpt inputLabel" style="ime-mode:disabled" type="text" id="login_pass" name="pppoepsw" />
+										</span>
+									</li>
+									<li>
+										<span id="server_name" class="sp-l"></span>
+										<span class="sp-r">
+											<input class="inpt inpt-mini" maxlength="128" id="pppoeServer" name="pppoeserver" style="width: 90%" />
+										</span>
+									</li>
+								</ul>
+								<div class="server_name">
+									<span id="server_optional"></span>
+								</div>
+								<ul class="listform" style="width:71%">
+									<li>
+										<span class="sp-l" id="vpn_mtu_span">MTU</span>
+										<span class="sp-r">
+											<input class="inpt" id="pppoe_mtu" name="pppoeMTU" maxlength="4" />
+										</span>
+									</li>
+								</ul>
+							</form>
+							<div class="buttonbox">
+								<a href="#" id="pppoecancel" class="cannel btn list-btn timeflag"></a>
+								<a href="#" class="btn list-btn" id="wan_pppoe_button"></a>
+							</div>
+						</div>
+						<div id="div2" style="display:none">
+							<form id="form3" role="form">
+								<input type="hidden" name="mode" value="dhcp" />
+							</form>
+							<div class="buttonbox">
+								<a href="#" id="dhcpcancel" class="cannel btn list-btn timeflag"></a>
+								<a href="#" class="btn list-btn" id="wan_dhcp_button"></a>
+							</div>
+						</div>
+						<div id="div3" style="display:none">
+							<form id="form4" role="form">
+								<input type="hidden" name="mode" value="static" />
+								<ul class="listform" style="width:73%">
+									<li>
+										<span class="sp-l" id="ip3_span"></span>
+										<span class="sp-r">
+											<label for="login_ip" id="login_ip_label"></label>
+											<input class="inpt inputLabel" id="login_ip" name="wanip" type="text" maxlength="15" />
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="msk_span"></span>
+										<span class="sp-r">
+											<label for="login_msk" id="msk_label"></label>
+											<input class="inpt inputLabel" id="login_msk" name="wanmsk" type="text" maxlength="15" />
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="gw_span"></span>
+										<span class="sp-r">
+											<label for="login_gateway" id="gw_label"></label>
+											<input class="inpt inputLabel" id="login_gateway" name="wangw" type="text" maxlength="15" />
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="dns1_span"></span>
+										<span class="sp-r">
+											<label for="login_dns1" id="dns1_label"></label>
+											<input class="inpt inputLabel" id="login_dns1" name="dns1" type="text" maxlength="15" />
+										</span>
+									</li>
+									<li>
+										<span class="sp-l" id="dns2_span"></span>
+										<span class="sp-r">
+											<label for="login_dns2" id="dns2_label"></label>
+											<input class="inpt inputLabel" id="login_dns2" name="dns2" type="text" maxlength="15" />
+										</span>
+									</li>
+								</ul>
+							</form>
+							<div class="buttonbox">
+								<a href="#" class="cannel btn list-btn timeflag" id="staticcancel"></a>
+								<a href="#" class="btn list-btn" id="wan_static_button"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- wan设置 end-->
+		<!-- lan设置 -->
+		<div id="setlan" style="display:none;width:auto;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="lantitle"></h4>
+				</div>
+				<div class="modal-body" id="dialoglan" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+					<div>
+						<form id="form5" role="form">
+							<input type="hidden" name="mode" value="LANInfo" />
+							<ul class="listform" style="width:85%">
+								<li>
+									<span class="sp-l">DHCP</span>
+									<span class="sp-r">
+										<input type="radio" name="landhcp" value="on" id="radio1" style="margin-left:10px" checked="checked" />
+										<a id="lan_radio1" for="radio1" style="color:#777;"></a>
+										<input type="radio" name="landhcp" value="off" style="margin-left:5px" id="radio2" />
+										<a id="lan_radio2" for="radio2" style="color:#777;"></a>
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="lanip_span"></span>
+									<span class="sp-r">
+										<label for="lanip" id="lanIP_label"></label>
+										<input class="inpt" id="lanip" name="lanip" maxlength="15" />
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="lanmsk_span"></span>
+									<span class="sp-r">
+										<label for="lanmsk" id="lanmsk_label"></label>
+										<input class="inpt" id="lanmsk" name="lanmsk" maxlength="15" />
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="startip_span"></span>
+									<span class="sp-r">
+										<label for="startip" id="startip_label"></label>
+										<input class="inpt" id="startip" name="startip" maxlength="15" />
+									</span>
+								</li>
+								<li>
+									<span class="sp-l" id="endip_span"></span>
+									<span class="sp-r">
+										<label for="endip" id="endip_label"></label>
+										<input class="inpt" id="endip" name="endip" maxlength="15" />
+									</span>
+								</li>
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="buttonbox">
+					<a id="flagcancel" class="cannel btn list-btn timeflag"></a>
+					<a id="lan_button" class="btn list-btn"></a>
+				</div>
+			</div>
+		</div>
+		<!-- lan设置 end-->
+		<!-- 固件升级设置 -->
+		<div id="setupgrade" style="display:none;width:500px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="upgradeTitle"></h4>
+				</div>
+				<div class="modal-body" id="ChangeInfoBody" style="text-align:center;color:rgb(206, 68, 58);font-size:15px;">
+					<div id="dialogupgrade">
+						<form id="form14" role="form">
+							<ul class="listform">
+								<li>
+									<span id="nowvsion" style="min-width:160px" class="sp-l"></span>
+									<span id="curver" style="min-width:120px;width:120px;" class="sp-r"></span>
+								</li>
+								<li>
+									<span class="sp-l" style="min-width:160px" id="newvsion"></span>
+									<span class="sp-r" style="min-width:120px;width:120px;" id="newver"></span>
+								</li>
+							</ul>
+						</form>
+						<div id="version_tips" style="text-align: left;padding-left: 65px;"></div>
+					</div>
+				</div>
+				<div class="buttonbox">
+					<a id="upgrade_close" class="cannel btn list-btn"></a>
+					<a id="upgrade_button" class="btn list-btn"></a>
+				</div>
+			</div>
+		</div>
+		<!-- 固件升级设置 end-->
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/lang_main.js"></script>
+<script type="text/javascript" src="js/share.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script type="text/javascript" src="js/getinfo.js"></script>
+<script type="text/javascript" src="js/user.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript">
+	var TimeFlag = true;
+	var FloatWifi = true;
+	var DoubleWifi = true;
+	var curlang;
+	var loginFlag = function() {
+		if ($.cookie("Isfist")) {
+			$.cookie("Isfist", false);
+		} else {
+			$.cookie("Isfist", true);
+			window.Isfirst = true;
+			//getData_version_info();
+		}
+	}
+	var mobile = getMobile();
+	if (mobile == 1) {
+		window.location = 'mobile/index.html';
+	}
+	setTimeout(function() {
+		routerInfo();
+		updateBandwidthUsage();
+	}, 300)
+	if ($.cookie("user") == "superadmin") {} else {
+		get_permission_state();
+	}
+	var thatTime = setInterval(startget, 15000);
+
+	function timeControl(num) {
+		if (num) {
+			TimeFlag = true;
+		} else {
+			TimeFlag = false;
+		}
+	}
+	$(".logout").click(function() {
+		logout();
+	})
+	$(".cannel").click(function() {
+		layer.closeAll();
+		timeControl(1);
+	})
+	$(".close").click(function() {
+		layer.closeAll();
+		timeControl(1);
+	})
+
+	function formatBytes(bytes) {
+		var b = parseInt(bytes, 10);
+		if (isNaN(b) || b <= 0) return "0.00 B";
+		if (b < 1024) return b + " B";
+		if (b < 1024 * 1024) return (b / 1024).toFixed(1) + " KB";
+		if (b < 1024 * 1024 * 1024) return (b / (1024 * 1024)).toFixed(2) + " MB";
+		return (b / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+	}
+
+	function updateBandwidthUsage() {
+		$.ajax({
+			type: "get",
+			url: "/goform/get_terminallist_info",
+			dataType: "json",
+			success: function(msg) {
+				if (!msg) return;
+				var data = (typeof msg === "object") ? msg : eval('(' + msg + ')');
+				if (!data || !data.list) return;
+
+				var termlist = data.list;
+				var totalUp = 0;
+				var totalDl = 0;
+				for (var i = 0; i < termlist.length; i++) {
+					totalUp += parseInt(termlist[i].totalup, 10) || 0;
+					totalDl += parseInt(termlist[i].totaldl, 10) || 0;
+				}
+				var totalTraffic = totalUp + totalDl;
+
+				$("#totalBandwidth").text(formatBytes(totalTraffic));
+				$("#totalDownBandwidth").text(formatBytes(totalDl));
+				$("#totalUpBandwidth").text(formatBytes(totalUp));
+
+				if (totalTraffic > 0) {
+					var dlPct = Math.round((totalDl / totalTraffic) * 100);
+					var ulPct = 100 - dlPct;
+					$("#bwMeterDl").css("width", dlPct + "%");
+					$("#bwMeterUl").css("width", ulPct + "%");
+				}
+			},
+			error: function() {
+				// Keep current values on network hiccup
+			}
+		});
+
+		// Ensure GitHub link in top bar stays pointing to repository
+		$("#websit_info").attr("href", "https://github.com/rdevz-ph/BL-WR2000-28AE4-_V7.1.4_TFTP");
+		$("#websit_info").attr("target", "_blank");
+		$("#websit_info").attr("rel", "noopener noreferrer");
+		$("#websit_info").children("span").text("GitHub Project");
+	}
+
+	function startget() {
+		if (TimeFlag) {
+			setTimeout(routerInfo, 500);
+			setTimeout(updateBandwidthUsage, 600);
+		}
+	}
+	$("#client_list").mCustomScrollbar();
+	setInterval(getLoginStatus, 8000);
+</script>
